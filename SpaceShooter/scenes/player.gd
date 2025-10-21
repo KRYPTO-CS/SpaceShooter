@@ -6,7 +6,6 @@ extends Node2D
 @export var y_limit := 450.0
 @export var shoot_interval := 0.3  # seconds between shots
 
-# Charging system
 @export var base_damage := 1.0
 @export var max_charge_time := 1.25  # seconds to reach full charge
 @export var max_bullet_scale := 2.5
@@ -14,7 +13,6 @@ extends Node2D
 var target_position: Vector2
 var finger_active := false
 var shoot_timer := 0.0
-var moving := false
 var was_finger_active := false
 
 # Charge variables
@@ -22,15 +20,17 @@ var is_charging := false
 var charge_time := 0.0
 var current_damage := 1.0
 
+# Touch tracking
+var active_finger_index := -1
+
 func _ready():
 	bullet_scene = preload("res://scenes/bullet.tscn")
 	target_position = position
 
 func _process(delta):
 	if finger_active:
-		# move toward finger position if dragging
-		if position.distance_to(target_position) > 5.0:
-			position = position.lerp(target_position, delta * 10)
+		# smoothly follow target position
+		position = position.lerp(target_position, delta * 10)
 
 		# clamp player position
 		position.x = clamp(position.x, -x_limit, x_limit)
@@ -43,6 +43,7 @@ func _process(delta):
 
 	else:
 		if was_finger_active:
+			# finger just released: shoot charged bullet
 			shoot()
 			charge_time = 0.0
 			current_damage = base_damage
@@ -59,13 +60,16 @@ func _process(delta):
 
 func _input(event):
 	if event is InputEventScreenTouch:
-		if event.pressed:
+		if event.pressed and active_finger_index == -1:
+			active_finger_index = event.index
 			finger_active = true
-			target_position = get_global_mouse_position()
-		else:
+			target_position = event.position  # proper mobile position
+		elif not event.pressed and event.index == active_finger_index:
 			finger_active = false
-	elif event is InputEventScreenDrag and finger_active:
-		target_position = get_global_mouse_position()
+			active_finger_index = -1
+
+	elif event is InputEventScreenDrag and event.index == active_finger_index:
+		target_position = event.position
 
 func shoot():
 	var bullet = bullet_scene.instantiate()
