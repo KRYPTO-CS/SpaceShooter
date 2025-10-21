@@ -17,8 +17,20 @@ func spawn_asteroid():
 	var asteroid = asteroid_scene.instantiate()
 	asteroid.position = Vector2(randf_range(-255, 255), -500)
 
-	if randf() < 0.1: # Golden asteroid for fun!!!!!!!!!!!!
-		var sprite = asteroid.get_node("Sprite2D")
+	# Random asteroid size scale (0.5x to 2x)
+	var size_scale = randf_range(0.5, 2.0)
+	var sprite = asteroid.get_node("Sprite2D")
+	sprite.scale = Vector2(size_scale, size_scale)
+
+	# Adjust HP and speed based on size
+	# Bigger size = more HP, slower speed
+	var base_hp = 3
+	var base_speed = 300.0
+	asteroid.max_hp = int(base_hp * size_scale)
+	asteroid.speed = base_speed / size_scale
+
+	# Occasionally spawn golden asteroid
+	if randf() < 0.1:
 		sprite.texture = load("res://sprites/GoldenAsteroid.png")
 		asteroid.max_hp = 9
 		asteroid.speed = 200
