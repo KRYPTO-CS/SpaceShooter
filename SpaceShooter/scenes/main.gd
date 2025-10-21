@@ -22,5 +22,6 @@ func spawn_asteroid():
 		sprite.texture = load("res://sprites/GoldenAsteroid.png")
 		asteroid.max_hp = 9
 		asteroid.speed = 200
+		asteroid.points = 3
 
 	add_child(asteroid)

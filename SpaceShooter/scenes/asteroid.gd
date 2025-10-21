@@ -4,6 +4,7 @@ extends Area2D
 @export var max_hp := 3
 @export var hp := 3
 @export var rotation_speed := 45.0  # degrees per second
+@export var points := 1 
 
 func _ready():
 	# Randomize movement and rotation slightly
@@ -27,4 +28,5 @@ func take_damage(amount: int):
 
 func break_apart():
 	# TODO: Boom
+	GameManager.add_score(points)
 	queue_free()

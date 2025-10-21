@@ -1,6 +1,7 @@
+Label
+CanvasLayer
 TextureRect
 ColorRect
-CanvasLayer
 Control
 ParallaxLayer
 ParallaxBackground
