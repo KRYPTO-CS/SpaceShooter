@@ -1,5 +1,0 @@
-res://scenes/main.tscn
-res://singletons/GameManager.gd
-res://scenes/player.tscn
-res://scenes/bullet.tscn
-res://scenes/asteroid.tscn
