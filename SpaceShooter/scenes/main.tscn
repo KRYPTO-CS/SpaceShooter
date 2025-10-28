@@ -1,23 +1,72 @@
-[gd_scene load_steps=8 format=3 uid="uid://bum47jvl0ubsw"]
+[gd_scene load_steps=15 format=3 uid="uid://bum47jvl0ubsw"]
 
 [ext_resource type="Script" uid="uid://du6p30phxhlo8" path="res://scenes/main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cuwckkolulw2g" path="res://scenes/player.tscn" id="1_ig7tw"]
 [ext_resource type="FontFile" uid="uid://comnxc80cbnvx" path="res://fonts/m5x7.ttf" id="2_jyhfs"]
+[ext_resource type="Script" uid="uid://camptjpcnhjqi" path="res://scenes/parallax.gd" id="2_o6xl0"]
 [ext_resource type="Script" uid="uid://cmeubrkxnbgfx" path="res://scenes/score.gd" id="2_sugp2"]
+[ext_resource type="Texture2D" uid="uid://cryyhtbirunco" path="res://sprites/starsSheet.png" id="2_tefeu"]
+[ext_resource type="Script" uid="uid://bkdyr7lf114n" path="res://scenes/speed.gd" id="4_tbgi4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
+atlas = ExtResource("2_tefeu")
+region = Rect2(0, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tipki"]
+atlas = ExtResource("2_tefeu")
+region = Rect2(1280, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85g3d"]
+atlas = ExtResource("2_tefeu")
+region = Rect2(2560, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_choun"]
+atlas = ExtResource("2_tefeu")
+region = Rect2(3840, 0, 1280, 1920)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ya4ey"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6xl0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tipki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85g3d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_choun")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0wfyh"]
 font = ExtResource("2_jyhfs")
 font_size = 256
 
-[sub_resource type="Gradient" id="Gradient_0xm2m"]
-colors = PackedColorArray(0.0509804, 0.105882, 0.164706, 1, 0.0431373, 0.0509804, 0.0901961, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_h2yge"]
-gradient = SubResource("Gradient_0xm2m")
-fill_to = Vector2(0, 1)
+[sub_resource type="LabelSettings" id="LabelSettings_tefeu"]
+font = ExtResource("2_jyhfs")
+font_size = 128
+font_color = Color(1, 0, 0, 1)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0xm2m")
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+z_index = -3
+script = ExtResource("2_o6xl0")
+
+[node name="BG1" type="AnimatedSprite2D" parent="Parallax2D"]
+sprite_frames = SubResource("SpriteFrames_ya4ey")
+autoplay = "default"
+
+[node name="BG2" type="AnimatedSprite2D" parent="Parallax2D"]
+sprite_frames = SubResource("SpriteFrames_ya4ey")
+autoplay = "default"
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 2
@@ -34,30 +83,20 @@ text = "0"
 label_settings = SubResource("LabelSettings_0wfyh")
 script = ExtResource("2_sugp2")
 
+[node name="Speed" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -73.0
+offset_bottom = 175.0
+grow_horizontal = 0
+text = "0"
+label_settings = SubResource("LabelSettings_tefeu")
+script = ExtResource("4_tbgi4")
+
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(0, 420)
-scale = Vector2(0.5, 0.5)
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(1, 0)
-zoom = Vector2(2, 2)
-
-[node name="BG" type="CanvasLayer" parent="."]
-layer = -2
-
-[node name="ColorRect" type="ColorRect" parent="BG"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0509804, 0.105882, 0.164706, 1)
-
-[node name="UnpleasantGradient" type="TextureRect" parent="BG/ColorRect"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = SubResource("GradientTexture2D_h2yge")
+zoom = Vector2(1.5, 1.5)

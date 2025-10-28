@@ -9,7 +9,7 @@ extends Node2D
 # charging
 @export var base_damage := 1.0
 @export var max_charge_time := 1.25
-@export var max_bullet_scale := 2.5
+@export var max_bullet_scale := 2.0
 
 # charge variables
 var is_charging := false

@@ -1,8 +1,8 @@
 extends Area2D
 
 @export var speed := 100.0
-@export var max_hp := 3
-@export var hp := 3
+@export var max_hp := 5
+@export var hp := 5
 @export var rotation_speed := 45.0  # degrees per second
 @export var points := 1 
 
@@ -29,4 +29,5 @@ func take_damage(amount: int):
 func break_apart():
 	# TODO: Boom
 	GameManager.add_score(points)
+	GameManager.speed += points * 5
 	queue_free()

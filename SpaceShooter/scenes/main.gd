@@ -9,19 +9,20 @@ func _ready():
 
 func _process(delta):
 	asteroid_timer += delta
-	if asteroid_timer > 2.0:
+	if asteroid_timer > (2.0 - (GameManager.speed/1000)):
 		spawn_asteroid()
 		asteroid_timer = 0.0
 
 func spawn_asteroid():
 	var asteroid = asteroid_scene.instantiate()
-	asteroid.position = Vector2(randf_range(-255, 255), -500)
+	asteroid.position = Vector2(randf_range(-255, 255), -750)
+	asteroid.speed = GameManager.speed + 50
 
-	if randf() < 0.1: # Golden asteroid for fun!!!!!!!!!!!!
+	if randf() < 0.1: # Golden asteroid for fun!
 		var sprite = asteroid.get_node("Sprite2D")
-		sprite.texture = load("res://sprites/GoldenAsteroid.png")
-		asteroid.max_hp = 9
-		asteroid.speed = 200
-		asteroid.points = 3
+		sprite.texture = load("res://sprites/goldenAsteroid.png")
+		asteroid.max_hp *= 3
+		asteroid.speed = GameManager.speed * 2
+		asteroid.points *= 3
 
 	add_child(asteroid)
