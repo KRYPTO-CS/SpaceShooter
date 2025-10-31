@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://brvrnw51k5tio"
-path="res://.godot/imported/goldenAsteroid.png-c479e97c629d3bcd393142b94a8cd914.ctex"
+uid="uid://c5sxrhwhh64ia"
+path="res://.godot/imported/GoldenAsteroid.png-04f1f9352fea6d2bf633e7bac1ee4cfa.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/goldenAsteroid.png"
-dest_files=["res://.godot/imported/goldenAsteroid.png-c479e97c629d3bcd393142b94a8cd914.ctex"]
+source_file="res://sprites/GoldenAsteroid.png"
+dest_files=["res://.godot/imported/GoldenAsteroid.png-04f1f9352fea6d2bf633e7bac1ee4cfa.ctex"]
 
 [params]
 

@@ -21,6 +21,10 @@ func _process(delta):
 	if position.y > 2100:
 		queue_free()
 
+func _on_area_entered(area):
+	if area.is_in_group("player"):
+		hit_player()
+
 func take_damage(amount: int):
 	hp -= amount
 	if hp <= 0:
@@ -30,4 +34,9 @@ func break_apart():
 	# TODO: Boom
 	GameManager.add_score(points)
 	GameManager.speed += points * 5
+	queue_free()
+
+func hit_player():
+	GameManager.add_score(-1)
+	GameManager.speed -= 20
 	queue_free()

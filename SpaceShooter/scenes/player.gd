@@ -2,8 +2,8 @@ extends Node2D
 
 @export var speed := 300.0
 @export var bullet_scene: PackedScene
-@export var x_limit := 240.0
-@export var y_limit := 450.0
+@export var x_limit := 300.0
+@export var y_limit := 500.0
 @export var shoot_interval := 0.3  # seconds between shots
 
 # charging

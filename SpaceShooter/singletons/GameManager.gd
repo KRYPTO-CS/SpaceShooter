@@ -3,6 +3,9 @@ extends Node
 var score: int = 0
 var speed = 100
 
+func _ready():
+	JavaScriptBridge.eval("testMessage();")
+
 func _process(delta):
 	speed += 0.01
 
