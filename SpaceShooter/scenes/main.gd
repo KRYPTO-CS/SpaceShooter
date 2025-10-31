@@ -9,7 +9,7 @@ func _ready():
 
 func _process(delta):
 	asteroid_timer += delta
-	if asteroid_timer > (2.0 - (GameManager.speed/1000)):
+	if asteroid_timer > (2.0 - (GameManager.speed/1000.0)):
 		spawn_asteroid()
 		asteroid_timer = 0.0
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://cuwckkolulw2g"]
+[gd_scene load_steps=5 format=3 uid="uid://cuwckkolulw2g"]
 
 [ext_resource type="Script" uid="uid://cgaylmnkloadp" path="res://scenes/player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://c8iwshkarw51s" path="res://sprites/ship.png" id="2_g2els"]
@@ -7,15 +7,25 @@
 radius = 45.0
 height = 150.0
 
-[node name="Player" type="Node2D" groups=["player"]]
+[sub_resource type="CircleShape2D" id="CircleShape2D_g2els"]
+radius = 30.0
+
+[node name="Player" type="Node2D"]
 script = ExtResource("1_4flbx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-6, 0)
 texture = ExtResource("2_g2els")
 
-[node name="Area2D" type="Area2D" parent="." groups=["player"]]
+[node name="Hurtbox" type="Area2D" parent="." groups=["player"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 position = Vector2(0, -25)
 shape = SubResource("CapsuleShape2D_g2els")
+
+[node name="Flamebox" type="Area2D" parent="." groups=["flame"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flamebox"]
+position = Vector2(0, 95)
+shape = SubResource("CircleShape2D_g2els")
+debug_color = Color(0.7, 0, 0, 0.41960785)

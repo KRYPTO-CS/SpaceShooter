@@ -6,7 +6,7 @@ var speed = 100
 func _ready():
 	JavaScriptBridge.eval("testMessage();")
 
-func _process(delta):
+func _process(_delta):
 	speed += 0.01
 
 func add_score(points: int):

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameManager="*res://singletons/GameManager.gd"
+AudioManager="*res://singletons/audioManager.tscn"
 
 [display]
 
@@ -69,3 +70,4 @@ pointing/emulate_mouse_from_touch=false
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
+environment/defaults/default_clear_color=Color(0.050980393, 0.105882354, 0.16470589, 1)
