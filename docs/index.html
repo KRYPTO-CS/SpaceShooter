@@ -169,14 +169,15 @@ body {
 		</script>
 		
 		<script>
-			window.incrementCommInGodot = function () {
-			  console.log("Calling Godot incrementComm()...");
-			  if (typeof GodotRuntime !== "undefined" && GodotRuntime) {
-				GodotRuntime.call("increment_comm_from_js");
-			  } else {
-				console.warn("GodotRuntime not ready yet");
-			  }
-			};
+		  // Bridge: index.html → Godot
+		  window.incrementCommInGodot = function () {
+			console.log("Calling Godot incrementComm()...");
+			if (typeof GodotRuntime !== "undefined" && GodotRuntime) {
+			  GodotRuntime.call("GameManager", "increment_comm");
+			} else {
+			  console.warn("GodotRuntime not ready yet");
+			}
+		  };
 		</script>
 
 		<script src="index.js"></script>

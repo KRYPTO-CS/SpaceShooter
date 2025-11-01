@@ -6,10 +6,6 @@ var commCount: int = 0
 
 func _ready():
 	print("GameManager ready")
-	
-	var js = JavaScriptBridge.get_interface("window")
-	if js:
-		js.register_callback("increment_comm_from_js", increment_comm)
 
 	# Send a test message to confirm game -> React works
 	JavaScriptBridge.eval("testMessage();")
