@@ -135,6 +135,9 @@ body {
 		
 		<script>
 			window.addEventListener("message", function(event) {
+				window.ReactNativeWebView.postMessage(
+					JSON.stringify({ type: 'messageToGodot', success: true })
+				);
 			  const msg = JSON.parse(event.data);
 			  if (msg.type === "incrementComm") {
 				if (typeof window.incrementCommInGodot === "function") {
