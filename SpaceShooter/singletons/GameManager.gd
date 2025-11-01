@@ -4,22 +4,23 @@ var score: int = 0
 var speed = 100
 var commCount = 0
 
-var js_code = """
+func _ready():
+	JavaScriptBridge.eval("testMessage();")
+	
+	var js_code = """
 		window.__godotReceiveMessage = function(message) {
-			GodotRuntime.print('Godot received message: ' + message);
+			if (typeof GodotRuntime !== 'undefined' && GodotRuntime.print) {
+				GodotRuntime.print('Godot received message: ' + message);
+			}
 			if (typeof godot !== 'undefined' && godot) {
-				godot.call('handle_react_message', message);
+				godot.call('GameManager', 'handle_react_message', message);
 			}
 		}
 	"""
-
-func _ready():
-	JavaScriptBridge.eval("testMessage();")
+	JavaScriptBridge.eval(js_code)
 
 func _process(_delta):
 	speed += 0.01
-	
-	JavaScriptBridge.eval(js_code)
 
 func add_score(points: int):
 	score += points
