@@ -39,9 +39,11 @@ func break_apart():
 	# TODO: Boom
 	GameManager.add_score(points)
 	GameManager.speed += points * 5
+	AudioManager.play_sound(preload("res://sounds/asteroidBreak.wav"))
 	queue_free()
 
 func hit_player():
 	GameManager.add_score(-1)
 	GameManager.speed -= 20
+	AudioManager.play_sound(preload("res://sounds/playerHit.wav"))
 	queue_free()

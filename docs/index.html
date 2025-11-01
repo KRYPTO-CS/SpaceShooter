@@ -132,6 +132,25 @@ body {
 			}
 		  }
 		</script>
+		
+		<script>
+		  function receiveMessageFromReact(message) {
+			console.log("React -> Godot:", message);
+
+			// Debug print (optional)
+			if (typeof GodotRuntime !== "undefined") {
+			  GodotRuntime.print("React message: " + message);
+			}
+
+			// Main communication path
+			if (window.__godotReceiveMessage) {
+			  window.__godotReceiveMessage(message);
+			} else {
+			  console.log("Godot not ready yet, message lost:", message);
+			}
+		  }
+		</script>	
+
 
 		<script src="index.js"></script>
 		<script>

@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://bum47jvl0ubsw"]
+[gd_scene load_steps=17 format=3 uid="uid://bum47jvl0ubsw"]
 
 [ext_resource type="Script" uid="uid://du6p30phxhlo8" path="res://scenes/main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://cuwckkolulw2g" path="res://scenes/player.tscn" id="1_ig7tw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cmeubrkxnbgfx" path="res://scenes/score.gd" id="2_sugp2"]
 [ext_resource type="Texture2D" uid="uid://cryyhtbirunco" path="res://sprites/starsSheet.png" id="2_tefeu"]
 [ext_resource type="Script" uid="uid://bkdyr7lf114n" path="res://scenes/speed.gd" id="4_tbgi4"]
+[ext_resource type="Script" uid="uid://bge1n4h1qa6m7" path="res://scenes/test_count.gd" id="7_tipki"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("2_tefeu")
@@ -53,6 +54,11 @@ font = ExtResource("2_jyhfs")
 font_size = 128
 font_color = Color(1, 0, 0, 1)
 
+[sub_resource type="LabelSettings" id="LabelSettings_o6xl0"]
+font = ExtResource("2_jyhfs")
+font_size = 128
+font_color = Color(0.22462186, 0.63755584, 5.7756904e-07, 1)
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_0xm2m")
 
@@ -93,6 +99,14 @@ grow_horizontal = 0
 text = "0"
 label_settings = SubResource("LabelSettings_tefeu")
 script = ExtResource("4_tbgi4")
+
+[node name="TestCount" type="Label" parent="UI"]
+offset_left = 15.0
+offset_right = 88.0
+offset_bottom = 175.0
+text = "0"
+label_settings = SubResource("LabelSettings_o6xl0")
+script = ExtResource("7_tipki")
 
 [node name="Player" parent="." instance=ExtResource("1_ig7tw")]
 position = Vector2(0, 420)
