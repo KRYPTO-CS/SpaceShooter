@@ -33,4 +33,4 @@ func reset_score():
 	
 func handle_react_message(message: String):
 	print("Got message from React:", message)
-	commCount += 0
+	commCount += 1
