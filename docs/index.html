@@ -152,19 +152,7 @@ body {
 			  console.warn("Invalid message from React Native:", event.data);
 			}
 		  });
-
-		  // Relay messages *from* Godot
-		  if (typeof GodotRuntime !== "undefined") {
-			GodotRuntime.onMessage = function(message) {
-			  if (window._godotManager && window._godotManager._on_js_message) {
-				window._godotManager._on_js_message(message);
-			  } else {
-				console.log("Godot message:", message);
-			  }
-			};
-		  }
 		</script>
-
 
 		<script src="index.js"></script>
 		<script>
