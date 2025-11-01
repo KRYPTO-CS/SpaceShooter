@@ -134,22 +134,37 @@ body {
 		</script>
 		
 		<script>
-		  function receiveMessageFromReact(message) {
-			console.log("React -> Godot:", message);
+		  window.addEventListener("message", function(event) {
+			try {
+			  const msg = JSON.parse(event.data);
 
-			// Debug print (optional)
-			if (typeof GodotRuntime !== "undefined") {
-			  GodotRuntime.print("React message: " + message);
+			  if (msg.type === "incrementComm") {
+				// Call into Godot through the bridge we defined in _ready()
+				if (typeof window.incrementCommInGodot === "function") {
+				  window.incrementCommInGodot();
+				} else {
+				  console.log("Godot not ready yet");
+				}
+			  } else {
+				console.log("Unknown message type from React:", msg);
+			  }
+			} catch (e) {
+			  console.warn("Invalid message from React Native:", event.data);
 			}
+		  });
 
-			// Main communication path
-			if (window.__godotReceiveMessage) {
-			  window.__godotReceiveMessage(message);
-			} else {
-			  console.log("Godot not ready yet, message lost:", message);
-			}
+		  // Relay messages *from* Godot
+		  if (typeof GodotRuntime !== "undefined") {
+			GodotRuntime.onMessage = function(message) {
+			  if (window._godotManager && window._godotManager._on_js_message) {
+				window._godotManager._on_js_message(message);
+			  } else {
+				console.log("Godot message:", message);
+			  }
+			};
 		  }
-		</script>	
+		</script>
+
 
 		<script src="index.js"></script>
 		<script>

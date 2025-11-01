@@ -6,25 +6,18 @@ var commCount = 0
 
 func _ready():
 	JavaScriptBridge.eval("testMessage();")
-	
-	var js_code = """
-		window.__godotReceiveMessage = function(message) {
-			if (typeof GodotRuntime !== 'undefined' && GodotRuntime.print) {
-				GodotRuntime.print('Godot received message: ' + message);
-			}
-			if (typeof godot !== 'undefined' && godot) {
-				godot.call('GameManager', 'handle_react_message', message);
-			}
-		}
-	"""
-	JavaScriptBridge.eval(js_code)
+
+	JavaScriptBridge.eval("""
+		window.incrementCommInGodot = function() {
+			GodotRuntime.sendMessage('incrementComm');
+		};
+	""")
 
 func _process(_delta):
 	speed += 0.01
 
 func add_score(points: int):
 	score += points
-	print("Score:", score)  # debug
 
 	JavaScriptBridge.eval("sendScoreToReact(" + str(score) + ");")
 		
@@ -32,6 +25,10 @@ func reset_score():
 	score = 0
 	JavaScriptBridge.eval("sendScoreToReact(" + str(score) + ");")
 	
-func handle_react_message(message: String):
-	print("Got message from React:", message)
-	commCount += 1
+
+func _on_js_message(message: String):
+	if message == "incrementComm":
+		commCount += 1
+		print("CommCount:", commCount)
+		JavaScriptBridge.eval("sendScoreToReact('CommCount: ' + " + str(commCount) + ");")
+		
