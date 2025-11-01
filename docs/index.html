@@ -137,19 +137,10 @@ body {
 		  window.addEventListener("message", function(event) {
 			try {
 			  const msg = JSON.parse(event.data);
+
 			  console.log("📩 Message received in index.html:", msg);
 
-			  // Relay to Godot
-			  if (msg.type === "incrementComm") {
-				if (typeof window.incrementCommInGodot === "function") {
-				  console.log("Relaying incrementComm to Godot...");
-				  window.incrementCommInGodot();
-				} else {
-				  console.warn("window.incrementCommInGodot not defined yet!");
-				}
-			  }
-
-			  // Always send a ping response back to React Native for debugging
+			  // Send a response back to React Native
 			  if (window.ReactNativeWebView) {
 				window.ReactNativeWebView.postMessage(
 				  JSON.stringify({
@@ -159,7 +150,7 @@ body {
 				  })
 				);
 			  } else {
-				console.warn("ReactNativeWebView not found");
+				console.log("⚠️ ReactNativeWebView not found");
 			  }
 
 			} catch (err) {
@@ -167,19 +158,6 @@ body {
 			}
 		  });
 		</script>
-		
-		<script>
-		  // Bridge: index.html → Godot
-		  window.incrementCommInGodot = function () {
-			console.log("Calling Godot incrementComm()...");
-			if (typeof GodotRuntime !== "undefined" && GodotRuntime) {
-			  GodotRuntime.call("GameManager", "increment_comm");
-			} else {
-			  console.warn("GodotRuntime not ready yet");
-			}
-		  };
-		</script>
-
 
 		<script src="index.js"></script>
 		<script>
