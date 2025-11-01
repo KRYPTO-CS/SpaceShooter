@@ -134,24 +134,14 @@ body {
 		</script>
 		
 		<script>
-		  window.addEventListener("message", function(event) {
-			try {
+			window.addEventListener("message", function(event) {
 			  const msg = JSON.parse(event.data);
-
 			  if (msg.type === "incrementComm") {
-				// Call into Godot through the bridge we defined in _ready()
 				if (typeof window.incrementCommInGodot === "function") {
 				  window.incrementCommInGodot();
-				} else {
-				  console.log("Godot not ready yet");
 				}
-			  } else {
-				console.log("Unknown message type from React:", msg);
 			  }
-			} catch (e) {
-			  console.warn("Invalid message from React Native:", event.data);
-			}
-		  });
+			});
 		</script>
 
 		<script src="index.js"></script>
