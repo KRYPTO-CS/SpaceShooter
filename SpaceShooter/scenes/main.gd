@@ -11,6 +11,8 @@ func _process(delta):
 	asteroid_timer += delta
 	if asteroid_timer > (2.0 - (GameManager.speed/1000.0)):
 		spawn_asteroid()
+		if randi_range(0, 1) == 1:
+			spawn_asteroid()
 		asteroid_timer = 0.0
 
 func spawn_asteroid():
@@ -22,7 +24,7 @@ func spawn_asteroid():
 		var sprite = asteroid.get_node("Sprite2D")
 		sprite.texture = load("res://sprites/goldenAsteroid.png")
 		asteroid.max_hp *= 3
-		asteroid.speed = GameManager.speed * 2
+		asteroid.speed = GameManager.speed * 1.5
 		asteroid.points *= 3
 
 	add_child(asteroid)

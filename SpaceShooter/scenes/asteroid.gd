@@ -1,15 +1,17 @@
 extends Area2D
 
 @export var speed := 100.0
-@export var max_hp := 5.0
-@export var hp := 5.0
-@export var rotation_speed := 45.0  # degrees per second
+@export var max_hp := 3.0
 @export var points := 1 
+
+var rotation_speed := 45.0  # degrees per second
+var hp := max_hp
 
 func _ready():
 	# Randomize movement and rotation slightly
-	speed += randf_range(-40.0, 40.0)
-	rotation_speed = randf_range(-60.0, 60.0)
+	speed += randf_range(-50.0, 50.0)
+	rotation_speed += randf_range(0.0, 45.0)
+	rotation_speed *= randi_range(0, 1) * 2 - 1
 	hp = max_hp
 
 func _process(delta):

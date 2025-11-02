@@ -1,4 +1,5 @@
 extends Label
 
 func _process(_delta):
-	text = str(GameManager.commCount)
+	# text = str(GameManager.commCount)
+	pass
