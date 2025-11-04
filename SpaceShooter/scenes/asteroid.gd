@@ -30,7 +30,7 @@ func _process(delta):
 				self.take_damage(0.025)
 		if area.is_in_group("player"):
 			if area.get_parent().state != area.get_parent().PlayerState.INVINCIBLE:
-				area.get_parent().take_damage(1.0, 1)
+				area.get_parent().take_damage(1.0)
 				hit_player()
 
 func take_damage(amount: float):
