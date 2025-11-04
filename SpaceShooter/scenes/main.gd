@@ -26,5 +26,6 @@ func spawn_asteroid():
 		asteroid.max_hp *= 3
 		asteroid.speed = GameManager.speed * 1.5
 		asteroid.points *= 3
+		asteroid.prefix = "golden"
 
 	add_child(asteroid)

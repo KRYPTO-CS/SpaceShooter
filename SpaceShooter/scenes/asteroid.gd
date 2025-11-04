@@ -7,6 +7,8 @@ extends Area2D
 var rotation_speed := 45.0  # degrees per second
 var hp := max_hp
 
+var prefix = ""
+
 func _ready():
 	# Randomize movement and rotation slightly
 	speed += randf_range(-50.0, 50.0)
@@ -39,21 +41,26 @@ func take_damage(amount: float):
 		break_apart()
 
 func break_apart():
-	# TODO: Boom
 	GameManager.add_score(points)
 	GameManager.speed += points * 5
 	AudioManager.play_sound(preload("res://sounds/asteroidBreak.wav"))
-	queue_free()
+	explode()
 
 func hit_player():
-	# TODO: Boom
 	GameManager.add_score(-1)
 	GameManager.speed -= 20
 	AudioManager.play_sound(preload("res://sounds/playerHit.wav"))
-	queue_free()
+	explode()
 	
 func flash_red():
 	var original_color = self.modulate
 	self.modulate = Color(1, 0.25, 0)
 	await get_tree().create_timer(0.075).timeout
 	self.modulate = original_color
+	
+func explode():
+	var explosion = preload("res://scenes/explosion.tscn").instantiate()
+	explosion.prefix = prefix
+	explosion.global_position = global_position
+	get_parent().add_child(explosion)
+	queue_free()
