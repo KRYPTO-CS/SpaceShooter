@@ -26,11 +26,12 @@ func _process(delta):
 	# Take damage from flame
 	for area in get_overlapping_areas():
 		if area.is_in_group("flame"):
-			self.take_damage(0.025)
-
-func _on_area_entered(area):
-	if area.is_in_group("player"):
-		hit_player()
+			if area.get_parent().state != area.get_parent().PlayerState.INVINCIBLE:
+				self.take_damage(0.025)
+		if area.is_in_group("player"):
+			if area.get_parent().state != area.get_parent().PlayerState.INVINCIBLE:
+				area.get_parent().take_damage(1.0, 1)
+				hit_player()
 
 func take_damage(amount: float):
 	hp -= amount
@@ -45,7 +46,14 @@ func break_apart():
 	queue_free()
 
 func hit_player():
+	# TODO: Boom
 	GameManager.add_score(-1)
 	GameManager.speed -= 20
 	AudioManager.play_sound(preload("res://sounds/playerHit.wav"))
 	queue_free()
+	
+func flash_red():
+	var original_color = self.modulate
+	self.modulate = Color(1, 0.25, 0)
+	await get_tree().create_timer(0.075).timeout
+	self.modulate = original_color

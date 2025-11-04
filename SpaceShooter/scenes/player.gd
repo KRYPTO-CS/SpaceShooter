@@ -5,6 +5,8 @@ extends Node2D
 @export var x_limit := 300.0
 @export var y_limit := 500.0
 @export var shoot_interval := 0.3  # seconds between shots
+enum PlayerState { NORMAL, INVINCIBLE, DEAD }
+var state: PlayerState = PlayerState.NORMAL
 
 # charging
 @export var base_damage := 1.0
@@ -21,6 +23,10 @@ var finger_active := false
 var shoot_timer := 0.0
 var active_finger_index := -1
 var last_finger_pos := Vector2.ZERO
+
+# invincibility
+var flash_timer := 0.0
+var flash_interval := 0.1 
 
 func _ready():
 	bullet_scene = preload("res://scenes/bullet.tscn")
@@ -42,6 +48,14 @@ func _process(delta):
 	# clamp player position to camera bounds
 	position.x = clamp(position.x, -x_limit, x_limit)
 	position.y = clamp(position.y, -y_limit, y_limit)
+	
+	# handle invincibility
+	if state == PlayerState.INVINCIBLE:
+		flash_timer += delta
+		# toggle visibility every flash_interval
+		if flash_timer >= flash_interval:
+			visible = not visible
+			flash_timer = 0.0
 
 func _input(event):
 	if event is InputEventScreenTouch:
@@ -81,3 +95,16 @@ func _shoot_charged_bullet():
 	bullet.damage = current_damage
 	bullet.speed *= (1.0 + charge_ratio / 1.5)
 	get_parent().add_child(bullet)
+	
+func take_damage(time):
+	state = PlayerState.INVINCIBLE
+	invincibility_timer(time)
+
+	self.modulate = Color(1, 0, 0)
+	await get_tree().create_timer(0.1).timeout
+	self.modulate = Color(1, 1, 1)
+
+func invincibility_timer(time):
+	await get_tree().create_timer(time).timeout
+	state = PlayerState.NORMAL
+	visible = true

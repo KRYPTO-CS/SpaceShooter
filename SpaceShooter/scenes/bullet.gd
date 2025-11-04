@@ -17,6 +17,7 @@ func _process(delta):
 
 func _on_area_entered(area):
 	if area.is_in_group("destroyable"):
+		area.flash_red()
 		area.take_damage(damage)
 		AudioManager.play_sound(preload("res://sounds/drillHit.wav"))
 		queue_free()
