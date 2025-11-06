@@ -1,27 +1,32 @@
-[gd_scene load_steps=10 format=3 uid="uid://cuwckkolulw2g"]
+[gd_scene load_steps=12 format=3 uid="uid://cuwckkolulw2g"]
 
 [ext_resource type="Script" uid="uid://cgaylmnkloadp" path="res://scenes/player.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://dliyi77mec85r" path="res://sprites/shipSheet.png" id="2_g2els"]
+[ext_resource type="Texture2D" uid="uid://ci36bvdlby4r5" path="res://sprites/ship_toppers/defaultTopper.png" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://blhi4hcqnimsi" path="res://scenes/ship_topper.gd" id="4_dqkch"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
+atlas = ExtResource("2_g2els")
+region = Rect2(0, 0, 252, 272)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qhqgy"]
 atlas = ExtResource("2_g2els")
-region = Rect2(0, 0, 256, 256)
+region = Rect2(252, 0, 252, 272)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
 atlas = ExtResource("2_g2els")
-region = Rect2(256, 0, 256, 256)
+region = Rect2(504, 0, 252, 272)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
 atlas = ExtResource("2_g2els")
-region = Rect2(512, 0, 256, 256)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
-atlas = ExtResource("2_g2els")
-region = Rect2(768, 0, 256, 256)
+region = Rect2(756, 0, 252, 272)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fjrip"]
 animations = [{
 "frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2els")
+}, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qhqgy")
 }, {
@@ -30,9 +35,6 @@ animations = [{
 }, {
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qlg0r")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tuyoq")
 }],
 "loop": true,
 "name": &"default",
@@ -50,20 +52,24 @@ radius = 30.0
 script = ExtResource("1_4flbx")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_fjrip")
 autoplay = "default"
-frame_progress = 0.9910545
+frame_progress = 0.5430039
+
+[node name="ShipTopper" type="Sprite2D" parent="."]
+position = Vector2(0, -100)
+texture = ExtResource("3_dqkch")
+script = ExtResource("4_dqkch")
 
 [node name="Hurtbox" type="Area2D" parent="." groups=["player"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
-position = Vector2(0, -25)
+position = Vector2(0, -20)
 shape = SubResource("CapsuleShape2D_g2els")
 
 [node name="Flamebox" type="Area2D" parent="." groups=["flame"]]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Flamebox"]
-position = Vector2(0, 95)
+position = Vector2(0, 100)
 shape = SubResource("CircleShape2D_g2els")
 debug_color = Color(0.7, 0, 0, 0.41960785)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dlmuomk17u48v"
-path="res://.godot/imported/bullet.png-bf127d53460a0826f847c19a5a1ace6c.ctex"
+uid="uid://bksgffhsdvsij"
+path="res://.godot/imported/drillIcon.png-6102b92b9868b324444a1f243f8e47b1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/bullet.png"
-dest_files=["res://.godot/imported/bullet.png-bf127d53460a0826f847c19a5a1ace6c.ctex"]
+source_file="res://sprites/powerups/drillIcon.png"
+dest_files=["res://.godot/imported/drillIcon.png-6102b92b9868b324444a1f243f8e47b1.ctex"]
 
 [params]
 
