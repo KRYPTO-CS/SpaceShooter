@@ -83,28 +83,31 @@ autoplay = "default"
 layer = 2
 
 [node name="Score" type="Label" parent="UI"]
-offset_left = 125.0
-offset_right = 198.0
-offset_bottom = 175.0
+offset_left = 165.0
+offset_top = 15.0
+offset_right = 238.0
+offset_bottom = 117.0
 text = "0"
 label_settings = SubResource("LabelSettings_0wfyh")
 script = ExtResource("2_sugp2")
 
 [node name="Rocks" type="Sprite2D" parent="UI/Score"]
-position = Vector2(-55, 55)
+position = Vector2(-80, 60)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_85g3d")
 
 [node name="Speed" type="Label" parent="UI"]
-offset_left = 125.0
-offset_top = 100.0
-offset_right = 198.0
-offset_bottom = 275.0
+offset_left = 165.0
+offset_top = 170.0
+offset_right = 238.0
+offset_bottom = 272.0
 text = "0"
 label_settings = SubResource("LabelSettings_tefeu")
 script = ExtResource("4_tbgi4")
 
 [node name="Fuel" type="Sprite2D" parent="UI/Speed"]
-position = Vector2(-55, 55)
+position = Vector2(-80, 55)
+scale = Vector2(1.5, 1.5)
 texture = ExtResource("8_choun")
 
 [node name="TestCount" type="Label" parent="UI"]
