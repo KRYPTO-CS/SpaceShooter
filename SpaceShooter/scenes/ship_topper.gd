@@ -11,13 +11,14 @@ extends Sprite2D
 # states
 enum BulletType { NULL, SIMPLE, DRILL }
 var bullet_type: BulletType = BulletType.NULL
-enum ShootingType { NULL, NORMAL, CHARGE }
+enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE }
 var shooting_type: ShootingType = ShootingType.NULL
 
 # properties
 var shoot_interval := 0.3
 var shoot_timer := 0.0
 var base_damage := 1.0
+var shoot_interval_mult := 1.0
 
 # charging
 var max_charge_time := 1.0
@@ -36,20 +37,28 @@ func _process(delta):
 		ShootingType.NORMAL:
 			charge_time = 0.0
 			shoot_timer += delta
-			if shoot_timer >= shoot_interval:
+			if shoot_timer >= shoot_interval * shoot_interval_mult:
 				shoot_normal_bullet()
 				shoot_timer = 0.0
 		ShootingType.CHARGE:
 			if not get_parent().finger_active:
 				charge_time = 0.0
 				shoot_timer += delta
-				if shoot_timer >= shoot_interval:
+				if shoot_timer >= shoot_interval * shoot_interval_mult:
 					shoot_normal_bullet()
 					shoot_timer = 0.0
 			else:
 				is_charging = true
 				charge_time = clamp(charge_time + delta, 0, max_charge_time)
 				current_damage = lerp(base_damage, base_damage * 3, charge_time / max_charge_time)
+				shoot_timer = 0.0
+		ShootingType.TRIPLE:
+			charge_time = 0.0
+			shoot_timer += delta
+			if shoot_timer >= shoot_interval * shoot_interval_mult:
+				shoot_normal_bullet()
+				shoot_normal_bullet(15.0)
+				shoot_normal_bullet(-15.0)
 				shoot_timer = 0.0
 		
 func _input(event):
@@ -63,12 +72,13 @@ func _input(event):
 				current_damage = base_damage
 				is_charging = false
 
-func shoot_normal_bullet():
+func shoot_normal_bullet(angle: float = 0.0):
 	if bullet_scene == null:
 		return
 	var bullet = bullet_scene.instantiate()
 	bullet.position = global_position + Vector2(0, -25)
 	bullet.damage = base_damage
+	bullet.angle_degrees = angle
 	get_tree().current_scene.add_child(bullet)
 
 func shoot_charged_bullet():
@@ -97,3 +107,11 @@ func swap(new_bullet_type: BulletType = BulletType.NULL, new_shooting_type: Shoo
 			texture = drill_texture
 			shoot_interval = 0.65
 			bullet_scene = drill_bullet
+			
+	match shooting_type:
+		ShootingType.NORMAL:
+			shoot_interval_mult = 1.0
+		ShootingType.CHARGE:
+			shoot_interval_mult = 1.0
+		ShootingType.TRIPLE:
+			shoot_interval_mult = 2.25

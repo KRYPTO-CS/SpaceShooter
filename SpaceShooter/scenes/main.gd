@@ -30,7 +30,7 @@ func spawn_asteroid():
 		asteroid.points *= 3
 		asteroid.prefix = "golden"
 		
-	if randf() < 0.15:
+	if randf() < 0.10:
 		var powerup = powerup_scene.instantiate()
 		powerup.position = Vector2(randf_range(-255, 255), -750)
 		powerup.speed = GameManager.speed + 50

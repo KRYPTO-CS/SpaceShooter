@@ -4,10 +4,11 @@ extends Area2D
 @onready var drill_texture: Texture2D = preload("res://sprites/powerups/drillIcon.png")
 @onready var normal_texture: Texture2D = preload("res://sprites/powerups/normalIcon.png")
 @onready var charge_texture: Texture2D = preload("res://sprites/powerups/chargeIcon.png")
+@onready var triple_texture: Texture2D = preload("res://sprites/powerups/tripleIcon.png")
 
 enum BulletType { NULL, SIMPLE, DRILL }
 var bullet_type: BulletType = BulletType.NULL
-enum ShootingType { NULL, NORMAL, CHARGE }
+enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE }
 var shooting_type: ShootingType = ShootingType.NULL
 
 @export var speed := 100.0
@@ -21,7 +22,7 @@ func _ready():
 		var options = [BulletType.SIMPLE, BulletType.DRILL]
 		bullet_type = options[randi() % options.size()]
 	else:
-		var options = [ShootingType.NORMAL, ShootingType.CHARGE]
+		var options = [ShootingType.NORMAL, ShootingType.CHARGE, ShootingType.TRIPLE]
 		shooting_type = options[randi() % options.size()]
 		
 	match bullet_type:
@@ -35,6 +36,8 @@ func _ready():
 			get_child(0).get_child(0).texture = normal_texture
 		ShootingType.CHARGE:
 			get_child(0).get_child(0).texture = charge_texture
+		ShootingType.TRIPLE:
+			get_child(0).get_child(0).texture = triple_texture
 
 func _process(delta):
 	# Move downward

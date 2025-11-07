@@ -32,7 +32,7 @@ func _process(delta):
 				self.take_damage(0.025)
 		if area.is_in_group("player"):
 			if area.get_parent().state != area.get_parent().PlayerState.INVINCIBLE:
-				area.get_parent().take_damage(1.0)
+				area.get_parent().take_damage(1.45)
 				hit_player()
 
 func take_damage(amount: float):
@@ -53,10 +53,9 @@ func hit_player():
 	explode()
 	
 func flash_red():
-	var original_color = self.modulate
 	self.modulate = Color(1, 0.25, 0)
 	await get_tree().create_timer(0.075).timeout
-	self.modulate = original_color
+	self.modulate = Color(1, 1, 1)
 	
 func explode():
 	var explosion = preload("res://scenes/explosion.tscn").instantiate()
