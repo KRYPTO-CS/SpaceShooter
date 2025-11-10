@@ -18,10 +18,10 @@ Tap the screen and drag, and your ship will follow your motion. That's all there
 ---
 
 ## 🔋 Powerups
-Powerups appear randomly and enhance your ship’s capablities when collected.
+Powerups appear randomly and enhance your ship’s capablities when collected. With 3 blaster types and 7 shooting types, there are a total of 21 combinations!
 
 ### 💥 Blaster Types
-Blaster types define what kind of **projectile** your ship fires. With 3 blaster types and 7 shooting types, there are a total of 21 combinations!
+Blaster types define what kind of **projectile** your ship fires. 
 
 | Blaster Type | Description |
 |---------------|--------------|
