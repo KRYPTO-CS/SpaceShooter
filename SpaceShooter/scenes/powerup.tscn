@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dw6crc421hiha"]
 
 [ext_resource type="Script" uid="uid://doy3tvmgilhby" path="res://scenes/powerup.gd" id="1_406cw"]
-[ext_resource type="Texture2D" uid="uid://bfxsa7pcoo7ae" path="res://sprites/powerups/boxIcon.png" id="2_406cw"]
+[ext_resource type="Texture2D" uid="uid://bf4mxb2rlc60o" path="res://sprites/powerups/bulletBoxIcon.png" id="2_ih772"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t4g7g"]
 size = Vector2(60, 60)
@@ -10,7 +10,7 @@ size = Vector2(60, 60)
 script = ExtResource("1_406cw")
 
 [node name="Box" type="Sprite2D" parent="."]
-texture = ExtResource("2_406cw")
+texture = ExtResource("2_ih772")
 
 [node name="Icon" type="Sprite2D" parent="Box"]
 

@@ -1,13 +1,11 @@
 extends Node2D
 
-@export var asteroid_scene: PackedScene
-@export var powerup_scene: PackedScene
+var asteroid_scene := preload("res://scenes/asteroid.tscn")
+var powerup_scene := preload("res://scenes/powerup.tscn")
 var asteroid_timer := 0.0
 
 func _ready():
 	randomize()
-	asteroid_scene = preload("res://scenes/asteroid.tscn")
-	powerup_scene = preload("res://scenes/powerup.tscn")
 
 func _process(delta):
 	asteroid_timer += delta
@@ -30,7 +28,7 @@ func spawn_asteroid():
 		asteroid.points *= 3
 		asteroid.prefix = "golden"
 		
-	if randf() < 0.10:
+	if randf() < 0.1:
 		var powerup = powerup_scene.instantiate()
 		powerup.position = Vector2(randf_range(-255, 255), -750)
 		powerup.speed = GameManager.speed + 50

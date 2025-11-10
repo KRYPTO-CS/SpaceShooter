@@ -2,13 +2,13 @@
 
 importer="wav"
 type="AudioStreamWAV"
-uid="uid://c1bhoj81ulcnk"
-path="res://.godot/imported/drillHit.wav-040d46b729217a9dad971ac992ea67fe.sample"
+uid="uid://d2tcjy0qaeynd"
+path="res://.godot/imported/playerOuch.wav-3f2e8746d46a5abee3eb3a7ddc89d1c5.sample"
 
 [deps]
 
-source_file="res://sounds/drillHit.wav"
-dest_files=["res://.godot/imported/drillHit.wav-040d46b729217a9dad971ac992ea67fe.sample"]
+source_file="res://sounds/playerOuch.wav"
+dest_files=["res://.godot/imported/playerOuch.wav-3f2e8746d46a5abee3eb3a7ddc89d1c5.sample"]
 
 [params]
 
