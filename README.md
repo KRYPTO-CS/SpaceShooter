@@ -1,8 +1,7 @@
 # 🚀 SpaceShooter
 
 ## 🪐 Overview
-**SpaceShooter** is a fast-paced arcade-style game built in **Godot 4** for the **TaskBlast** application! Players pilot a ship through waves of asteroids and collect power-ups to enhance their capabilities.  
-The goal is simple: dodge and destroy asteroids, rack up points, and upgrade your firepower with a variety of unique blaster and shooting types.
+**SpaceShooter** is a fast-paced arcade-style game built in **Godot 4** for the **TaskBlast** application! Players pilot a ship through waves of asteroids and collect power-ups to enhance their capabilities. The goal is simple: dodge and destroy asteroids, rack up points, and upgrade your firepower with a variety of unique blaster and shooting types.
 
 ---
 
