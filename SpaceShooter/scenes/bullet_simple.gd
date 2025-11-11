@@ -17,6 +17,7 @@ const NORMAL := Color(0.8, 0.8, 0.9)
 const RED := Color(1, 0.25, 0)
 const ORANGE := Color(1.0, 0.5, 0)
 const CYAN := Color(0.4, 0.7, 1)
+const BLUE := Color(0.3, 0.3, 1.0)
 
 var element_type: GameManager.ElementType = GameManager.ElementType.NEUTRAL
 
@@ -29,6 +30,8 @@ func _ready():
 			modulate = ORANGE
 		GameManager.ElementType.ICE:
 			modulate = CYAN
+		GameManager.ElementType.WATER:
+			modulate = BLUE
 		_:
 			modulate = NORMAL
 	
@@ -52,4 +55,26 @@ func _on_area_entered(area):
 				AudioManager.play_sound(preload("res://sounds/fireEffect.wav"), 0.3, volume_mult)
 			GameManager.ElementType.ICE:
 				AudioManager.play_sound(preload("res://sounds/iceEffect.wav"), 0.2, volume_mult)
+			GameManager.ElementType.WATER:
+				AudioManager.play_sound(preload("res://sounds/waterEffect.wav"), 0.3, volume_mult)
+				splash(area)
 		queue_free()
+		
+		
+func splash(hit_asteroid):
+	var splish = preload("res://scenes/splash.tscn").instantiate()
+	splish.global_position = global_position
+	splish.scale = scale
+	get_parent().add_child(splish)
+	
+	var splash_radius := 200.0 * ((scale.x + scale.y) / 2.0)
+
+	for asteroid in get_tree().get_nodes_in_group("destroyable"):
+		if asteroid == null or not asteroid.is_inside_tree():
+			continue
+		if asteroid == hit_asteroid:
+			continue
+		var dist = position.distance_to(asteroid.position)
+		if dist <= splash_radius:
+			asteroid.take_damage(damage * DAMAGE_MULT * 0.5, GameManager.ElementType.NEUTRAL)
+			asteroid.flash_red()

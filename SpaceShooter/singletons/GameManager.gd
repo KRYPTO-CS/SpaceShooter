@@ -19,7 +19,7 @@ var game_started: bool = false
 # enums
 enum BulletType { NULL, SIMPLE, DRILL, SWIFT }
 enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE, BURST, SPRAY, V, DELTA, RIPPLE, PEA, HEAVY }
-enum ElementType { NULL, NEUTRAL, FIRE, ICE }
+enum ElementType { NULL, NEUTRAL, FIRE, ICE, WATER }
 
 func _ready():
 	JavaScriptBridge.eval("testMessage();")

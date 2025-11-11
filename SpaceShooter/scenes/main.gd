@@ -9,7 +9,7 @@ func _ready():
 
 func _process(delta):
 	asteroid_timer += delta
-	if asteroid_timer > (2.0 - (GameManager.speed/500.0)):
+	if asteroid_timer > (2.0 - (GameManager.speed/750.0)):
 		spawn_asteroid()
 		if randi_range(0, 1) == 1:
 			spawn_asteroid()

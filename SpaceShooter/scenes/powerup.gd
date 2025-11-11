@@ -41,6 +41,7 @@ var element_textures = {
 	GameManager.ElementType.NEUTRAL: preload("res://sprites/powerups/neutralIcon.png"),
 	GameManager.ElementType.FIRE: preload("res://sprites/powerups/fireIcon.png"),
 	GameManager.ElementType.ICE: preload("res://sprites/powerups/iceIcon.png"),
+	GameManager.ElementType.WATER: preload("res://sprites/powerups/waterIcon.png"),
 }
 
 var speed := 100.0
