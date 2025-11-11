@@ -41,6 +41,18 @@ Shooting types determine **how** your weapon fires.
 | **Spray** | Fires a fast stream of inaccurate blasts. |
 | **V** | Shoots two alternating blasts diagonally in a V formation at a fast rate. |
 | **Delta** | Fires three blasts in a triangular pattern at a slower rate. |
+| **Ripple** | Fires a fan of five weak blasts that slowly spreads more and less. |
+| **Pea** | Shoots a single weak blast per shot at a fast rate. |
+| **Heavy** | Shoots a single strong blast per shot at a slow rate. |
+
+### 🔥 Element Types
+Element types define what **special effects** enhance your projectiles.
+
+| Element Type | Description |
+|---------------|--------------|
+| **Neutral** | Does an extra chunk of damage to asteroids. The more health an asteroid has, the more extra damage. |
+| **Fire** | Burns asteroids, dealing additional damage to them over time. |
+| **Ice** | Chills an asteroid each time it is hit, slowing it down. |
 
 ---
 
