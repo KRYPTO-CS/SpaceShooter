@@ -18,7 +18,7 @@ Tap the screen and drag, and your ship will follow your motion. That's all there
 ---
 
 ## 🔋 Powerups
-Powerups appear randomly and enhance your ship’s capablities when collected. With 3 blaster types and 7 shooting types, there are a total of 21 combinations!
+Powerups appear randomly and enhance your ship’s capablities when collected. With **3 blaster types**, **10 shooting types**, and **4 element types**, there are a total of **120 combinations**!
 
 ### 💥 Blaster Types
 Blaster types define what kind of **projectile** your ship fires. 
@@ -53,6 +53,7 @@ Element types define what **special effects** enhance your projectiles.
 | **Neutral** | Does an extra chunk of damage to asteroids. The more health an asteroid has, the more extra damage. |
 | **Fire** | Burns asteroids, dealing additional damage to them over time. |
 | **Ice** | Chills an asteroid each time it is hit, slowing it down. |
+| **Water** | Splashes nearby asteroids, slightly damaging them as well. |
 
 ---
 
