@@ -9,12 +9,17 @@ var swiftCounter: float = 1.0
 const SPEED_ACCELERATION := 2.0
 const MIN_SPEED := 50.0
 const MAX_SPEED := 1000.0
-const SWIFT_DECAY := 0.25
+const SWIFT_DECAY := 0.3
 const MIN_SWIFT := 1.0
-const MAX_SWIFT := 2.0
+const MAX_SWIFT := 3.0
 
 var baseTrack = "res://music/musicPlaceholder.mp3"
 var game_started: bool = false
+
+# enums
+enum BulletType { NULL, SIMPLE, DRILL, SWIFT }
+enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE, BURST, SPRAY, V, DELTA, RIPPLE, PEA, HEAVY }
+enum ElementType { NULL, NEUTRAL, FIRE, ICE }
 
 func _ready():
 	JavaScriptBridge.eval("testMessage();")

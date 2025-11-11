@@ -16,12 +16,9 @@ extends Sprite2D
 @onready var swift_texture: Texture2D = preload("res://sprites/ship_toppers/swiftTopper.png")
 
 # states
-enum BulletType { NULL, SIMPLE, DRILL, SWIFT }
-var bullet_type: BulletType = BulletType.NULL
-enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE, BURST, SPRAY, V, DELTA }
-var shooting_type: ShootingType = ShootingType.NULL
-enum ElementType { NULL, NEUTRAL, FIRE, ICE }
-var element_type: ElementType = ElementType.NULL
+var bullet_type: GameManager.BulletType = GameManager.BulletType.NULL
+var shooting_type: GameManager.ShootingType = GameManager.ShootingType.NULL
+var element_type: GameManager.ElementType = GameManager.ElementType.NULL
 
 # properties
 var base_shoot_interval := 0.3
@@ -44,20 +41,25 @@ var is_bursting = false
 # v
 var v_count := false
 
+# ripple
+const RIPPLE_INC := 5.0
+var ripple_offset := RIPPLE_INC
+var ripple_direction := false
+
 func _ready():
-	swap(BulletType.SIMPLE, ShootingType.NORMAL, ElementType.NEUTRAL)
+	swap(GameManager.BulletType.SIMPLE, GameManager.ShootingType.NORMAL, GameManager.ElementType.NEUTRAL)
 
 func _process(delta):
 	shoot_interval = base_shoot_interval / GameManager.swiftCounter
 	
 	match shooting_type:
-		ShootingType.NORMAL:
+		GameManager.ShootingType.NORMAL:
 			charge_time = 0.0
 			shoot_timer += delta
 			if shoot_timer >= shoot_interval * shoot_interval_mult:
 				shoot_normal_bullet()
 				shoot_timer = 0.0
-		ShootingType.CHARGE:
+		GameManager.ShootingType.CHARGE:
 			if not get_parent().finger_active:
 				charge_time = 0.0
 				shoot_timer += delta
@@ -69,7 +71,7 @@ func _process(delta):
 				charge_time = clamp(charge_time + (delta / shoot_interval), 0, max_charge_time)
 				current_damage = lerp(base_damage, base_damage * 3, charge_time / max_charge_time)
 				shoot_timer = 0.0
-		ShootingType.TRIPLE:
+		GameManager.ShootingType.TRIPLE:
 			charge_time = 0.0
 			shoot_timer += delta
 			if shoot_timer >= shoot_interval * shoot_interval_mult:
@@ -77,20 +79,20 @@ func _process(delta):
 				shoot_normal_bullet(20.0, 1.0, 1.0, 0.75)
 				shoot_normal_bullet(-20.0, 1.0, 1.0, 0.75)
 				shoot_timer = 0.0
-		ShootingType.BURST:
+		GameManager.ShootingType.BURST:
 			charge_time = 0.0
 			if not is_bursting:
 				shoot_timer += delta
 			if shoot_timer >= shoot_interval * shoot_interval_mult and not is_bursting:
 				shoot_timer = 0.0
 				fire_burst()
-		ShootingType.SPRAY:
+		GameManager.ShootingType.SPRAY:
 			charge_time = 0.0
 			shoot_timer += delta
 			if shoot_timer >= shoot_interval * shoot_interval_mult:
 				shoot_normal_bullet(rng.randf_range(-20.0, 20.0))
 				shoot_timer = 0.0
-		ShootingType.V:
+		GameManager.ShootingType.V:
 					charge_time = 0.0
 					shoot_timer += delta
 					if shoot_timer >= shoot_interval * shoot_interval_mult:
@@ -100,13 +102,43 @@ func _process(delta):
 							shoot_normal_bullet(-45.0)
 						v_count = !v_count
 						shoot_timer = 0.0
-		ShootingType.DELTA:
+		GameManager.ShootingType.DELTA:
 			charge_time = 0.0
 			shoot_timer += delta
 			if shoot_timer >= shoot_interval * shoot_interval_mult:
 				shoot_normal_bullet(0.0, 1.0, 1.0, 0.75)
 				shoot_normal_bullet(225.0, 1.0, 1.0, 0.75)
 				shoot_normal_bullet(-225.0, 1.0, 1.0, 0.75)
+				shoot_timer = 0.0
+		GameManager.ShootingType.RIPPLE:
+			charge_time = 0.0
+			shoot_timer += delta
+			if shoot_timer >= shoot_interval * shoot_interval_mult:
+				shoot_normal_bullet(0.0, 0.75, 0.75, 0.65)
+				shoot_normal_bullet(ripple_offset, 0.75, 0.75, 0.65)
+				shoot_normal_bullet(-ripple_offset, 0.75, 0.75, 0.65)
+				shoot_normal_bullet(ripple_offset * 2.0, 0.75, 0.75, 0.65)
+				shoot_normal_bullet(-ripple_offset * 2.0, 0.75, 0.75, 0.65)
+				if !ripple_direction:
+					ripple_offset += RIPPLE_INC
+				else:
+					ripple_offset -= RIPPLE_INC
+				if ripple_offset == RIPPLE_INC:
+					ripple_direction = !ripple_direction
+				if ripple_offset == RIPPLE_INC * 10.0:
+					ripple_direction = !ripple_direction
+				shoot_timer = 0.0
+		GameManager.ShootingType.PEA:
+			charge_time = 0.0
+			shoot_timer += delta
+			if shoot_timer >= shoot_interval * shoot_interval_mult:
+				shoot_normal_bullet(0.0, 0.75, 0.75, 0.9)
+				shoot_timer = 0.0
+		GameManager.ShootingType.HEAVY:
+			charge_time = 0.0
+			shoot_timer += delta
+			if shoot_timer >= shoot_interval * shoot_interval_mult:
+				shoot_normal_bullet(0.0, 1.5, 2.5, 1.25)
 				shoot_timer = 0.0
 		
 func _input(event):
@@ -145,45 +177,51 @@ func shoot_charged_bullet():
 	bullet.speed *= (1.0 + charge_ratio / 1.5)
 	scene_root.add_child(bullet)
 
-func swap(new_bullet_type: BulletType = BulletType.NULL, new_shooting_type: ShootingType = ShootingType.NULL, new_element_type: ElementType = ElementType.NULL) -> void:
-	if new_bullet_type != BulletType.NULL:
+func swap(new_bullet_type: GameManager.BulletType = GameManager.BulletType.NULL, new_shooting_type: GameManager.ShootingType = GameManager.ShootingType.NULL, new_element_type: GameManager.ElementType = GameManager.ElementType.NULL) -> void:
+	if new_bullet_type != GameManager.BulletType.NULL:
 		bullet_type = new_bullet_type
-	if new_shooting_type != ShootingType.NULL:
+	if new_shooting_type != GameManager.ShootingType.NULL:
 		shooting_type = new_shooting_type
-	if new_element_type != ElementType.NULL:
+	if new_element_type != GameManager.ElementType.NULL:
 		element_type = new_element_type
 		
 	match bullet_type:
-		BulletType.SIMPLE:
+		GameManager.BulletType.SIMPLE:
 			texture = simple_texture
 			base_shoot_interval = 0.3
 			bullet_scene = simple_bullet
 			GameManager.swiftCounter = 1.0
-		BulletType.DRILL:
+		GameManager.BulletType.DRILL:
 			texture = drill_texture
 			base_shoot_interval = 0.6
 			bullet_scene = drill_bullet
 			GameManager.swiftCounter = 1.0
-		BulletType.SWIFT:
+		GameManager.BulletType.SWIFT:
 			texture = swift_texture
 			base_shoot_interval = 0.3
 			bullet_scene = swift_bullet
 			
 	match shooting_type:
-		ShootingType.NORMAL:
+		GameManager.ShootingType.NORMAL:
 			shoot_interval_mult = 1.0
-		ShootingType.CHARGE:
+		GameManager.ShootingType.CHARGE:
 			shoot_interval_mult = 1.0
-		ShootingType.TRIPLE:
+		GameManager.ShootingType.TRIPLE:
 			shoot_interval_mult = 2.0
-		ShootingType.BURST:
+		GameManager.ShootingType.BURST:
 			shoot_interval_mult = 1.75
-		ShootingType.SPRAY:
+		GameManager.ShootingType.SPRAY:
 			shoot_interval_mult = 0.75
-		ShootingType.V:
+		GameManager.ShootingType.V:
 			shoot_interval_mult = 0.5
-		ShootingType.DELTA:
+		GameManager.ShootingType.DELTA:
 			shoot_interval_mult = 1.25
+		GameManager.ShootingType.RIPPLE:
+			shoot_interval_mult = 2.0
+		GameManager.ShootingType.PEA:
+			shoot_interval_mult = 0.75
+		GameManager.ShootingType.HEAVY:
+			shoot_interval_mult = 2.0
 			
 func fire_burst():
 	is_bursting = true

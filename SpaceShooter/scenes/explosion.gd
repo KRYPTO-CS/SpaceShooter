@@ -2,8 +2,7 @@ extends GPUParticles2D
 
 var prefix = ""
 
-enum Status { NONE, FIRE, ICE }
-var active_status: Status = Status.NONE
+var active_status: GameManager.ElementType = GameManager.ElementType.NEUTRAL
 
 const NORMAL := Color(1.0, 1.0, 1.0)
 const RED := Color(1, 0.25, 0)
@@ -16,9 +15,9 @@ func _ready():
 		texture = load(texture_path)
 		
 	match active_status:
-		Status.FIRE:
+		GameManager.ElementType.FIRE:
 			modulate = ORANGE
-		Status.ICE:
+		GameManager.ElementType.ICE:
 			modulate = CYAN
 		_:
 			modulate = NORMAL

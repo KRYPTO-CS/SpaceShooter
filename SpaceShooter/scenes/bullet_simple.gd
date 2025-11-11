@@ -18,17 +18,16 @@ const RED := Color(1, 0.25, 0)
 const ORANGE := Color(1.0, 0.5, 0)
 const CYAN := Color(0.4, 0.7, 1)
 
-enum ElementType { NULL, NEUTRAL, FIRE, ICE }
-var element_type: ElementType = ElementType.NEUTRAL
+var element_type: GameManager.ElementType = GameManager.ElementType.NEUTRAL
 
 func _ready():
 	z_index = -1 # so it doesn't layer in front of player
 	AudioManager.play_sound(preload("res://sounds/simpleShoot.wav"), 0.25, volume_mult) # shot sound
 	
 	match element_type:
-		ElementType.FIRE:
+		GameManager.ElementType.FIRE:
 			modulate = ORANGE
-		ElementType.ICE:
+		GameManager.ElementType.ICE:
 			modulate = CYAN
 		_:
 			modulate = NORMAL
@@ -49,8 +48,8 @@ func _on_area_entered(area):
 		area.take_damage(damage * DAMAGE_MULT, element_type)
 		AudioManager.play_sound(preload("res://sounds/simpleHit.wav"), 0.4, volume_mult)
 		match element_type:
-			ElementType.FIRE:
+			GameManager.ElementType.FIRE:
 				AudioManager.play_sound(preload("res://sounds/fireEffect.wav"), 0.3, volume_mult)
-			ElementType.ICE:
+			GameManager.ElementType.ICE:
 				AudioManager.play_sound(preload("res://sounds/iceEffect.wav"), 0.2, volume_mult)
 		queue_free()

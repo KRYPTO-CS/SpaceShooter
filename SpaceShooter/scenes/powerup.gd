@@ -1,11 +1,8 @@
 extends Area2D
 
-enum BulletType { NULL, SIMPLE, DRILL, SWIFT }
-var bullet_type: BulletType = BulletType.NULL
-enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE, BURST, SPRAY, V, DELTA }
-var shooting_type: ShootingType = ShootingType.NULL
-enum ElementType { NULL, NEUTRAL, FIRE, ICE }
-var element_type: ElementType = ElementType.NULL
+var bullet_type: GameManager.BulletType = GameManager.BulletType.NULL
+var shooting_type: GameManager.ShootingType = GameManager.ShootingType.NULL
+var element_type: GameManager.ElementType = GameManager.ElementType.NULL
 
 @onready var box: Sprite2D = $Box
 @onready var icon: Sprite2D = $Box/Icon
@@ -22,25 +19,28 @@ var box_textures = {
 }
 
 var bullet_textures = {
-	BulletType.SIMPLE: preload("res://sprites/powerups/simpleIcon.png"),
-	BulletType.DRILL:  preload("res://sprites/powerups/drillIcon.png"),
-	BulletType.SWIFT:  preload("res://sprites/powerups/swiftIcon.png"),
+	GameManager.BulletType.SIMPLE: preload("res://sprites/powerups/simpleIcon.png"),
+	GameManager.BulletType.DRILL:  preload("res://sprites/powerups/drillIcon.png"),
+	GameManager.BulletType.SWIFT:  preload("res://sprites/powerups/swiftIcon.png"),
 }
 
 var shooting_textures = {
-	ShootingType.NORMAL: preload("res://sprites/powerups/normalIcon.png"),
-	ShootingType.CHARGE: preload("res://sprites/powerups/chargeIcon.png"),
-	ShootingType.TRIPLE: preload("res://sprites/powerups/tripleIcon.png"),
-	ShootingType.BURST: preload("res://sprites/powerups/burstIcon.png"),
-	ShootingType.SPRAY: preload("res://sprites/powerups/sprayIcon.png"),
-	ShootingType.V: preload("res://sprites/powerups/vIcon.png"),
-	ShootingType.DELTA: preload("res://sprites/powerups/deltaIcon.png"),
+	GameManager.ShootingType.NORMAL: preload("res://sprites/powerups/normalIcon.png"),
+	GameManager.ShootingType.CHARGE: preload("res://sprites/powerups/chargeIcon.png"),
+	GameManager.ShootingType.TRIPLE: preload("res://sprites/powerups/tripleIcon.png"),
+	GameManager.ShootingType.BURST: preload("res://sprites/powerups/burstIcon.png"),
+	GameManager.ShootingType.SPRAY: preload("res://sprites/powerups/sprayIcon.png"),
+	GameManager.ShootingType.V: preload("res://sprites/powerups/vIcon.png"),
+	GameManager.ShootingType.DELTA: preload("res://sprites/powerups/deltaIcon.png"),
+	GameManager.ShootingType.RIPPLE: preload("res://sprites/powerups/rippleIcon.png"),
+	GameManager.ShootingType.PEA: preload("res://sprites/powerups/peaIcon.png"),
+	GameManager.ShootingType.HEAVY: preload("res://sprites/powerups/heavyIcon.png"),
 }
 
 var element_textures = {
-	ElementType.NEUTRAL: preload("res://sprites/powerups/neutralIcon.png"),
-	ElementType.FIRE: preload("res://sprites/powerups/fireIcon.png"),
-	ElementType.ICE: preload("res://sprites/powerups/iceIcon.png"),
+	GameManager.ElementType.NEUTRAL: preload("res://sprites/powerups/neutralIcon.png"),
+	GameManager.ElementType.FIRE: preload("res://sprites/powerups/fireIcon.png"),
+	GameManager.ElementType.ICE: preload("res://sprites/powerups/iceIcon.png"),
 }
 
 var speed := 100.0
@@ -63,22 +63,22 @@ func _check_player_collision() -> void:
 			var ship_topper = area.get_parent().get_node_or_null("ShipTopper")
 			if ship_topper:
 				ship_topper.swap(bullet_type, shooting_type, element_type)
-			if bullet_type != BulletType.NULL:
+			if bullet_type != GameManager.BulletType.NULL:
 				AudioManager.play_sound(preload("res://sounds/powerup1.wav"), 0.75)
 				bulletUI.texture = bullet_textures.get(bullet_type, null)
-			elif shooting_type != ShootingType.NULL:
+			elif shooting_type != GameManager.ShootingType.NULL:
 				AudioManager.play_sound(preload("res://sounds/powerup2.wav"), 0.75)
 				shootingUI.texture = shooting_textures.get(shooting_type, null)
-			elif element_type != ElementType.NULL:
+			elif element_type != GameManager.ElementType.NULL:
 				AudioManager.play_sound(preload("res://sounds/powerup3.wav"), 0.75)
 				elementUI.texture = element_textures.get(element_type, null)
 			queue_free()
 			return
 	
 func choose_type() -> void:
-	var bullet_values = BulletType.values().filter(func(v): return v != BulletType.NULL)
-	var shooting_values = ShootingType.values().filter(func(v): return v != ShootingType.NULL)
-	var element_values = ElementType.values().filter(func(v): return v != ElementType.NULL)
+	var bullet_values = GameManager.BulletType.values().filter(func(v): return v != GameManager.BulletType.NULL)
+	var shooting_values = GameManager.ShootingType.values().filter(func(v): return v != GameManager.ShootingType.NULL)
+	var element_values = GameManager.ElementType.values().filter(func(v): return v != GameManager.ElementType.NULL)
 	
 	var category = randi_range(0, 2)  # 0 = bullet, 1 = shooting, 2 = element
 	match category:
@@ -90,12 +90,12 @@ func choose_type() -> void:
 			element_type = element_values.pick_random()
 
 func set_sprite() -> void:
-	if bullet_type != BulletType.NULL:
+	if bullet_type != GameManager.BulletType.NULL:
 		icon.texture = bullet_textures.get(bullet_type, null)
 		box.texture = box_textures.get(0, null)
-	elif shooting_type != ShootingType.NULL:
+	elif shooting_type != GameManager.ShootingType.NULL:
 		icon.texture = shooting_textures.get(shooting_type, null)
 		box.texture = box_textures.get(1, null)
-	elif element_type != ElementType.NULL:
+	elif element_type != GameManager.ElementType.NULL:
 		icon.texture = element_textures.get(element_type, null)
 		box.texture = box_textures.get(2, null)

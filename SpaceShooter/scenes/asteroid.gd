@@ -14,9 +14,8 @@ var prefix = ""
 var color := WHITE
 
 # status
-enum ElementType { NULL, NEUTRAL, FIRE, ICE }
-enum Status { NONE, FIRE, ICE }
-var active_status: Status = Status.NONE
+
+var active_status: GameManager.ElementType = GameManager.ElementType.NEUTRAL
 
 # fire
 var burn_timer := 0.0
@@ -36,11 +35,11 @@ func _process(delta):
 	rotation_degrees += rotation_speed * delta
 	
 	# Burn effect
-	if active_status == Status.FIRE:
+	if active_status == GameManager.ElementType.FIRE:
 		burn_timer -= delta
 		take_damage(BURN_DPS * delta)
 		if burn_timer <= 0.0:
-			active_status = Status.NONE
+			active_status = GameManager.ElementType.NEUTRAL
 			color = WHITE
 			modulate = color
 	
@@ -62,13 +61,13 @@ func _process(delta):
 				area.get_parent().take_damage(1.45)
 				hit_player()
 
-func take_damage(amount: float, element_type: ElementType = ElementType.NULL):
+func take_damage(amount: float, element_type: GameManager.ElementType = GameManager.ElementType.NULL):
 	match element_type:
-		ElementType.FIRE:
+		GameManager.ElementType.FIRE:
 			ignite()
-		ElementType.ICE:
+		GameManager.ElementType.ICE:
 			inflict_ice()
-		ElementType.NEUTRAL:
+		GameManager.ElementType.NEUTRAL:
 			hp *= 0.95
 		_:
 			pass
@@ -102,7 +101,7 @@ func explode():
 	queue_free()
 	
 func ignite():
-	active_status = Status.FIRE
+	active_status = GameManager.ElementType.FIRE
 	burn_timer = BURN_DURATION
 	modulate = RED
 	await get_tree().create_timer(0.075).timeout
@@ -111,7 +110,7 @@ func ignite():
 	modulate = color
 	
 func inflict_ice():
-	active_status = Status.ICE
+	active_status = GameManager.ElementType.ICE
 	modulate = RED
 	await get_tree().create_timer(0.075).timeout
 	modulate = color

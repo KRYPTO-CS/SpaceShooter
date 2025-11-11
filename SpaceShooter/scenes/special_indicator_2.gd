@@ -6,7 +6,7 @@ func _ready() -> void:
 	pass
 
 func _process(_delta: float) -> void:
-	if ship_topper.bullet_type == ship_topper.BulletType.SWIFT:
+	if ship_topper.bullet_type == GameManager.BulletType.SWIFT:
 		text = "%.1f" % (GameManager.swiftCounter)
 		visible = true
 	else:
