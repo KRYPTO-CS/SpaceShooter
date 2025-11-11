@@ -1,11 +1,27 @@
 extends Area2D
 
+const WHITE := Color(1, 1, 1)
+const RED := Color(1, 0.25, 0)
+const ORANGE := Color(1.0, 0.5, 0)
+const CYAN := Color(0.4, 0.7, 1)
+
 var points := 1 
 var speed := 100.0
 var rotation_speed := 45.0  # degrees per second
 var max_hp := 3.0
 var hp := max_hp
 var prefix = ""
+var color := WHITE
+
+# status
+enum ElementType { NULL, NEUTRAL, FIRE, ICE }
+enum Status { NONE, FIRE, ICE }
+var active_status: Status = Status.NONE
+
+# fire
+var burn_timer := 0.0
+const BURN_DURATION := 3.0
+const BURN_DPS := 0.5
 
 func _ready():
 	# Randomize movement and rotation slightly
@@ -18,6 +34,15 @@ func _process(delta):
 	# Move downward
 	position.y += speed * delta
 	rotation_degrees += rotation_speed * delta
+	
+	# Burn effect
+	if active_status == Status.FIRE:
+		burn_timer -= delta
+		take_damage(BURN_DPS * delta)
+		if burn_timer <= 0.0:
+			active_status = Status.NONE
+			color = WHITE
+			modulate = color
 	
 	# die
 	if hp <= 0:
@@ -37,7 +62,16 @@ func _process(delta):
 				area.get_parent().take_damage(1.45)
 				hit_player()
 
-func take_damage(amount: float):
+func take_damage(amount: float, element_type: ElementType = ElementType.NULL):
+	match element_type:
+		ElementType.FIRE:
+			ignite()
+		ElementType.ICE:
+			inflict_ice()
+		ElementType.NEUTRAL:
+			hp *= 0.95
+		_:
+			pass
 	hp -= amount
 
 func break_apart():
@@ -55,13 +89,32 @@ func hit_player():
 	explode()
 	
 func flash_red():
-	self.modulate = Color(1, 0.25, 0)
+	modulate = RED
 	await get_tree().create_timer(0.075).timeout
-	self.modulate = Color(1, 1, 1)
+	modulate = color
 	
 func explode():
 	var explosion = preload("res://scenes/explosion.tscn").instantiate()
 	explosion.prefix = prefix
+	explosion.active_status = active_status
 	explosion.global_position = global_position
 	get_parent().add_child(explosion)
 	queue_free()
+	
+func ignite():
+	active_status = Status.FIRE
+	burn_timer = BURN_DURATION
+	modulate = RED
+	await get_tree().create_timer(0.075).timeout
+	modulate = color
+	color = ORANGE
+	modulate = color
+	
+func inflict_ice():
+	active_status = Status.ICE
+	modulate = RED
+	await get_tree().create_timer(0.075).timeout
+	modulate = color
+	color = CYAN
+	modulate = color
+	speed = max(speed - 50.0, 100.0)

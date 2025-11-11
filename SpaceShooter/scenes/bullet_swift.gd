@@ -13,9 +13,25 @@ const DAMAGE_MULT := 0.75
 var time_alive := 0.0
 var velocity := Vector2.ZERO
 
+const NORMAL := Color(1.0, 1.0, 1.0)
+const RED := Color(1, 0.25, 0)
+const ORANGE := Color(1.0, 0.5, 0)
+const CYAN := Color(0.4, 0.7, 1)
+
+enum ElementType { NULL, NEUTRAL, FIRE, ICE }
+var element_type: ElementType = ElementType.NEUTRAL
+
 func _ready():
 	z_index = -1 # so it doesn't layer in front of player
 	AudioManager.play_sound(preload("res://sounds/swiftShoot.wav"), 0.25, volume_mult) # shot sound
+	
+	match element_type:
+		ElementType.FIRE:
+			modulate = ORANGE
+		ElementType.ICE:
+			modulate = CYAN
+		_:
+			modulate = NORMAL
 	
 	var angle_radians = deg_to_rad(angle_degrees)
 	velocity = Vector2(0, -1).rotated(angle_radians) * speed * SPEED_MULT
@@ -32,6 +48,11 @@ func _on_area_entered(area):
 	if area.is_in_group("destroyable"):
 		GameManager.swiftCounter += 0.1
 		area.flash_red()
-		area.take_damage(damage * DAMAGE_MULT)
+		area.take_damage(damage * DAMAGE_MULT, element_type)
 		AudioManager.play_sound(preload("res://sounds/swiftHit.wav"), 0.25, volume_mult)
+		match element_type:
+			ElementType.FIRE:
+				AudioManager.play_sound(preload("res://sounds/fireEffect.wav"), 0.3, volume_mult)
+			ElementType.ICE:
+				AudioManager.play_sound(preload("res://sounds/iceEffect.wav"), 0.2, volume_mult)
 		queue_free()

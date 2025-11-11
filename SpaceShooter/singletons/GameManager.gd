@@ -8,7 +8,7 @@ var swiftCounter: float = 1.0
 
 const SPEED_ACCELERATION := 2.0
 const MIN_SPEED := 50.0
-const MAX_SPEED := INF
+const MAX_SPEED := 1000.0
 const SWIFT_DECAY := 0.25
 const MIN_SWIFT := 1.0
 const MAX_SWIFT := 2.0

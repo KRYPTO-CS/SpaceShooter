@@ -20,6 +20,8 @@ enum BulletType { NULL, SIMPLE, DRILL, SWIFT }
 var bullet_type: BulletType = BulletType.NULL
 enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE, BURST, SPRAY, V, DELTA }
 var shooting_type: ShootingType = ShootingType.NULL
+enum ElementType { NULL, NEUTRAL, FIRE, ICE }
+var element_type: ElementType = ElementType.NULL
 
 # properties
 var base_shoot_interval := 0.3
@@ -43,7 +45,7 @@ var is_bursting = false
 var v_count := false
 
 func _ready():
-	swap(BulletType.SIMPLE, ShootingType.NORMAL)
+	swap(BulletType.SIMPLE, ShootingType.NORMAL, ElementType.NEUTRAL)
 
 func _process(delta):
 	shoot_interval = base_shoot_interval / GameManager.swiftCounter
@@ -127,6 +129,7 @@ func shoot_normal_bullet(angle: float = 0.0, scale_mult: float = 1.0, damage_mul
 	bullet.damage = base_damage * damage_mult
 	bullet.angle_degrees = angle
 	bullet.volume_mult = volume_mult
+	bullet.element_type = element_type
 	scene_root.add_child(bullet)
 
 func shoot_charged_bullet():
@@ -137,15 +140,18 @@ func shoot_charged_bullet():
 	var charge_ratio = charge_time / max_charge_time
 	bullet.scale = Vector2.ONE * lerp(1.0, max_bullet_scale, charge_ratio)
 	bullet.volume_mult = lerp(1.0, 4.0, charge_ratio)
+	bullet.element_type = element_type
 	bullet.damage = current_damage
 	bullet.speed *= (1.0 + charge_ratio / 1.5)
 	scene_root.add_child(bullet)
 
-func swap(new_bullet_type: BulletType = BulletType.NULL, new_shooting_type: ShootingType = ShootingType.NULL) -> void:
+func swap(new_bullet_type: BulletType = BulletType.NULL, new_shooting_type: ShootingType = ShootingType.NULL, new_element_type: ElementType = ElementType.NULL) -> void:
 	if new_bullet_type != BulletType.NULL:
 		bullet_type = new_bullet_type
 	if new_shooting_type != ShootingType.NULL:
 		shooting_type = new_shooting_type
+	if new_element_type != ElementType.NULL:
+		element_type = new_element_type
 		
 	match bullet_type:
 		BulletType.SIMPLE:
