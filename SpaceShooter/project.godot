@@ -20,6 +20,7 @@ config/icon="res://icon.svg"
 
 MusicManager="*res://singletons/musicManager.gd"
 AudioManager="*res://singletons/audioManager.tscn"
+JSB="*res://singletons/JSB.gd"
 GameManager="*res://singletons/GameManager.gd"
 
 [display]

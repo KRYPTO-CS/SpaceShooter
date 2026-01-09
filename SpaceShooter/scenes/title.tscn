@@ -1,8 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://cwidyg83ilpi0"]
+[gd_scene load_steps=13 format=3 uid="uid://cwidyg83ilpi0"]
 
 [ext_resource type="Texture2D" uid="uid://cryyhtbirunco" path="res://sprites/starsSheet.png" id="1_4ignj"]
 [ext_resource type="Script" uid="uid://krspw21sq7il" path="res://scenes/title.gd" id="1_p6dhs"]
 [ext_resource type="FontFile" uid="uid://comnxc80cbnvx" path="res://fonts/m5x7.ttf" id="2_wosw1"]
+[ext_resource type="Script" uid="uid://dyniftni1ir62" path="res://scenes/testscript.gd" id="4_pyl7j"]
+[ext_resource type="Script" uid="uid://bu440emqedr6w" path="res://scenes/test2script.gd" id="5_b3w7a"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("1_4ignj")
@@ -44,6 +46,10 @@ animations = [{
 font = ExtResource("2_wosw1")
 font_size = 128
 
+[sub_resource type="LabelSettings" id="LabelSettings_pyl7j"]
+font = ExtResource("2_wosw1")
+font_size = 64
+
 [node name="TitleScreen" type="Node2D"]
 script = ExtResource("1_p6dhs")
 
@@ -73,3 +79,28 @@ text = "
 Tap to play!"
 label_settings = SubResource("LabelSettings_p6dhs")
 horizontal_alignment = 1
+
+[node name="Test1" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -376.0
+offset_bottom = 51.0
+grow_horizontal = 0
+text = "Test Not Received"
+label_settings = SubResource("LabelSettings_pyl7j")
+horizontal_alignment = 1
+script = ExtResource("4_pyl7j")
+
+[node name="Test2" type="Label" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -376.0
+offset_top = 43.0
+offset_bottom = 94.0
+grow_horizontal = 0
+text = "Testing..."
+label_settings = SubResource("LabelSettings_pyl7j")
+horizontal_alignment = 1
+script = ExtResource("5_b3w7a")

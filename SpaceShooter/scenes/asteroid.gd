@@ -67,6 +67,8 @@ func take_damage(amount: float, element_type: GameManager.ElementType = GameMana
 			ignite()
 		GameManager.ElementType.ICE:
 			inflict_ice()
+		GameManager.ElementType.WATER:
+			inflict_water()
 		GameManager.ElementType.NEUTRAL:
 			hp *= 0.95
 		_:
@@ -103,17 +105,17 @@ func explode():
 func ignite():
 	active_status = GameManager.ElementType.FIRE
 	burn_timer = BURN_DURATION
-	modulate = RED
-	await get_tree().create_timer(0.075).timeout
-	modulate = color
 	color = ORANGE
-	modulate = color
+	flash_red()
 	
 func inflict_ice():
 	active_status = GameManager.ElementType.ICE
-	modulate = RED
-	await get_tree().create_timer(0.075).timeout
-	modulate = color
 	color = CYAN
-	modulate = color
+	flash_red()
 	speed = max(speed - 50.0, 100.0)
+	
+func inflict_water():
+	active_status = GameManager.ElementType.WATER
+	color = WHITE
+	flash_red()
+	

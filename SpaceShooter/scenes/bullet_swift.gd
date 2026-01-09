@@ -77,5 +77,5 @@ func splash(hit_asteroid):
 			continue
 		var dist = position.distance_to(asteroid.position)
 		if dist <= splash_radius:
-			asteroid.take_damage(damage * DAMAGE_MULT * 0.5, GameManager.ElementType.NEUTRAL)
+			asteroid.take_damage(damage * DAMAGE_MULT * 0.5, GameManager.ElementType.WATER)
 			asteroid.flash_red()

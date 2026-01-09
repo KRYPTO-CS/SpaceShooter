@@ -15,6 +15,7 @@ const MAX_SWIFT := 3.0
 
 var baseTrack = "res://music/musicPlaceholder.mp3"
 var game_started: bool = false
+var test_received = false
 
 # enums
 enum BulletType { NULL, SIMPLE, DRILL, SWIFT }
@@ -46,3 +47,4 @@ func add_score(points: int) -> void:
 func reset_score() -> void:
 	score = 0
 	JavaScriptBridge.eval("sendScoreToReact(" + str(score) + ");")
+	
