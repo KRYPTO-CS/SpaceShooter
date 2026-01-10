@@ -120,16 +120,6 @@ body {
 		</script>
 		
 		<script>
-		  setInterval(() => {
-			const msg = {
-			  type: "testMessage"
-			};
-			window.sendToGodot(msg);
-			console.log("Sent test to Godot");
-		  }, 5000);
-		</script>
-		
-		<script>
 		  function sendScoreToReact(score) {
 			if (window.ReactNativeWebView) {
 			  window.ReactNativeWebView.postMessage(
