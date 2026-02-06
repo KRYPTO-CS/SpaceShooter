@@ -14,11 +14,20 @@ func _ready() -> void:
 	var window = JavaScriptBridge.get_interface("window")
 	window.cb = _callback_ref
 
-func _process(delta: float) -> void:
-	pass
-
 func _on_js_message(args):
 	if args[0] == "skins":
 		GameManager.test_received = true
-	if args[1] == "red":
-		GameManager.shipBody = preload("res://sprites/ship_components/ship_body/shipBodyRed.png")
+		match args[1]: # set body skin
+			"red":
+				GameManager.shipBody = preload("res://sprites/ship_components/ship_body/shipBodyRed.png")
+			"green":
+				GameManager.shipBody = preload("res://sprites/ship_components/ship_body/shipBodyGreen.png")
+			"blue":
+				GameManager.shipBody = preload("res://sprites/ship_components/ship_body/shipBodyBlue.png")
+		match args[2]: # set wing skin
+			"red":
+				GameManager.shipBody = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
+			"green":
+				GameManager.shipBody = preload("res://sprites/ship_components/ship_wings/shipWingsGreen.png")
+			"blue":
+				GameManager.shipBody = preload("res://sprites/ship_components/ship_wings/shipWingsBlue.png")
