@@ -110,6 +110,16 @@ body {
 		</div>
 		
 		<script>
+		  window.sendToGodot = function (payload) {
+			if (typeof window.cb === "function") {
+			  window.cb(payload);
+			} else {
+			  console.warn("Godot callback not ready", payload);
+			}
+		  };
+		</script>
+		
+		<script>
 		  function sendScoreToReact(score) {
 			if (window.ReactNativeWebView) {
 			  window.ReactNativeWebView.postMessage(
@@ -128,32 +138,30 @@ body {
 				JSON.stringify({ type: 'testMessage', success: true })
 			  );
 			} else {
-			  console.log("Error in testMessage communication");
+			  console.log("Error with testMessage");
 			}
 		  }
 		</script>
 		
 		<script>
-		  window.addEventListener("message", function(event) {
+		  window.addEventListener("message", function (event) {
 			try {
 			  const msg = JSON.parse(event.data);
+			  console.log("From React:", msg);
 
-			  console.log("Message received in index.html:", msg);
+			  window.sendToGodot(msg);
 
 			  if (window.ReactNativeWebView) {
 				window.ReactNativeWebView.postMessage(
 				  JSON.stringify({
-					type: "pingResponse",
-					receivedType: msg.type,
-					success: true,
+					type: "ack",
+					received: msg.type,
 				  })
 				);
-			  } else {
-				console.log("ReactNativeWebView not found");
 			  }
 
-			} catch (err) {
-			  console.warn("Invalid or non-JSON message:", event.data);
+			} catch (e) {
+			  console.warn("Invalid message", event.data);
 			}
 		  });
 		</script>
@@ -266,5 +274,6 @@ const engine = new Engine(GODOT_CONFIG);
 		</script>
 	</body>
 </html>
+
 
 

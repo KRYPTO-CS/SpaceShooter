@@ -15,6 +15,14 @@ var last_finger_pos := Vector2.ZERO
 var flash_timer := 0.0
 var flash_interval := 0.1 
 
+# sprites
+@onready var SpriteBody: Sprite2D = $SpriteBody
+@onready var SpriteWings: Sprite2D = $SpriteWings
+
+func _ready() -> void:
+	SpriteBody.texture = GameManager.shipBody
+	SpriteWings.texture = GameManager.shipWings
+
 func _process(delta):
 
 	position.x = clamp(position.x, -x_limit, x_limit)

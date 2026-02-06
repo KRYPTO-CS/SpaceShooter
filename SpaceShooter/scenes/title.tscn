@@ -79,28 +79,16 @@ text = "
 Tap to play!"
 label_settings = SubResource("LabelSettings_p6dhs")
 horizontal_alignment = 1
-
-[node name="Test1" type="Label" parent="UI"]
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -376.0
-offset_bottom = 51.0
-grow_horizontal = 0
-text = "Test Not Received"
-label_settings = SubResource("LabelSettings_pyl7j")
-horizontal_alignment = 1
 script = ExtResource("4_pyl7j")
 
-[node name="Test2" type="Label" parent="UI"]
+[node name="Test" type="Label" parent="UI"]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -376.0
-offset_top = 43.0
-offset_bottom = 94.0
+offset_left = -416.0
+offset_bottom = 51.0
 grow_horizontal = 0
-text = "Testing..."
+text = "Not running on web!"
 label_settings = SubResource("LabelSettings_pyl7j")
 horizontal_alignment = 1
 script = ExtResource("5_b3w7a")
