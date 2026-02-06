@@ -18,7 +18,7 @@ func _process(delta: float) -> void:
 	pass
 
 func _on_js_message(args):
-	GameManager.test_received = true
-	
-	var payload = args[0]
-	print("Received from JS:", payload)
+	if args[0] == "skins":
+		GameManager.test_received = true
+	if args[1] == "red":
+		GameManager.shipBody = preload("res://sprites/ship_components/ship_body/shipBodyRed.png")

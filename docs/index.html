@@ -110,11 +110,11 @@ body {
 		</div>
 		
 		<script>
-		  window.sendToGodot = function (payload) {
+		  window.sendToGodot = function (type, data1, data2) {
 			if (typeof window.cb === "function") {
-			  window.cb(payload);
+			  window.cb(type, data1, data2);
 			} else {
-			  console.warn("Godot callback not ready", payload);
+			  console.warn("Godot callback not ready", type, data1, data2);
 			}
 		  };
 		</script>
@@ -144,26 +144,29 @@ body {
 		</script>
 		
 		<script>
-		  window.addEventListener("message", function (event) {
-			try {
-			  const msg = JSON.parse(event.data);
-			  console.log("From React:", msg);
+			window.addEventListener("message", function (event) {
+			  try {
+				const msg = JSON.parse(event.data);
 
-			  window.sendToGodot(msg);
+				const type = msg.type;
+				const data1 = msg.data1;
+				const data2 = msg.data2;
 
-			  if (window.ReactNativeWebView) {
-				window.ReactNativeWebView.postMessage(
-				  JSON.stringify({
-					type: "ack",
-					received: msg.type,
-				  })
-				);
+				window.sendToGodot(type, data1, data2);
+
+				if (window.ReactNativeWebView) {
+				  window.ReactNativeWebView.postMessage(
+					JSON.stringify({
+					  type: "ack",
+					  received: msg.type,
+					})
+				  );
+				}
+
+			  } catch (e) {
+				console.warn("Invalid message", event.data);
 			  }
-
-			} catch (e) {
-			  console.warn("Invalid message", event.data);
-			}
-		  });
+			});
 		</script>
 
 		<script src="index.js"></script>
