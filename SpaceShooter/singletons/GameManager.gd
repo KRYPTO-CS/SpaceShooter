@@ -27,7 +27,7 @@ enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE, BURST, SPRAY, V, DELTA, RIPPLE
 enum ElementType { NULL, NEUTRAL, FIRE, ICE, WATER }
 
 func _ready():
-	JavaScriptBridge.eval("testMessage();")
+	pass
 
 func _process(delta: float) -> void:
 	if not game_started:
