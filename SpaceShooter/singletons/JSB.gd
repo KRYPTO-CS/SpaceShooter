@@ -26,8 +26,8 @@ func _on_js_message(args):
 				GameManager.shipBody = preload("res://sprites/ship_components/ship_body/shipBodyBlue.png")
 		match args[2]: # set wing skin
 			"red":
-				GameManager.shipBody = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
+				GameManager.shipWings = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
 			"green":
-				GameManager.shipBody = preload("res://sprites/ship_components/ship_wings/shipWingsGreen.png")
+				GameManager.shipWings = preload("res://sprites/ship_components/ship_wings/shipWingsGreen.png")
 			"blue":
-				GameManager.shipBody = preload("res://sprites/ship_components/ship_wings/shipWingsBlue.png")
+				GameManager.shipWings = preload("res://sprites/ship_components/ship_wings/shipWingsBlue.png")
