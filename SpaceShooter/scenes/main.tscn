@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cryyhtbirunco" path="res://sprites/starsSheet.png" id="2_tefeu"]
 [ext_resource type="Texture2D" uid="uid://vkmsv8l4pp8m" path="res://sprites/Crystal.png" id="4_eb6dy"]
 [ext_resource type="Script" uid="uid://bkdyr7lf114n" path="res://scenes/speed.gd" id="4_tbgi4"]
-[ext_resource type="Texture2D" uid="uid://t2snceo8k4ie" path="res://sprites/fuel.png" id="8_choun"]
+[ext_resource type="Texture2D" uid="uid://06emniygvt4" path="res://sprites/speed.png" id="6_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://dw6xccvk4ykcb" path="res://sprites/powerups/simpleIcon.png" id="9_choun"]
 [ext_resource type="Texture2D" uid="uid://d16rxwpdukjl0" path="res://sprites/powerups/normalIcon.png" id="10_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://ctnnvi32lhqsa" path="res://sprites/powerups/neutralIcon.png" id="11_trceg"]
@@ -16,14 +16,16 @@
 [sub_resource type="LabelSettings" id="LabelSettings_0wfyh"]
 font = ExtResource("2_jyhfs")
 font_size = 128
-font_color = Color(0.47058824, 0.47058824, 0.47058824, 1)
-outline_size = 10
+font_color = Color(0.62352943, 0.5254902, 0.7529412, 1)
+outline_size = 12
+outline_color = Color(0.36862746, 0.32941177, 0.5568628, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_tefeu"]
 font = ExtResource("2_jyhfs")
 font_size = 128
-font_color = Color(0.9019608, 0.16078432, 0.27450982, 1)
-outline_size = 10
+font_color = Color(0.007843138, 0.7647059, 0.6039216, 1)
+outline_size = 12
+outline_color = Color(0.019607844, 0.4, 0.5529412, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("2_tefeu")
@@ -77,23 +79,23 @@ label_settings = SubResource("LabelSettings_0wfyh")
 script = ExtResource("2_sugp2")
 
 [node name="Rocks" type="Sprite2D" parent="UI/Score"]
-position = Vector2(-80, 60)
+position = Vector2(-70, 57.5)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("4_eb6dy")
 
 [node name="Speed" type="Label" parent="UI"]
 offset_left = 165.0
-offset_top = 170.0
+offset_top = 120.0
 offset_right = 238.0
-offset_bottom = 272.0
+offset_bottom = 222.0
 text = "0"
 label_settings = SubResource("LabelSettings_tefeu")
 script = ExtResource("4_tbgi4")
 
-[node name="Fuel" type="Sprite2D" parent="UI/Speed"]
-position = Vector2(-80, 55)
+[node name="Speed" type="Sprite2D" parent="UI/Speed"]
+position = Vector2(-65, 55)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("8_choun")
+texture = ExtResource("6_eb6dy")
 
 [node name="PowerupUI" type="Control" parent="UI"]
 layout_mode = 3

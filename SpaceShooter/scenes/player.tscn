@@ -89,6 +89,7 @@ shape = SubResource("CircleShape2D_g2els")
 debug_color = Color(0.7, 0, 0, 0.41960785)
 
 [node name="SpecialIndicator" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -102,6 +103,7 @@ label_settings = SubResource("LabelSettings_smehm")
 script = ExtResource("6_fjrip")
 
 [node name="SpecialIndicator2" type="Label" parent="."]
+visible = false
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
