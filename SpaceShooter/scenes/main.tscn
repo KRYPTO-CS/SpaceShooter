@@ -6,8 +6,8 @@
 [ext_resource type="Script" uid="uid://camptjpcnhjqi" path="res://scenes/parallax.gd" id="2_o6xl0"]
 [ext_resource type="Script" uid="uid://cmeubrkxnbgfx" path="res://scenes/score.gd" id="2_sugp2"]
 [ext_resource type="Texture2D" uid="uid://cryyhtbirunco" path="res://sprites/starsSheet.png" id="2_tefeu"]
+[ext_resource type="Texture2D" uid="uid://vkmsv8l4pp8m" path="res://sprites/Crystal.png" id="4_eb6dy"]
 [ext_resource type="Script" uid="uid://bkdyr7lf114n" path="res://scenes/speed.gd" id="4_tbgi4"]
-[ext_resource type="Texture2D" uid="uid://ch0i0llmelddb" path="res://sprites/rocks.png" id="6_85g3d"]
 [ext_resource type="Texture2D" uid="uid://t2snceo8k4ie" path="res://sprites/fuel.png" id="8_choun"]
 [ext_resource type="Texture2D" uid="uid://dw6xccvk4ykcb" path="res://sprites/powerups/simpleIcon.png" id="9_choun"]
 [ext_resource type="Texture2D" uid="uid://d16rxwpdukjl0" path="res://sprites/powerups/normalIcon.png" id="10_eb6dy"]
@@ -79,7 +79,7 @@ script = ExtResource("2_sugp2")
 [node name="Rocks" type="Sprite2D" parent="UI/Score"]
 position = Vector2(-80, 60)
 scale = Vector2(1.5, 1.5)
-texture = ExtResource("6_85g3d")
+texture = ExtResource("4_eb6dy")
 
 [node name="Speed" type="Label" parent="UI"]
 offset_left = 165.0

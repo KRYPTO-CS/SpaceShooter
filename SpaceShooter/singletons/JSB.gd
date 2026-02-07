@@ -5,7 +5,7 @@ var _callback_ref
 var running_web = false
 
 func _ready() -> void:
-	if !(OS.has_feature("ios") or OS.has_feature("web_ios") or OS.has_feature("web_windows")):
+	if !(OS.has_feature("web_android") or OS.has_feature("web_ios") or OS.has_feature("web_windows")):
 		print("Not running in web, skipping JS")
 		return
 	
@@ -20,16 +20,20 @@ func _on_js_message(args):
 	if args[0] == "skins":
 		GameManager.test_received = true
 		match args[1]: # set body skin
-			"red":
+			"1":
 				GameManager.shipBody = preload("res://sprites/ship_components/ship_body/shipBodyRed.png")
-			"green":
+			"2":
 				GameManager.shipBody = preload("res://sprites/ship_components/ship_body/shipBodyGreen.png")
-			"blue":
+			"0":
+				GameManager.shipBody = preload("res://sprites/ship_components/ship_body/shipBodyBlue.png")
+			_:
 				GameManager.shipBody = preload("res://sprites/ship_components/ship_body/shipBodyBlue.png")
 		match args[2]: # set wing skin
-			"red":
+			"1":
 				GameManager.shipWings = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
-			"green":
+			"2":
 				GameManager.shipWings = preload("res://sprites/ship_components/ship_wings/shipWingsGreen.png")
-			"blue":
+			"0":
 				GameManager.shipWings = preload("res://sprites/ship_components/ship_wings/shipWingsBlue.png")
+			_:
+				GameManager.shipWings = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
