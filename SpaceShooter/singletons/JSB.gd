@@ -7,6 +7,7 @@ var running_web = false
 func _ready() -> void:
 	if !(OS.has_feature("web_android") or OS.has_feature("web_ios") or OS.has_feature("web_windows")):
 		print("Not running in web, skipping JS")
+		GameManager.active_scene = 0
 		return
 	
 	JavaScriptBridge.eval("testMessage();")
@@ -43,7 +44,7 @@ func _on_js_message(args):
 				GameManager.shipWings = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
 		match args[3]: # set game
 			"0":
-				pass # already active
+				GameManager.active_scene = 0
 			"1":
 				GameManager.active_scene = 1
 			_:

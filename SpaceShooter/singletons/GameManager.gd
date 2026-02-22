@@ -1,7 +1,7 @@
 extends Node
 
-var game_scene_1: PackedScene = preload("res://scenes/main.tscn")
-var game_scene_2: PackedScene = preload("res://scenes2/main.tscn")
+var game_scene_0: PackedScene = preload("res://scenes/main.tscn")
+var game_scene_1: PackedScene = preload("res://scenes2/main.tscn")
 
 var score: int = 0
 var speed: float = 100
@@ -19,7 +19,7 @@ var game_started: bool = false
 var test_received = false
 
 # communication w/ app
-var active_scene = 0
+var active_scene
 var shipBody: Texture2D = preload("res://sprites/ship_components/ship_body/shipBodyBlue.png")
 var shipWings: Texture2D = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
 
@@ -43,10 +43,12 @@ func _process(delta: float) -> void:
 	
 func begin_game() -> void:
 	match active_scene:
+		0:
+			get_tree().change_scene_to_packed(game_scene_0)
 		1:
-			get_tree().change_scene_to_packed(game_scene_2)
-		_:
 			get_tree().change_scene_to_packed(game_scene_1)
+		_:
+			pass
 	MusicManager.play_music(baseTrack, -15.0)
 	game_started = true
 
