@@ -19,7 +19,7 @@ var game_started: bool = false
 var test_received = false
 
 # communication w/ app
-var active_scene
+var active_scene: int
 var shipBody: Texture2D = preload("res://sprites/ship_components/ship_body/shipBodyBlue.png")
 var shipWings: Texture2D = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
 
