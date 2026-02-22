@@ -48,7 +48,7 @@ func begin_game() -> void:
 		1:
 			get_tree().change_scene_to_packed(game_scene_1)
 		_:
-			pass
+			get_tree().change_scene_to_packed(game_scene_0)
 	MusicManager.play_music(baseTrack, -15.0)
 	game_started = true
 
