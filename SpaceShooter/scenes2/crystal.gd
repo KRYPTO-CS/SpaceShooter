@@ -6,7 +6,7 @@ const ORANGE := Color(1.0, 0.5, 0)
 const CYAN := Color(0.4, 0.7, 1)
 
 var points := 1 
-var speed := 100.0
+var speed := GameManager.speed * 2
 var rotation_speed := 45.0  # degrees per second
 var max_hp := 3.0
 var hp := max_hp
@@ -24,14 +24,14 @@ const BURN_DPS := 0.5
 
 func _ready():
 	# Randomize movement and rotation slightly
-	speed += randf_range(-50.0, 50.0)
+	##speed += randf_range(-50.0, 50.0)
 	rotation_speed += randf_range(0.0, 45.0)
 	rotation_speed *= randi_range(0, 1) * 2 - 1
 	hp = max_hp
 
 func _process(delta):
 	# Move downward
-	position.y += speed * delta
+	position.x -= speed * delta
 	rotation_degrees += rotation_speed * delta
 	
 	# Burn effect
@@ -56,10 +56,10 @@ func _process(delta):
 		if area.is_in_group("flame"):
 			if area.get_parent().state != area.get_parent().PlayerState.INVINCIBLE:
 				self.take_damage(3.0 * delta)
+		if area.is_in_group("asteroid"):
+			queue_free()
 		if area.is_in_group("player"):
-			if area.get_parent().state != area.get_parent().PlayerState.INVINCIBLE:
-				area.get_parent().take_damage(1.45)
-				hit_player()
+			hit_player()
 
 func take_damage(amount: float, element_type: GameManager.ElementType = GameManager.ElementType.NULL):
 	match element_type:
@@ -82,12 +82,10 @@ func break_apart():
 	explode()
 
 func hit_player():
-	GameManager.add_score(-1)
-	GameManager.speed -= 20
-	AudioManager.play_sound(preload("res://sounds/playerHit.wav"), 1.0)
-	AudioManager.play_sound(preload("res://sounds/playerOuch.wav"), 0.75)
-	AudioManager.play_sound(preload("res://sounds/asteroidBreak.wav"), 0.5)
-	explode()
+	GameManager.add_score(1)
+	GameManager.speed += 10.0
+	AudioManager.play_sound(preload("res://sounds/powerup3.wav"), 0.6)
+	queue_free()
 	
 func flash_red():
 	modulate = RED
@@ -95,7 +93,7 @@ func flash_red():
 	modulate = color
 	
 func explode():
-	var explosion = GameManager.explosion.instantiate()
+	var explosion = preload("res://scenes/explosion.tscn").instantiate()
 	explosion.prefix = prefix
 	explosion.active_status = active_status
 	explosion.global_position = global_position

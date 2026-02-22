@@ -1,6 +1,7 @@
 extends Node
 
-@export var game_scene: PackedScene = preload("res://scenes/main.tscn")
+var game_scene_1: PackedScene = preload("res://scenes/main.tscn")
+var game_scene_2: PackedScene = preload("res://scenes2/main.tscn")
 
 var score: int = 0
 var speed: float = 100
@@ -17,9 +18,13 @@ var baseTrack = "res://music/musicPlaceholder.mp3"
 var game_started: bool = false
 var test_received = false
 
-# cosmetics
+# communication w/ app
+var active_scene = 0
 var shipBody: Texture2D = preload("res://sprites/ship_components/ship_body/shipBodyBlue.png")
 var shipWings: Texture2D = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
+
+# preloads
+var explosion = preload("res://scenes/explosion.tscn")
 
 # enums
 enum BulletType { NULL, SIMPLE, DRILL, SWIFT }
@@ -37,10 +42,13 @@ func _process(delta: float) -> void:
 	swiftCounter = clamp(swiftCounter - SWIFT_DECAY * delta, MIN_SWIFT, MAX_SWIFT)
 	
 func begin_game() -> void:
-	if game_scene:
-		get_tree().change_scene_to_packed(game_scene)
-		MusicManager.play_music(baseTrack, -15.0)
-		game_started = true
+	match active_scene:
+		1:
+			get_tree().change_scene_to_packed(game_scene_2)
+		_:
+			get_tree().change_scene_to_packed(game_scene_1)
+	MusicManager.play_music(baseTrack, -15.0)
+	game_started = true
 
 func add_score(points: int) -> void:
 	score += points

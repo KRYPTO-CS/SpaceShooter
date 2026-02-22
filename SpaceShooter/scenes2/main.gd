@@ -1,0 +1,37 @@
+extends Node2D
+
+var asteroid_scene := preload("res://scenes2/asteroid.tscn")
+var crystal_scene := preload("res://scenes2/crystal.tscn")
+var asteroid_timer := 0.0
+
+var baseTrack = "res://music/musicPlaceholder.mp3"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	## TODO: move this to the title screen later
+	MusicManager.play_music(baseTrack, -15.0)
+	randomize()
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	asteroid_timer += delta
+	if asteroid_timer > max(0.1, (0.75 - (GameManager.speed/750.0))):
+		spawn_asteroid()
+		if randi_range(0, 1) == 1:
+			spawn_crystal()
+		asteroid_timer = 0.0
+		
+func spawn_asteroid():
+	var asteroid = asteroid_scene.instantiate()
+	asteroid.position = Vector2(650, randf_range(-880, 880))
+	asteroid.speed = GameManager.speed * 0.75 + 150
+	
+	add_child(asteroid)
+
+func spawn_crystal():
+	var crystal = crystal_scene.instantiate()
+	crystal.position = Vector2(540, randf_range(-880, 880))
+	crystal.speed = GameManager.speed * 0.75 + 150
+	
+	add_child(crystal)

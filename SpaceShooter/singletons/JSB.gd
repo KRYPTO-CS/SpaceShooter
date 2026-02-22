@@ -41,3 +41,10 @@ func _on_js_message(args):
 				GameManager.shipWings = preload("res://sprites/ship_components/ship_wings/shipWingsYellow.png")
 			_:
 				GameManager.shipWings = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
+		match args[3]: # set game
+			"0":
+				pass # already active
+			"1":
+				GameManager.active_scene = 1
+			_:
+				pass

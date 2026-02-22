@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bl8qpcafbwhf0"]
+[gd_scene format=3 uid="uid://bl8qpcafbwhf0"]
 
 [ext_resource type="Texture2D" uid="uid://rv8vp367orti" path="res://sprites/debris.png" id="1_nfeox"]
 [ext_resource type="Script" uid="uid://bgbv8dgtplrik" path="res://scenes/explosion.gd" id="2_nfeox"]
@@ -23,7 +23,7 @@ scale_min = 0.75
 scale_max = 1.25
 color_ramp = SubResource("GradientTexture1D_aw4cw")
 
-[node name="Explosion" type="GPUParticles2D"]
+[node name="Explosion" type="GPUParticles2D" unique_id=1172534795]
 emitting = false
 amount = 12
 texture = ExtResource("1_nfeox")

@@ -1,0 +1,87 @@
+[gd_scene format=3 uid="uid://bl67b0f41wr1o"]
+
+[ext_resource type="Script" uid="uid://d4ij1cy8r0cjl" path="res://scenes2/player.gd" id="1_e8j5r"]
+[ext_resource type="Texture2D" uid="uid://eg3vqpu6qjt1" path="res://sprites/ship_components/shipDetailsSheet.png" id="2_dg41t"]
+[ext_resource type="Texture2D" uid="uid://c1hc6yur6neyg" path="res://sprites/ship_components/ship_wings/shipWingsRed.png" id="2_mldu8"]
+[ext_resource type="Texture2D" uid="uid://dlcjmssvetft2" path="res://sprites/ship_components/ship_body/shipBodyBlue.png" id="3_j1fhn"]
+[ext_resource type="Texture2D" uid="uid://ci36bvdlby4r5" path="res://sprites/ship_toppers/defaultTopper.png" id="3_tuyoq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23b46"]
+atlas = ExtResource("2_dg41t")
+region = Rect2(0, 0, 252, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mldu8"]
+atlas = ExtResource("2_dg41t")
+region = Rect2(252, 0, 252, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j1fhn"]
+atlas = ExtResource("2_dg41t")
+region = Rect2(504, 0, 252, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i0l2h"]
+atlas = ExtResource("2_dg41t")
+region = Rect2(756, 0, 252, 272)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2x88a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23b46")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mldu8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j1fhn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i0l2h")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jej6c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_tuyoq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_dqkch"]
+radius = 40.0
+height = 158.0
+
+[node name="Player" type="Node2D" unique_id=1721175607]
+script = ExtResource("1_e8j5r")
+
+[node name="SpriteWings" type="Sprite2D" parent="." unique_id=1280014952]
+rotation = 1.5707964
+texture = ExtResource("2_mldu8")
+
+[node name="SpriteBody" type="Sprite2D" parent="." unique_id=5974985]
+rotation = 1.5707964
+texture = ExtResource("3_j1fhn")
+
+[node name="SpriteDetails" type="AnimatedSprite2D" parent="." unique_id=46796421]
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_2x88a")
+autoplay = "default"
+offset = Vector2(1, 0.99999994)
+
+[node name="ShipTopper" type="AnimatedSprite2D" parent="." unique_id=25227587]
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_jej6c")
+offset = Vector2(0.99999547, -103)
+
+[node name="hitbox" type="Area2D" parent="." unique_id=194677210 groups=["player"]]
+rotation = 1.5707964
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=1747588147]
+position = Vector2(1, -17)
+shape = SubResource("CapsuleShape2D_dqkch")

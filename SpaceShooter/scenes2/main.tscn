@@ -1,0 +1,192 @@
+[gd_scene format=3 uid="uid://cws3i5qxomsir"]
+
+[ext_resource type="Script" uid="uid://cd0go4lu24y63" path="res://scenes2/main.gd" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://cryyhtbirunco" path="res://sprites/starsSheet.png" id="2_sugp2"]
+[ext_resource type="Script" uid="uid://cmeubrkxnbgfx" path="res://scenes/score.gd" id="2_tefeu"]
+[ext_resource type="Texture2D" uid="uid://vkmsv8l4pp8m" path="res://sprites/Crystal.png" id="3_85g3d"]
+[ext_resource type="Script" uid="uid://bkdyr7lf114n" path="res://scenes/speed.gd" id="3_o6xl0"]
+[ext_resource type="FontFile" uid="uid://comnxc80cbnvx" path="res://fonts/m5x7.ttf" id="4_choun"]
+[ext_resource type="Texture2D" uid="uid://06emniygvt4" path="res://sprites/speed.png" id="6_ya4ey"]
+[ext_resource type="Script" path="res://scenes2/parallax.gd" id="7_ix7l7"]
+[ext_resource type="PackedScene" uid="uid://bl67b0f41wr1o" path="res://scenes2/player.tscn" id="9_ni2b5"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_85g3d"]
+font = ExtResource("4_choun")
+font_size = 128
+font_color = Color(0.62352943, 0.5254902, 0.7529412, 1)
+outline_size = 12
+outline_color = Color(0.36862746, 0.32941177, 0.5568628, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_choun"]
+font = ExtResource("4_choun")
+font_size = 128
+font_color = Color(0.007843138, 0.7647059, 0.6039216, 1)
+outline_size = 12
+outline_color = Color(0.019607844, 0.4, 0.5529412, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sugp2"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(0, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tipki"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(1280, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85g3d"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(2560, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_choun"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(3840, 0, 1280, 1920)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ya4ey"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sugp2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tipki")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85g3d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_choun")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jyhfs"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(0, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbgi4"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(1280, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tefeu"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(2560, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(3840, 0, 1280, 1920)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tipki"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jyhfs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbgi4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tefeu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6xl0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ya4ey"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(0, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eb6dy"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(1280, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_trceg"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(2560, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8y0u"]
+atlas = ExtResource("2_sugp2")
+region = Rect2(3840, 0, 1280, 1920)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jkv2x"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ya4ey")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eb6dy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_trceg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8y0u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Main" type="Node2D" unique_id=1688015536]
+script = ExtResource("1_o5qli")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1352273716]
+
+[node name="Score" type="Label" parent="UI" unique_id=631821715]
+offset_left = 165.0
+offset_top = 15.0
+offset_right = 238.0
+offset_bottom = 117.0
+text = "0"
+label_settings = SubResource("LabelSettings_85g3d")
+script = ExtResource("2_tefeu")
+
+[node name="Rocks" type="Sprite2D" parent="UI/Score" unique_id=1985454779]
+position = Vector2(-70, 57.5)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("3_85g3d")
+
+[node name="Speed" type="Label" parent="UI" unique_id=405053451]
+offset_left = 165.0
+offset_top = 120.0
+offset_right = 238.0
+offset_bottom = 222.0
+text = "0"
+label_settings = SubResource("LabelSettings_choun")
+script = ExtResource("3_o6xl0")
+
+[node name="Speed" type="Sprite2D" parent="UI/Speed" unique_id=167832297]
+position = Vector2(-65, 55)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("6_ya4ey")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=582888227]
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=927251923]
+script = ExtResource("7_ix7l7")
+
+[node name="BG1" type="AnimatedSprite2D" parent="Parallax2D" unique_id=917239751]
+position = Vector2(-3014.7498, -66.99993)
+scale = Vector2(0.9527343, 0.99999994)
+sprite_frames = SubResource("SpriteFrames_ya4ey")
+autoplay = "default"
+frame = 1
+
+[node name="BG2" type="AnimatedSprite2D" parent="Parallax2D" unique_id=1947432567]
+position = Vector2(-3014.75, -1987)
+scale = Vector2(0.9527345, 1)
+sprite_frames = SubResource("SpriteFrames_tipki")
+autoplay = "default"
+frame = 1
+frame_progress = 0.6001312
+
+[node name="BG3" type="AnimatedSprite2D" parent="Parallax2D" unique_id=2021639773]
+sprite_frames = SubResource("SpriteFrames_jkv2x")
+
+[node name="Player" parent="." unique_id=1721175607 instance=ExtResource("9_ni2b5")]
+position = Vector2(-250, 0)
