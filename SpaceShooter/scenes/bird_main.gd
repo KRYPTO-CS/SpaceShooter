@@ -10,7 +10,6 @@ var baseTrack = "res://music/musicPlaceholder.mp3"
 func _ready() -> void:
 	randomize()
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	asteroid_timer += delta
