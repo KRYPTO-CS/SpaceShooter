@@ -84,7 +84,7 @@ func break_apart():
 func hit_player():
 	GameManager.add_score(1)
 	GameManager.speed += 10.0
-	AudioManager.play_sound(preload("res://sounds/crystalGet.wav"), 0.6, 1.0, randf_range(0.85, 1.15))
+	AudioManager.play_sound(preload("res://sounds/crystalGet.wav"), 0.6, 1.0, get_random_pitch())
 	queue_free()
 	
 func flash_red():
@@ -117,3 +117,7 @@ func inflict_water():
 	color = WHITE
 	flash_red()
 	
+func get_random_pitch() -> float:
+	var intervals = [-4, -2, 0, 2, 4, 5, 7] # semitones relative to original
+	var semitone = intervals[randi() % intervals.size()]
+	return pow(2, semitone / 12.0)
