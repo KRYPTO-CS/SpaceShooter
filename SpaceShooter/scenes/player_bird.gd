@@ -1,8 +1,9 @@
 extends Node2D
 
-@export var speed := 300.0
-@export var x_limit := 300.0
-@export var y_limit := 880.0
+@export var mode := 1
+var speed := 300.0
+var x_limit := 300.0
+var y_limit := 880.0
 
 # player state
 enum PlayerState { NORMAL, INVINCIBLE, DEAD }
@@ -64,7 +65,7 @@ func _process(delta: float) -> void:
 		self.velocity_y = 5.0
 	# Rotation based on vertical speed
 	var target_rotation = clamp(velocity_y / max_velocity, -1.0, 1.0) * max_tilt
-	rotation = lerp(rotation, target_rotation, 8.0 * delta)
+	rotation = lerp(rotation, target_rotation + deg_to_rad(90), 8.0 * delta)
 		
 	if state == PlayerState.INVINCIBLE:
 		flash_timer += delta

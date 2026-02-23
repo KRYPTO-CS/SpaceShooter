@@ -6,7 +6,8 @@ const ORANGE := Color(1.0, 0.5, 0)
 const CYAN := Color(0.4, 0.7, 1)
 
 var points := 1 
-var speed := 100.0
+var speed_x := 0.0
+var speed_y := 0.0
 var rotation_speed := 45.0  # degrees per second
 var max_hp := 3.0
 var hp := max_hp
@@ -24,14 +25,14 @@ const BURN_DPS := 0.5
 
 func _ready():
 	# Randomize movement and rotation slightly
-	speed += randf_range(-50.0, 50.0)
 	rotation_speed += randf_range(0.0, 45.0)
 	rotation_speed *= randi_range(0, 1) * 2 - 1
 	hp = max_hp
 
 func _process(delta):
-	# Move downward
-	position.y += speed * delta
+	# Move
+	position.x -= speed_x * delta
+	position.y += speed_y * delta
 	rotation_degrees += rotation_speed * delta
 	
 	# Burn effect
@@ -83,7 +84,7 @@ func break_apart():
 
 func hit_player():
 	GameManager.add_score(-1)
-	GameManager.speed -= 20
+	GameManager.speed -= 30
 	AudioManager.play_sound(preload("res://sounds/playerHit.wav"), 1.0)
 	AudioManager.play_sound(preload("res://sounds/playerOuch.wav"), 0.75)
 	AudioManager.play_sound(preload("res://sounds/asteroidBreak.wav"), 0.5)
@@ -112,7 +113,7 @@ func inflict_ice():
 	active_status = GameManager.ElementType.ICE
 	color = CYAN
 	flash_red()
-	speed = max(speed - 50.0, 100.0)
+	speed_y = max(speed_y - 50.0, 100.0)
 	
 func inflict_water():
 	active_status = GameManager.ElementType.WATER

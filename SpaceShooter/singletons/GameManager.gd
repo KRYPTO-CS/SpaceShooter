@@ -1,7 +1,7 @@
 extends Node
 
-var game_scene_0: PackedScene = preload("res://scenes/main.tscn")
-var game_scene_1: PackedScene = preload("res://scenes2/main.tscn")
+var game_scene_0: PackedScene = preload("res://scenes/shooter_main.tscn")
+var game_scene_1: PackedScene = preload("res://scenes/bird_main.tscn")
 
 var score: int = 0
 var speed: float = 100

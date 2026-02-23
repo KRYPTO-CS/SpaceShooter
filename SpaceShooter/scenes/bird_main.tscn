@@ -1,14 +1,14 @@
 [gd_scene format=3 uid="uid://cws3i5qxomsir"]
 
-[ext_resource type="Script" uid="uid://cd0go4lu24y63" path="res://scenes2/main.gd" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://cd0go4lu24y63" path="res://scenes/bird_main.gd" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://cryyhtbirunco" path="res://sprites/starsSheet.png" id="2_sugp2"]
 [ext_resource type="Script" uid="uid://cmeubrkxnbgfx" path="res://scenes/score.gd" id="2_tefeu"]
 [ext_resource type="Texture2D" uid="uid://vkmsv8l4pp8m" path="res://sprites/Crystal.png" id="3_85g3d"]
 [ext_resource type="Script" uid="uid://bkdyr7lf114n" path="res://scenes/speed.gd" id="3_o6xl0"]
 [ext_resource type="FontFile" uid="uid://comnxc80cbnvx" path="res://fonts/m5x7.ttf" id="4_choun"]
 [ext_resource type="Texture2D" uid="uid://06emniygvt4" path="res://sprites/speed.png" id="6_ya4ey"]
-[ext_resource type="Script" path="res://scenes2/parallax.gd" id="7_ix7l7"]
-[ext_resource type="PackedScene" uid="uid://bl67b0f41wr1o" path="res://scenes2/player.tscn" id="9_ni2b5"]
+[ext_resource type="Script" uid="uid://camptjpcnhjqi" path="res://scenes/parallax.gd" id="7_hairp"]
+[ext_resource type="PackedScene" uid="uid://cuwckkolulw2g" path="res://scenes/player.tscn" id="9_hairp"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_85g3d"]
 font = ExtResource("4_choun")
@@ -168,7 +168,8 @@ texture = ExtResource("6_ya4ey")
 [node name="Camera2D" type="Camera2D" parent="." unique_id=582888227]
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=927251923]
-script = ExtResource("7_ix7l7")
+script = ExtResource("7_hairp")
+mode = 1
 
 [node name="BG1" type="AnimatedSprite2D" parent="Parallax2D" unique_id=917239751]
 position = Vector2(-3014.7498, -66.99993)
@@ -188,5 +189,5 @@ frame_progress = 0.6001312
 [node name="BG3" type="AnimatedSprite2D" parent="Parallax2D" unique_id=2021639773]
 sprite_frames = SubResource("SpriteFrames_jkv2x")
 
-[node name="Player" parent="." unique_id=1721175607 instance=ExtResource("9_ni2b5")]
-position = Vector2(-250, 0)
+[node name="Player" parent="." unique_id=283027264 instance=ExtResource("9_hairp")]
+mode = 1

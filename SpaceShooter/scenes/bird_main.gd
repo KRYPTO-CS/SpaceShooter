@@ -1,15 +1,13 @@
 extends Node2D
 
-var asteroid_scene := preload("res://scenes2/asteroid.tscn")
-var crystal_scene := preload("res://scenes2/crystal.tscn")
+var asteroid_scene := preload("res://scenes/asteroid.tscn")
+var crystal_scene := preload("res://scenes/crystal.tscn")
 var asteroid_timer := 0.0
 
 var baseTrack = "res://music/musicPlaceholder.mp3"
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	## TODO: move this to the title screen later
-	MusicManager.play_music(baseTrack, -15.0)
 	randomize()
 
 
@@ -25,7 +23,7 @@ func _process(delta):
 func spawn_asteroid():
 	var asteroid = asteroid_scene.instantiate()
 	asteroid.position = Vector2(650, randf_range(-880, 880))
-	asteroid.speed = GameManager.speed * 0.75 + 150
+	asteroid.speed_x = GameManager.speed * 0.75 + 150
 	
 	add_child(asteroid)
 

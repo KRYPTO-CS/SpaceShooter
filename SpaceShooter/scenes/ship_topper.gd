@@ -47,9 +47,13 @@ var ripple_offset := RIPPLE_INC
 var ripple_direction := false
 
 func _ready():
+	if get_parent().mode == 1:
+		return
 	swap(GameManager.BulletType.SIMPLE, GameManager.ShootingType.NORMAL, GameManager.ElementType.NEUTRAL)
 
 func _process(delta):
+	if get_parent().mode == 1:
+		return
 	shoot_interval = base_shoot_interval / GameManager.swiftCounter
 	
 	match shooting_type:

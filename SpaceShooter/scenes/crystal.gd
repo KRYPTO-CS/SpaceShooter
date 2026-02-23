@@ -56,10 +56,10 @@ func _process(delta):
 		if area.is_in_group("flame"):
 			if area.get_parent().state != area.get_parent().PlayerState.INVINCIBLE:
 				self.take_damage(3.0 * delta)
+		if area.is_in_group("asteroid"):
+			queue_free()
 		if area.is_in_group("player"):
-			if area.get_parent().state != area.get_parent().PlayerState.INVINCIBLE:
-				area.get_parent().take_damage(1.45)
-				hit_player()
+			hit_player()
 
 func take_damage(amount: float, element_type: GameManager.ElementType = GameManager.ElementType.NULL):
 	match element_type:
@@ -82,12 +82,10 @@ func break_apart():
 	explode()
 
 func hit_player():
-	GameManager.add_score(-1)
-	GameManager.speed -= 40.0
-	AudioManager.play_sound(preload("res://sounds/playerHit.wav"), 1.0)
-	AudioManager.play_sound(preload("res://sounds/playerOuch.wav"), 0.75)
-	AudioManager.play_sound(preload("res://sounds/asteroidBreak.wav"), 0.5)
-	explode()
+	GameManager.add_score(1)
+	GameManager.speed += 10.0
+	AudioManager.play_sound(preload("res://sounds/crystalGet.wav"), 0.6, 1.0, randf_range(0.85, 1.15))
+	queue_free()
 	
 func flash_red():
 	modulate = RED
@@ -95,7 +93,9 @@ func flash_red():
 	modulate = color
 	
 func explode():
-	var explosion = GameManager.explosion.instantiate()
+	var explosion = preload("res://scenes/explosion.tscn").instantiate()
+	explosion.prefix = prefix
+	explosion.active_status = active_status
 	explosion.global_position = global_position
 	get_parent().add_child(explosion)
 	queue_free()

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://kcx806sdtl0v"]
 
-[ext_resource type="Script" path="res://scenes2/crystal.gd" id="1_hjusw"]
+[ext_resource type="Script" uid="uid://dnevfs75j3dwc" path="res://scenes/crystal.gd" id="1_hjusw"]
 [ext_resource type="Texture2D" uid="uid://vkmsv8l4pp8m" path="res://sprites/Crystal.png" id="2_t4dcj"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_rhejx"]

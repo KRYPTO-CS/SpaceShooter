@@ -1,6 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://cuwckkolulw2g"]
+[gd_scene format=3 uid="uid://cuwckkolulw2g"]
 
-[ext_resource type="Script" uid="uid://cgaylmnkloadp" path="res://scenes/player.gd" id="1_4flbx"]
+[ext_resource type="Script" uid="uid://cgaylmnkloadp" path="res://scenes/player_shoot.gd" id="1_4flbx"]
 [ext_resource type="Texture2D" uid="uid://eg3vqpu6qjt1" path="res://sprites/ship_components/shipDetailsSheet.png" id="2_fjrip"]
 [ext_resource type="Texture2D" uid="uid://c1hc6yur6neyg" path="res://sprites/ship_components/ship_wings/shipWingsRed.png" id="2_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://ci36bvdlby4r5" path="res://sprites/ship_toppers/defaultTopper.png" id="3_dqkch"]
@@ -57,38 +57,38 @@ radius = 30.0
 font = ExtResource("5_tuyoq")
 font_size = 64
 
-[node name="Player" type="Node2D"]
+[node name="Player" type="Node2D" unique_id=283027264]
 script = ExtResource("1_4flbx")
 
-[node name="SpriteWings" type="Sprite2D" parent="."]
+[node name="SpriteWings" type="Sprite2D" parent="." unique_id=9624065]
 texture = ExtResource("2_ur7pv")
 
-[node name="SpriteBody" type="Sprite2D" parent="."]
+[node name="SpriteBody" type="Sprite2D" parent="." unique_id=1176389764]
 texture = ExtResource("3_y4r1p")
 
-[node name="SpriteDetails" type="AnimatedSprite2D" parent="."]
+[node name="SpriteDetails" type="AnimatedSprite2D" parent="." unique_id=1873969338]
 sprite_frames = SubResource("SpriteFrames_fjrip")
 autoplay = "default"
 
-[node name="ShipTopper" type="Sprite2D" parent="."]
+[node name="ShipTopper" type="Sprite2D" parent="." unique_id=1452269835]
 position = Vector2(0, -100)
 texture = ExtResource("3_dqkch")
 script = ExtResource("4_dqkch")
 
-[node name="Hurtbox" type="Area2D" parent="." groups=["player"]]
+[node name="Hurtbox" type="Area2D" parent="." unique_id=725902102 groups=["player"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" unique_id=832659409]
 position = Vector2(0, -20)
 shape = SubResource("CapsuleShape2D_g2els")
 
-[node name="Flamebox" type="Area2D" parent="." groups=["flame"]]
+[node name="Flamebox" type="Area2D" parent="." unique_id=42420557 groups=["flame"]]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Flamebox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Flamebox" unique_id=1136284897]
 position = Vector2(0, 100)
 shape = SubResource("CircleShape2D_g2els")
 debug_color = Color(0.7, 0, 0, 0.41960785)
 
-[node name="SpecialIndicator" type="Label" parent="."]
+[node name="SpecialIndicator" type="Label" parent="." unique_id=1263370674]
 visible = false
 anchors_preset = 5
 anchor_left = 0.5
@@ -102,7 +102,7 @@ text = "0"
 label_settings = SubResource("LabelSettings_smehm")
 script = ExtResource("6_fjrip")
 
-[node name="SpecialIndicator2" type="Label" parent="."]
+[node name="SpecialIndicator2" type="Label" parent="." unique_id=1876507329]
 visible = false
 anchors_preset = 5
 anchor_left = 0.5

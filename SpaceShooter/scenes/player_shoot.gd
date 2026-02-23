@@ -1,8 +1,9 @@
 extends Node2D
 
-@export var speed := 300.0
-@export var x_limit := 300.0
-@export var y_limit := 500.0
+@export var mode := 0
+var speed := 300.0
+var x_limit := 300.0
+var y_limit := 500.0
 enum PlayerState { NORMAL, INVINCIBLE, DEAD }
 var state: PlayerState = PlayerState.NORMAL
 
@@ -18,10 +19,14 @@ var flash_interval := 0.1
 # sprites
 @onready var SpriteBody: Sprite2D = $SpriteBody
 @onready var SpriteWings: Sprite2D = $SpriteWings
+@onready var ShipTopper: Sprite2D = $ShipTopper
 
 func _ready() -> void:
 	SpriteBody.texture = GameManager.shipBody
 	SpriteWings.texture = GameManager.shipWings
+	if mode == 1:
+		self.rotation = deg_to_rad(90)
+		self.set_script(load("res://scenes/player_bird.gd"))
 
 func _process(delta):
 
