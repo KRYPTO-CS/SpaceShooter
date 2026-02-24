@@ -50,6 +50,8 @@ func _process(delta):
 	# Delete after a while
 	if position.y > 2100:
 		queue_free()
+	if position.x < -800:
+		queue_free()
 		
 	# Take damage from flame
 	for area in get_overlapping_areas():
