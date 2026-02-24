@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b6pkmyajbjyv3"
-path="res://.godot/imported/simpleBulletSheet.png-6dc0a387af7996eecc7d6e0448824313.ctex"
+uid="uid://y6u7dfhmr3o"
+path="res://.godot/imported/drillBulletSheet.png-da0582b8a95de6fbc04828c8d4bf9e04.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/bullets/simpleBulletSheet.png"
-dest_files=["res://.godot/imported/simpleBulletSheet.png-6dc0a387af7996eecc7d6e0448824313.ctex"]
+source_file="res://sprites/bullets/drillBulletSheet.png"
+dest_files=["res://.godot/imported/drillBulletSheet.png-da0582b8a95de6fbc04828c8d4bf9e04.ctex"]
 
 [params]
 

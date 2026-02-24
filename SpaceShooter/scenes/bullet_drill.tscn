@@ -2,18 +2,75 @@
 
 [ext_resource type="Script" uid="uid://dpb60w1peopow" path="res://scenes/bullet_drill.gd" id="1_b44yc"]
 [ext_resource type="Shader" uid="uid://bpgnsrys1d6ys" path="res://palette_swap.tres" id="2_s3ie2"]
-[ext_resource type="Texture2D" uid="uid://d83sv6p1h8ub" path="res://sprites/bullets/drillBullet.png" id="3_sbr7k"]
 [ext_resource type="Texture2D" uid="uid://bjv14y86nmclb" path="res://sprites/bullets/palettes/paletteDefault.png" id="3_vo7ln"]
+[ext_resource type="Texture2D" uid="uid://y6u7dfhmr3o" path="res://sprites/bullets/drillBulletSheet.png" id="4_s3ie2"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_l5glv"]
-radius = 6.0
-height = 18.0
+radius = 9.0
+height = 48.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_lsjkc"]
 shader = ExtResource("2_s3ie2")
 shader_parameter/original_palette = ExtResource("3_vo7ln")
 shader_parameter/new_palette = ExtResource("3_vo7ln")
 shader_parameter/colors_count = 6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbr7k"]
+atlas = ExtResource("4_s3ie2")
+region = Rect2(0, 0, 52, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vo7ln"]
+atlas = ExtResource("4_s3ie2")
+region = Rect2(52, 0, 52, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lsjkc"]
+atlas = ExtResource("4_s3ie2")
+region = Rect2(104, 0, 52, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0j08s"]
+atlas = ExtResource("4_s3ie2")
+region = Rect2(156, 0, 52, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tp8sx"]
+atlas = ExtResource("4_s3ie2")
+region = Rect2(208, 0, 52, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ju8i"]
+atlas = ExtResource("4_s3ie2")
+region = Rect2(260, 0, 52, 80)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p2gmf"]
+atlas = ExtResource("4_s3ie2")
+region = Rect2(312, 0, 52, 80)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0j2uv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sbr7k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vo7ln")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lsjkc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0j08s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tp8sx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ju8i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p2gmf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [node name="BulletDrill" type="Area2D" unique_id=1313026365]
 script = ExtResource("1_b44yc")
@@ -22,9 +79,11 @@ script = ExtResource("1_b44yc")
 position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_l5glv")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=18859801]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=949774089]
 texture_filter = 1
 material = SubResource("ShaderMaterial_lsjkc")
-texture = ExtResource("3_sbr7k")
+sprite_frames = SubResource("SpriteFrames_0j2uv")
+autoplay = "default"
+frame_progress = 0.77241516
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

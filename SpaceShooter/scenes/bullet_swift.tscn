@@ -5,25 +5,25 @@
 [ext_resource type="Shader" uid="uid://bpgnsrys1d6ys" path="res://palette_swap.tres" id="2_pxwdx"]
 [ext_resource type="Texture2D" uid="uid://bjv14y86nmclb" path="res://sprites/bullets/palettes/paletteDefault.png" id="3_mrrib"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_pxwdx"]
+radius = 15.0
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2ybfs"]
 shader = ExtResource("2_pxwdx")
 shader_parameter/original_palette = ExtResource("3_mrrib")
 shader_parameter/new_palette = ExtResource("3_mrrib")
 shader_parameter/colors_count = 6
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_pxwdx"]
-radius = 15.0
-
 [node name="BulletSimple" type="Area2D" unique_id=1236676494]
 script = ExtResource("1_0lum2")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=391725913]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_pxwdx")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=240285195]
 texture_filter = 1
 material = SubResource("ShaderMaterial_2ybfs")
 texture = ExtResource("2_b15xm")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=391725913]
-position = Vector2(0, 1)
-shape = SubResource("CircleShape2D_pxwdx")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

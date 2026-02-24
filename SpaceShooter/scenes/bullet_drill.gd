@@ -13,7 +13,7 @@ const DAMAGE_MULT := 1.25
 var time_alive := 0.0
 var velocity := Vector2.ZERO
 
-@onready var sprite: Sprite2D = $Sprite2D
+@onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var element_type: GameManager.ElementType = GameManager.ElementType.NEUTRAL
 
@@ -31,7 +31,7 @@ func _ready():
 		GameManager.ElementType.WATER:
 			sprite.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteWater.png"))
 		_:
-			sprite.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteDefault.png"))
+			sprite.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteDrill.png"))
 	
 	var angle_radians = deg_to_rad(angle_degrees)
 	velocity = Vector2(0, -1).rotated(angle_radians) * speed * SPEED_MULT
