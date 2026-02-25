@@ -219,6 +219,6 @@ frame_progress = 0.6001312
 [node name="BG3" type="AnimatedSprite2D" parent="Parallax2D" unique_id=2021639773]
 sprite_frames = SubResource("SpriteFrames_jkv2x")
 
-[node name="Player" parent="." unique_id=283027264 instance=ExtResource("9_hairp")]
+[node name="Player" parent="." unique_id=283027264 groups=["player"] instance=ExtResource("9_hairp")]
 position = Vector2(-250, 0)
 mode = 1

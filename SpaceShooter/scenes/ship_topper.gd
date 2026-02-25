@@ -9,6 +9,7 @@ extends Sprite2D
 @export var drill_bullet: PackedScene = preload("res://scenes/bullet_drill.tscn")
 @export var swift_bullet: PackedScene = preload("res://scenes/bullet_swift.tscn")
 @export var boomer_bullet: PackedScene = preload("res://scenes/bullet_boomer.tscn")
+@export var laser_beam: PackedScene = preload("res://scenes/laser.tscn")
 @export var bullet_scene: PackedScene = simple_bullet
 
 # textures
@@ -50,11 +51,13 @@ var ripple_direction := false
 
 func _ready():
 	if get_parent().mode == 1:
+		shoot_laser_beam()
 		return
 	swap(GameManager.BulletType.SIMPLE, GameManager.ShootingType.NORMAL, GameManager.ElementType.NEUTRAL)
 
 func _process(delta):
 	if get_parent().mode == 1:
+		swap(GameManager.BulletType.BOOMER, GameManager.ShootingType.NORMAL, GameManager.ElementType.NEUTRAL)
 		return
 	shoot_interval = base_shoot_interval / GameManager.swiftCounter
 	
@@ -169,6 +172,12 @@ func _input(event):
 				charge_time = 0.0
 				current_damage = base_damage
 				is_charging = false
+				
+func shoot_laser_beam() -> void:
+		if laser_beam == null:
+			return
+		var laser = laser_beam.instantiate()
+		scene_root.add_child.call_deferred(laser)
 
 func shoot_normal_bullet(angle: float = 0.0, scale_mult: float = 1.0, damage_mult: float = 1.0, volume_mult: float = 1.0) -> void:
 	if bullet_scene == null:

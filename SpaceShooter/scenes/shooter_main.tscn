@@ -140,7 +140,7 @@ autoplay = "default"
 sprite_frames = SubResource("SpriteFrames_ya4ey")
 autoplay = "default"
 
-[node name="Player" parent="." unique_id=278827513 instance=ExtResource("1_ig7tw")]
+[node name="Player" parent="." unique_id=278827513 groups=["player"] instance=ExtResource("1_ig7tw")]
 position = Vector2(0, 420)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1115092451]

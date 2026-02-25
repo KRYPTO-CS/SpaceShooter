@@ -33,6 +33,10 @@ window/size/viewport_width=1080
 window/size/viewport_height=1920
 window/stretch/mode="canvas_items"
 
+[global_group]
+
+player=""
+
 [input]
 
 move_left={
