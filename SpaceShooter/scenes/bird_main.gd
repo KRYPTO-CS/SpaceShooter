@@ -13,7 +13,7 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	asteroid_timer += delta
-	if asteroid_timer > max(0.1, (0.75 - (GameManager.speed/750.0))):
+	if asteroid_timer > max(0.1, (1 - (GameManager.speed/750.0))):
 		spawn_asteroid()
 		if randi_range(0, 1) == 1:
 			spawn_crystal()
@@ -22,13 +22,13 @@ func _process(delta):
 func spawn_asteroid():
 	var asteroid = asteroid_scene.instantiate()
 	asteroid.position = Vector2(650, randf_range(-880, 880))
-	asteroid.speed_x = GameManager.speed * 0.75 + 150
+	asteroid.speed_x = GameManager.speed + 150
 	
 	add_child(asteroid)
 
 func spawn_crystal():
 	var crystal = crystal_scene.instantiate()
 	crystal.position = Vector2(540, randf_range(-880, 880))
-	crystal.speed = GameManager.speed * 0.75 + 150
+	crystal.speed = GameManager.speed + 175
 	
 	add_child(crystal)

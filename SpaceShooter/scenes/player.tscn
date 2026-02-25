@@ -65,6 +65,42 @@ radius = 30.0
 font = ExtResource("5_tuyoq")
 font_size = 64
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
+atlas = ExtResource("4_ur7pv")
+region = Rect2(0, 0, 252, 356)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
+atlas = ExtResource("4_ur7pv")
+region = Rect2(252, 0, 252, 356)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
+atlas = ExtResource("4_ur7pv")
+region = Rect2(504, 0, 252, 356)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = ExtResource("4_ur7pv")
+region = Rect2(756, 0, 252, 356)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_a8ls1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v2ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jej6c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ej7")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
 [node name="Player" type="Node2D" unique_id=283027264]
 script = ExtResource("1_4flbx")
 
@@ -75,6 +111,7 @@ texture = ExtResource("2_ur7pv")
 texture = ExtResource("3_y4r1p")
 
 [node name="SpriteDetails" type="AnimatedSprite2D" parent="." unique_id=1873969338]
+visible = false
 sprite_frames = SubResource("SpriteFrames_fjrip")
 autoplay = "default"
 
@@ -126,3 +163,10 @@ text = "0"
 label_settings = SubResource("LabelSettings_smehm")
 horizontal_alignment = 1
 script = ExtResource("7_fjrip")
+
+[node name="SpriteDetailsFast" type="AnimatedSprite2D" parent="." unique_id=1553069662]
+position = Vector2(-2.3841858e-07, 43)
+scale = Vector2(1.0039532, 1.004781)
+sprite_frames = SubResource("SpriteFrames_a8ls1")
+autoplay = "default"
+frame_progress = 0.6049477
