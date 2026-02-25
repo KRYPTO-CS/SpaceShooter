@@ -8,7 +8,10 @@
 [ext_resource type="FontFile" uid="uid://comnxc80cbnvx" path="res://fonts/m5x7.ttf" id="4_choun"]
 [ext_resource type="Texture2D" uid="uid://06emniygvt4" path="res://sprites/speed.png" id="6_ya4ey"]
 [ext_resource type="Script" uid="uid://camptjpcnhjqi" path="res://scenes/parallax.gd" id="7_hairp"]
+[ext_resource type="Texture2D" uid="uid://dw6xccvk4ykcb" path="res://sprites/powerups/simpleIcon.png" id="7_pimd7"]
+[ext_resource type="Texture2D" uid="uid://d16rxwpdukjl0" path="res://sprites/powerups/normalIcon.png" id="8_ehur8"]
 [ext_resource type="PackedScene" uid="uid://cuwckkolulw2g" path="res://scenes/player.tscn" id="9_hairp"]
+[ext_resource type="Texture2D" uid="uid://ctnnvi32lhqsa" path="res://sprites/powerups/neutralIcon.png" id="9_mt4ed"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_85g3d"]
 font = ExtResource("4_choun")
@@ -164,6 +167,33 @@ script = ExtResource("3_o6xl0")
 position = Vector2(-65, 55)
 scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_ya4ey")
+
+[node name="PowerupUI" type="Control" parent="UI" unique_id=614180217]
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="BulletType" type="Sprite2D" parent="UI/PowerupUI" unique_id=1101826763]
+position = Vector2(-75, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("7_pimd7")
+centered = false
+
+[node name="ShootingType" type="Sprite2D" parent="UI/PowerupUI" unique_id=1439201341]
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_ehur8")
+centered = false
+
+[node name="ElementType" type="Sprite2D" parent="UI/PowerupUI" unique_id=1420994322]
+position = Vector2(75, 0)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("9_mt4ed")
+centered = false
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=582888227]
 

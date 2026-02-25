@@ -31,7 +31,7 @@ func spawn_asteroid():
 	if randf() < 0.15:
 		var powerup = powerup_scene.instantiate()
 		powerup.position = Vector2(randf_range(-255, 255), -750)
-		powerup.speed = GameManager.speed * 0.75 + 150
+		powerup.speed_y = GameManager.speed * 0.75 + 150
 		add_child(powerup)
 
 	add_child(asteroid)

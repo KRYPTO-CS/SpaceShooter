@@ -2,6 +2,7 @@ extends Node2D
 
 var asteroid_scene := preload("res://scenes/asteroid.tscn")
 var crystal_scene := preload("res://scenes/crystal.tscn")
+var powerup_scene := preload("res://scenes/powerup.tscn")
 var asteroid_timer := 0.0
 
 var baseTrack = "res://music/musicPlaceholder.mp3"
@@ -24,6 +25,13 @@ func spawn_asteroid():
 	asteroid.position = Vector2(650, randf_range(-880, 880))
 	asteroid.speed_x = GameManager.speed + 150
 	
+	if randf() < 0.15:
+		var powerup = powerup_scene.instantiate()
+		powerup.position = Vector2(650, randf_range(-880, 880))
+		powerup.speed_x = GameManager.speed + 160
+		add_child(powerup)
+		print(powerup)
+		
 	add_child(asteroid)
 
 func spawn_crystal():

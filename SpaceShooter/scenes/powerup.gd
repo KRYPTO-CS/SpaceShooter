@@ -45,16 +45,18 @@ var element_textures = {
 	GameManager.ElementType.WATER: preload("res://sprites/powerups/waterIcon.png"),
 }
 
-var speed := 100.0
+var speed_x := 0.0
+var speed_y := 0.0
 
 func _ready():
 	randomize()
-	speed += randf_range(-50.0, 50.0)
+	speed_y += randf_range(-50.0, 50.0)
 	choose_type()
 	set_sprite()
 
 func _process(delta):
-	position.y += speed * delta
+	position.y += speed_y * delta
+	position.x -= speed_x * delta
 	if position.y > 2100:
 		queue_free()
 	_check_player_collision()
