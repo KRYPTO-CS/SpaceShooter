@@ -22,6 +22,7 @@ var bullet_textures = {
 	GameManager.BulletType.SIMPLE: preload("res://sprites/powerups/simpleIcon.png"),
 	GameManager.BulletType.DRILL:  preload("res://sprites/powerups/drillIcon.png"),
 	GameManager.BulletType.SWIFT:  preload("res://sprites/powerups/swiftIcon.png"),
+	GameManager.BulletType.BOOMER:  preload("res://sprites/powerups/boomerIcon.png"),
 }
 
 var shooting_textures = {

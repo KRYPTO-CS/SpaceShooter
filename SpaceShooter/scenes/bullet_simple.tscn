@@ -50,6 +50,6 @@ position = Vector2(0, -8)
 rotation = 1.5707964
 sprite_frames = SubResource("SpriteFrames_805un")
 autoplay = "default"
-frame_progress = 0.3616515
+frame_progress = 0.3531104
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

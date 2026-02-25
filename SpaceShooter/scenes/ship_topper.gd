@@ -8,12 +8,14 @@ extends Sprite2D
 @export var simple_bullet: PackedScene = preload("res://scenes/bullet_simple.tscn")
 @export var drill_bullet: PackedScene = preload("res://scenes/bullet_drill.tscn")
 @export var swift_bullet: PackedScene = preload("res://scenes/bullet_swift.tscn")
+@export var boomer_bullet: PackedScene = preload("res://scenes/bullet_boomer.tscn")
 @export var bullet_scene: PackedScene = simple_bullet
 
 # textures
 @onready var simple_texture: Texture2D = preload("res://sprites/ship_toppers/simpleTopper.png")
 @onready var drill_texture: Texture2D = preload("res://sprites/ship_toppers/drillTopper.png")
 @onready var swift_texture: Texture2D = preload("res://sprites/ship_toppers/swiftTopper.png")
+@onready var boomer_texture: Texture2D = preload("res://sprites/ship_toppers/boomerTopper.png")
 
 # states
 var bullet_type: GameManager.BulletType = GameManager.BulletType.NULL
@@ -144,6 +146,18 @@ func _process(delta):
 			if shoot_timer >= shoot_interval * shoot_interval_mult:
 				shoot_normal_bullet(0.0, 1.5, 2.5, 1.25)
 				shoot_timer = 0.0
+				
+	self.material = self.material.duplicate()
+	
+	match element_type:
+		GameManager.ElementType.FIRE:
+			self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteFire.png"))
+		GameManager.ElementType.ICE:
+			self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteIce.png"))
+		GameManager.ElementType.WATER:
+			self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteWater.png"))
+		_:
+			self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteDefault.png"))
 		
 func _input(event):
 	if event is InputEventScreenTouch:
@@ -204,6 +218,10 @@ func swap(new_bullet_type: GameManager.BulletType = GameManager.BulletType.NULL,
 			texture = swift_texture
 			base_shoot_interval = 0.3
 			bullet_scene = swift_bullet
+		GameManager.BulletType.BOOMER:
+			texture = boomer_texture
+			base_shoot_interval = 0.6
+			bullet_scene = boomer_bullet
 			
 	match shooting_type:
 		GameManager.ShootingType.NORMAL:

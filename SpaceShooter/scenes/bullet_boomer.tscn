@@ -1,0 +1,69 @@
+[gd_scene format=3 uid="uid://d4yca47eyrqd"]
+
+[ext_resource type="Script" uid="uid://d38x2qa2aujrf" path="res://scenes/bullet_boomer.gd" id="1_4s1d1"]
+[ext_resource type="Shader" uid="uid://bpgnsrys1d6ys" path="res://palette_swap.tres" id="2_n00lp"]
+[ext_resource type="Texture2D" uid="uid://bjv14y86nmclb" path="res://sprites/bullets/palettes/paletteDefault.png" id="3_43t0p"]
+[ext_resource type="Texture2D" uid="uid://c6xr041ndhrug" path="res://sprites/bullets/boomerBulletSheet.png" id="4_4s1d1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4s1d1"]
+radius = 35.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eh7vm"]
+shader = ExtResource("2_n00lp")
+shader_parameter/original_palette = ExtResource("3_43t0p")
+shader_parameter/new_palette = ExtResource("3_43t0p")
+shader_parameter/colors_count = 6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4s1d1"]
+atlas = ExtResource("4_4s1d1")
+region = Rect2(0, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n00lp"]
+atlas = ExtResource("4_4s1d1")
+region = Rect2(96, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43t0p"]
+atlas = ExtResource("4_4s1d1")
+region = Rect2(192, 0, 96, 96)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w8kgj"]
+atlas = ExtResource("4_4s1d1")
+region = Rect2(288, 0, 96, 96)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_805un"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4s1d1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n00lp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43t0p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w8kgj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 16.0
+}]
+
+[node name="BulletBoomer" type="Area2D" unique_id=938905289]
+script = ExtResource("1_4s1d1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=256009080]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_4s1d1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=654787562]
+texture_filter = 1
+material = SubResource("ShaderMaterial_eh7vm")
+position = Vector2(0, -8)
+rotation = 1.5707964
+sprite_frames = SubResource("SpriteFrames_805un")
+autoplay = "default"
+frame_progress = 0.37939373
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

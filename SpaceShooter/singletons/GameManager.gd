@@ -27,7 +27,7 @@ var shipWings: Texture2D = preload("res://sprites/ship_components/ship_wings/shi
 var explosion = preload("res://scenes/explosion.tscn")
 
 # enums
-enum BulletType { NULL, SIMPLE, DRILL, SWIFT }
+enum BulletType { NULL, SIMPLE, DRILL, SWIFT, BOOMER }
 enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE, BURST, SPRAY, V, DELTA, RIPPLE, PEA, HEAVY }
 enum ElementType { NULL, NEUTRAL, FIRE, ICE, WATER }
 
