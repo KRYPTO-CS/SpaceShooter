@@ -4,6 +4,8 @@ var asteroid_scene := preload("res://scenes/asteroid.tscn")
 var powerup_scene := preload("res://scenes/powerup.tscn")
 var asteroid_timer := 0.0
 
+@export var mode := 0
+
 func _ready():
 	randomize()
 

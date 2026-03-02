@@ -1,7 +1,7 @@
 extends Area2D
 
 @export var speed := 600.0
-@export var lifetime := 20.0  # seconds before despawn
+@export var lifetime := 0.0  # seconds before despawn
 @export var damage := 1.0
 @export var angle_degrees := 0.0  # 0 = straight up by default
 @export var volume_mult := 1.0 
@@ -9,6 +9,14 @@ extends Area2D
 const SPEED_MULT := 1.0
 const LIFETIME_MULT := 1.0
 const DAMAGE_MULT := 100.0
+
+enum PlayerState { NORMAL, INVINCIBLE, DEAD }
+var state: PlayerState = PlayerState.NORMAL
+var starttoggle = false
+
+# invincibility
+var flash_timer := 0.0
+var flash_interval := 0.1
 
 var time_alive := 0.0
 var velocity := Vector2.ZERO
@@ -34,6 +42,17 @@ func _process(delta):
 		position = player.position + offset
 	if time_alive >= lifetime * LIFETIME_MULT:
 		queue_free()
+	
+	if (lifetime * LIFETIME_MULT) - time_alive <= lifetime / 5:
+		state = PlayerState.INVINCIBLE
+	
+	if state == PlayerState.INVINCIBLE:
+		flash_timer += delta
+		if flash_timer >= flash_interval:
+			visible = not visible
+			flash_timer = 0.0
+	else:
+		visible = true
 
 func _on_area_entered(area):
 	if area.is_in_group("destroyable"):

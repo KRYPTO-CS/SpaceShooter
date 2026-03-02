@@ -7,6 +7,8 @@ var asteroid_timer := 0.0
 
 var baseTrack = "res://music/musicPlaceholder.mp3"
 
+@export var mode := 1
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()

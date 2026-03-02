@@ -47,6 +47,7 @@ data = PackedByteArray("//PgxABufBYUA1vQAAnGPxsh4YUFmaqJr7CaylmdlpkY+ZGPmbHhpCga
 loop = true
 
 [node name="Laser" type="Area2D" unique_id=347296597]
+visible = false
 script = ExtResource("1_6vqwg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1677491376]

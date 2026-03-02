@@ -30,6 +30,12 @@ var shoot_timer := 0.0
 var base_damage := 1.0
 var shoot_interval_mult := 1.0
 
+# laser
+var laser_active := false
+var laser_ptr: Node2D = null # tracks the current instance of laser
+var laser_max_time := 10.0 # laser time
+var laser_timer := 0.0 # time state counter for the laser
+
 # charge
 var max_charge_time := 3.0
 var max_bullet_scale := 2.0
@@ -50,118 +56,124 @@ var ripple_offset := RIPPLE_INC
 var ripple_direction := false
 
 func _ready():
-	if get_parent().mode == 1:
-		shoot_laser_beam()
-		return
 	swap(GameManager.BulletType.SIMPLE, GameManager.ShootingType.NORMAL, GameManager.ElementType.NEUTRAL)
 
 func _process(delta):
 	if get_parent().mode == 1:
-		swap(GameManager.BulletType.BOOMER, GameManager.ShootingType.NORMAL, GameManager.ElementType.NEUTRAL)
-		return
-	shoot_interval = base_shoot_interval / GameManager.swiftCounter
-	
-	match shooting_type:
-		GameManager.ShootingType.NORMAL:
-			charge_time = 0.0
-			shoot_timer += delta
-			if shoot_timer >= shoot_interval * shoot_interval_mult:
-				shoot_normal_bullet()
-				shoot_timer = 0.0
-		GameManager.ShootingType.CHARGE:
-			if not get_parent().finger_active:
+		match bullet_type:
+			GameManager.BulletType.LASER:
+				if laser_timer <= 0:
+					shoot_laser_beam()
+					laser_active = true
+				laser_timer += delta
+				if laser_timer >= laser_max_time:
+					laser_timer = 0.0
+					laser_active = false
+					swap(GameManager.BulletType.SIMPLE, GameManager.ShootingType.NORMAL, GameManager.ElementType.NEUTRAL)
+	elif get_parent().mode == 0:
+		shoot_interval = base_shoot_interval / GameManager.swiftCounter
+		
+		match shooting_type:
+			GameManager.ShootingType.NORMAL:
 				charge_time = 0.0
 				shoot_timer += delta
 				if shoot_timer >= shoot_interval * shoot_interval_mult:
 					shoot_normal_bullet()
 					shoot_timer = 0.0
-			else:
-				is_charging = true
-				charge_time = clamp(charge_time + (delta / shoot_interval), 0, max_charge_time)
-				current_damage = lerp(base_damage, base_damage * 3, charge_time / max_charge_time)
-				shoot_timer = 0.0
-		GameManager.ShootingType.TRIPLE:
-			charge_time = 0.0
-			shoot_timer += delta
-			if shoot_timer >= shoot_interval * shoot_interval_mult:
-				shoot_normal_bullet(0.0, 1.0, 1.0, 0.75)
-				shoot_normal_bullet(20.0, 1.0, 1.0, 0.75)
-				shoot_normal_bullet(-20.0, 1.0, 1.0, 0.75)
-				shoot_timer = 0.0
-		GameManager.ShootingType.BURST:
-			charge_time = 0.0
-			if not is_bursting:
-				shoot_timer += delta
-			if shoot_timer >= shoot_interval * shoot_interval_mult and not is_bursting:
-				shoot_timer = 0.0
-				fire_burst()
-		GameManager.ShootingType.SPRAY:
-			charge_time = 0.0
-			shoot_timer += delta
-			if shoot_timer >= shoot_interval * shoot_interval_mult:
-				shoot_normal_bullet(rng.randf_range(-20.0, 20.0))
-				shoot_timer = 0.0
-		GameManager.ShootingType.V:
+			GameManager.ShootingType.CHARGE:
+				if not get_parent().finger_active:
 					charge_time = 0.0
 					shoot_timer += delta
 					if shoot_timer >= shoot_interval * shoot_interval_mult:
-						if v_count:
-							shoot_normal_bullet(45.0)
-						else:
-							shoot_normal_bullet(-45.0)
-						v_count = !v_count
+						shoot_normal_bullet()
 						shoot_timer = 0.0
-		GameManager.ShootingType.DELTA:
-			charge_time = 0.0
-			shoot_timer += delta
-			if shoot_timer >= shoot_interval * shoot_interval_mult:
-				shoot_normal_bullet(0.0, 1.0, 1.0, 0.75)
-				shoot_normal_bullet(225.0, 1.0, 1.0, 0.75)
-				shoot_normal_bullet(-225.0, 1.0, 1.0, 0.75)
-				shoot_timer = 0.0
-		GameManager.ShootingType.RIPPLE:
-			charge_time = 0.0
-			shoot_timer += delta
-			if shoot_timer >= shoot_interval * shoot_interval_mult:
-				shoot_normal_bullet(0.0, 0.75, 0.75, 0.65)
-				shoot_normal_bullet(ripple_offset, 0.75, 0.75, 0.65)
-				shoot_normal_bullet(-ripple_offset, 0.75, 0.75, 0.65)
-				shoot_normal_bullet(ripple_offset * 2.0, 0.75, 0.75, 0.65)
-				shoot_normal_bullet(-ripple_offset * 2.0, 0.75, 0.75, 0.65)
-				if !ripple_direction:
-					ripple_offset += RIPPLE_INC
 				else:
-					ripple_offset -= RIPPLE_INC
-				if ripple_offset == RIPPLE_INC:
-					ripple_direction = !ripple_direction
-				if ripple_offset == RIPPLE_INC * 10.0:
-					ripple_direction = !ripple_direction
-				shoot_timer = 0.0
-		GameManager.ShootingType.PEA:
-			charge_time = 0.0
-			shoot_timer += delta
-			if shoot_timer >= shoot_interval * shoot_interval_mult:
-				shoot_normal_bullet(0.0, 0.75, 0.75, 0.9)
-				shoot_timer = 0.0
-		GameManager.ShootingType.HEAVY:
-			charge_time = 0.0
-			shoot_timer += delta
-			if shoot_timer >= shoot_interval * shoot_interval_mult:
-				shoot_normal_bullet(0.0, 1.5, 2.5, 1.25)
-				shoot_timer = 0.0
-				
-	self.material = self.material.duplicate()
-	
-	match element_type:
-		GameManager.ElementType.FIRE:
-			self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteFire.png"))
-		GameManager.ElementType.ICE:
-			self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteIce.png"))
-		GameManager.ElementType.WATER:
-			self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteWater.png"))
-		_:
-			self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteDefault.png"))
+					is_charging = true
+					charge_time = clamp(charge_time + (delta / shoot_interval), 0, max_charge_time)
+					current_damage = lerp(base_damage, base_damage * 3, charge_time / max_charge_time)
+					shoot_timer = 0.0
+			GameManager.ShootingType.TRIPLE:
+				charge_time = 0.0
+				shoot_timer += delta
+				if shoot_timer >= shoot_interval * shoot_interval_mult:
+					shoot_normal_bullet(0.0, 1.0, 1.0, 0.75)
+					shoot_normal_bullet(20.0, 1.0, 1.0, 0.75)
+					shoot_normal_bullet(-20.0, 1.0, 1.0, 0.75)
+					shoot_timer = 0.0
+			GameManager.ShootingType.BURST:
+				charge_time = 0.0
+				if not is_bursting:
+					shoot_timer += delta
+				if shoot_timer >= shoot_interval * shoot_interval_mult and not is_bursting:
+					shoot_timer = 0.0
+					fire_burst()
+			GameManager.ShootingType.SPRAY:
+				charge_time = 0.0
+				shoot_timer += delta
+				if shoot_timer >= shoot_interval * shoot_interval_mult:
+					shoot_normal_bullet(rng.randf_range(-20.0, 20.0))
+					shoot_timer = 0.0
+			GameManager.ShootingType.V:
+						charge_time = 0.0
+						shoot_timer += delta
+						if shoot_timer >= shoot_interval * shoot_interval_mult:
+							if v_count:
+								shoot_normal_bullet(45.0)
+							else:
+								shoot_normal_bullet(-45.0)
+							v_count = !v_count
+							shoot_timer = 0.0
+			GameManager.ShootingType.DELTA:
+				charge_time = 0.0
+				shoot_timer += delta
+				if shoot_timer >= shoot_interval * shoot_interval_mult:
+					shoot_normal_bullet(0.0, 1.0, 1.0, 0.75)
+					shoot_normal_bullet(225.0, 1.0, 1.0, 0.75)
+					shoot_normal_bullet(-225.0, 1.0, 1.0, 0.75)
+					shoot_timer = 0.0
+			GameManager.ShootingType.RIPPLE:
+				charge_time = 0.0
+				shoot_timer += delta
+				if shoot_timer >= shoot_interval * shoot_interval_mult:
+					shoot_normal_bullet(0.0, 0.75, 0.75, 0.65)
+					shoot_normal_bullet(ripple_offset, 0.75, 0.75, 0.65)
+					shoot_normal_bullet(-ripple_offset, 0.75, 0.75, 0.65)
+					shoot_normal_bullet(ripple_offset * 2.0, 0.75, 0.75, 0.65)
+					shoot_normal_bullet(-ripple_offset * 2.0, 0.75, 0.75, 0.65)
+					if !ripple_direction:
+						ripple_offset += RIPPLE_INC
+					else:
+						ripple_offset -= RIPPLE_INC
+					if ripple_offset == RIPPLE_INC:
+						ripple_direction = !ripple_direction
+					if ripple_offset == RIPPLE_INC * 10.0:
+						ripple_direction = !ripple_direction
+					shoot_timer = 0.0
+			GameManager.ShootingType.PEA:
+				charge_time = 0.0
+				shoot_timer += delta
+				if shoot_timer >= shoot_interval * shoot_interval_mult:
+					shoot_normal_bullet(0.0, 0.75, 0.75, 0.9)
+					shoot_timer = 0.0
+			GameManager.ShootingType.HEAVY:
+				charge_time = 0.0
+				shoot_timer += delta
+				if shoot_timer >= shoot_interval * shoot_interval_mult:
+					shoot_normal_bullet(0.0, 1.5, 2.5, 1.25)
+					shoot_timer = 0.0
+					
+		self.material = self.material.duplicate()
 		
+		match element_type:
+			GameManager.ElementType.FIRE:
+				self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteFire.png"))
+			GameManager.ElementType.ICE:
+				self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteIce.png"))
+			GameManager.ElementType.WATER:
+				self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteWater.png"))
+			_:
+				self.material.set_shader_parameter("new_palette", load("res://sprites/bullets/palettes/paletteDefault.png"))
+			
 func _input(event):
 	if event is InputEventScreenTouch:
 		if event.pressed and get_parent().active_finger_index == -1:
@@ -174,10 +186,18 @@ func _input(event):
 				is_charging = false
 				
 func shoot_laser_beam() -> void:
-		if laser_beam == null:
-			return
-		var laser = laser_beam.instantiate()
-		scene_root.add_child.call_deferred(laser)
+	if is_instance_valid(laser_ptr):
+		laser_ptr.queue_free()
+
+	if laser_beam == null:
+		return
+		
+	var laser = bullet_scene.instantiate()
+	laser.lifetime = laser_max_time
+	
+	laser_ptr = laser
+	
+	scene_root.add_child(laser)
 
 func shoot_normal_bullet(angle: float = 0.0, scale_mult: float = 1.0, damage_mult: float = 1.0, volume_mult: float = 1.0) -> void:
 	if bullet_scene == null:
@@ -231,6 +251,9 @@ func swap(new_bullet_type: GameManager.BulletType = GameManager.BulletType.NULL,
 			texture = boomer_texture
 			base_shoot_interval = 0.6
 			bullet_scene = boomer_bullet
+		GameManager.BulletType.LASER:
+			bullet_scene = laser_beam
+			laser_timer = 0.0 # reset timer
 			
 	match shooting_type:
 		GameManager.ShootingType.NORMAL:
