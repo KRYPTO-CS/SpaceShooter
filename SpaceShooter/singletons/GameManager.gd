@@ -44,7 +44,7 @@ func _process(delta: float) -> void:
 func begin_game() -> void:
 	match active_scene:
 		0:
-			get_tree().change_scene_to_packed(game_scene_1)
+			get_tree().change_scene_to_packed(game_scene_0)
 		1:
 			get_tree().change_scene_to_packed(game_scene_1)
 		_:
