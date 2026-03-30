@@ -110,11 +110,11 @@ body {
 		</div>
 		
 		<script>
-		  window.sendToGodot = function (type, data1, data2, data3) {
+		  window.sendToGodot = function (type, data1, data2, data3, data4, data5) {
 			if (typeof window.cb === "function") {
-			  window.cb(type, data1, data2, data3);
+			  window.cb(type, data1, data2, data3, data4, data5);
 			} else {
-			  console.warn("Godot callback not ready", type, data1, data2, data3);
+			  console.warn("Godot callback not ready", type, data1, data2, data3, data4, data5);
 			}
 		  };
 		</script>
@@ -152,8 +152,10 @@ body {
 				const data1 = msg.data1;
 				const data2 = msg.data2;
 				const data3 = msg.data3;
+				const data4 = msg.data4;
+				const data5 = msg.data5;
 
-				window.sendToGodot(type, data1, data2, data3);
+				window.sendToGodot(type, data1, data2, data3, data4, data5);
 
 				if (window.ReactNativeWebView) {
 				  window.ReactNativeWebView.postMessage(
