@@ -55,10 +55,10 @@ func begin_game() -> void:
 	game_started = true
 
 func add_score(points: int) -> void:
-	score += round(points * multiplier)
+	score += points
 	if score <= 0:
 		score = 0
-	JavaScriptBridge.eval("sendScoreToReact(" + str(score) + ");")
+	JavaScriptBridge.eval("sendScoreToReact(" + str(round(points * multiplier)) + ");")
 
 func reset_score() -> void:
 	score = 0
