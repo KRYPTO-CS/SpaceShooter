@@ -5,7 +5,7 @@
 [ext_resource type="FontFile" uid="uid://comnxc80cbnvx" path="res://fonts/m5x7.ttf" id="2_wosw1"]
 [ext_resource type="Script" uid="uid://dyniftni1ir62" path="res://scenes/testscript.gd" id="4_pyl7j"]
 [ext_resource type="Script" uid="uid://bu440emqedr6w" path="res://scenes/test2script.gd" id="5_b3w7a"]
-[ext_resource type="Script" uid="uid://j4dxbcp06r14" path="res://scenes/colorblind.gd" id="6_4rr2b"]
+[ext_resource type="Script" uid="uid://db0j5yqoyd3f8" path="res://scenes/colorblind2.gd" id="6_4rr2b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("1_4ignj")

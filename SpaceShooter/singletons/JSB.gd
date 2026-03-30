@@ -49,7 +49,25 @@ func _on_js_message(args):
 				GameManager.active_scene = 1
 			_:
 				pass
-		match args[4]: # set planet
+		match args[4]: # set mult
+			"1":
+				GameManager.multiplier = 1.0
+			"2":
+				GameManager.multiplier = 1.1
+			"3":
+				GameManager.multiplier = 1.2
+			"4":
+				GameManager.multiplier = 1.4
+			"5":
+				GameManager.multiplier = 1.6
+			"6":
+				GameManager.multiplier = 1.8
+			"7":
+				GameManager.multiplier = 2.0
+			"8":
+				GameManager.multiplier = 2.5
+			"9":
+				GameManager.multiplier = 3.0
 			_:
 				pass
 		match args[5]: # set colorblind

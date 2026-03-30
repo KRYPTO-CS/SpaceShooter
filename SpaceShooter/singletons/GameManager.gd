@@ -18,6 +18,7 @@ var baseTrack = "res://music/musicPlaceholder.mp3"
 var game_started: bool = false
 var test_received = false
 var colorblind = 0
+var multiplier = 1.0
 
 # communication w/ app
 var active_scene
@@ -54,7 +55,7 @@ func begin_game() -> void:
 	game_started = true
 
 func add_score(points: int) -> void:
-	score += points
+	score += round(points * multiplier)
 	if score <= 0:
 		score = 0
 	JavaScriptBridge.eval("sendScoreToReact(" + str(score) + ");")
