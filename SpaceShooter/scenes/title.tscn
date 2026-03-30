@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=3 uid="uid://cwidyg83ilpi0"]
+[gd_scene format=3 uid="uid://cwidyg83ilpi0"]
 
 [ext_resource type="Texture2D" uid="uid://cryyhtbirunco" path="res://sprites/starsSheet.png" id="1_4ignj"]
 [ext_resource type="Script" uid="uid://krspw21sq7il" path="res://scenes/title.gd" id="1_p6dhs"]
 [ext_resource type="FontFile" uid="uid://comnxc80cbnvx" path="res://fonts/m5x7.ttf" id="2_wosw1"]
 [ext_resource type="Script" uid="uid://dyniftni1ir62" path="res://scenes/testscript.gd" id="4_pyl7j"]
 [ext_resource type="Script" uid="uid://bu440emqedr6w" path="res://scenes/test2script.gd" id="5_b3w7a"]
+[ext_resource type="Script" uid="uid://j4dxbcp06r14" path="res://scenes/colorblind.gd" id="6_4rr2b"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o6xl0"]
 atlas = ExtResource("1_4ignj")
@@ -50,20 +51,28 @@ font_size = 128
 font = ExtResource("2_wosw1")
 font_size = 64
 
-[node name="TitleScreen" type="Node2D"]
+[sub_resource type="VisualShader" id="VisualShader_4rr2b"]
+mode = 1
+flags/light_only = false
+nodes/vertex/0/position = Vector2(386.66666, 146.66667)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ia1n6"]
+shader = SubResource("VisualShader_4rr2b")
+
+[node name="TitleScreen" type="Node2D" unique_id=928710088]
 script = ExtResource("1_p6dhs")
 
-[node name="BG1" type="AnimatedSprite2D" parent="."]
+[node name="BG1" type="AnimatedSprite2D" parent="." unique_id=520456542]
 sprite_frames = SubResource("SpriteFrames_wosw1")
 autoplay = "default"
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1884313508]
 position = Vector2(1, 0)
 zoom = Vector2(1.5, 1.5)
 
-[node name="UI" type="CanvasLayer" parent="."]
+[node name="UI" type="CanvasLayer" parent="." unique_id=548297698]
 
-[node name="Prompt" type="Label" parent="UI"]
+[node name="Prompt" type="Label" parent="UI" unique_id=1254816481]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -81,7 +90,7 @@ label_settings = SubResource("LabelSettings_p6dhs")
 horizontal_alignment = 1
 script = ExtResource("4_pyl7j")
 
-[node name="Test" type="Label" parent="UI"]
+[node name="Test" type="Label" parent="UI" unique_id=1452611775]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -92,3 +101,16 @@ text = "Not running on web!"
 label_settings = SubResource("LabelSettings_pyl7j")
 horizontal_alignment = 1
 script = ExtResource("5_b3w7a")
+
+[node name="CB" type="CanvasLayer" parent="." unique_id=2128729693]
+layer = 10
+
+[node name="ColorRect" type="ColorRect" parent="CB" unique_id=624706638]
+visible = false
+material = SubResource("ShaderMaterial_ia1n6")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_4rr2b")

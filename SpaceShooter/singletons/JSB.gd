@@ -49,3 +49,17 @@ func _on_js_message(args):
 				GameManager.active_scene = 1
 			_:
 				pass
+		match args[4]: # set planet
+			_:
+				pass
+		match args[5]: # set colorblind
+			"0":
+				GameManager.colorblind = 0
+			"1":
+				GameManager.colorblind = 1
+			"2":
+				GameManager.colorblind = 2
+			"3":
+				GameManager.colorblind = 3
+			_:
+				pass

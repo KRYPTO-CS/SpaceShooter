@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://dw6xccvk4ykcb" path="res://sprites/powerups/simpleIcon.png" id="9_choun"]
 [ext_resource type="Texture2D" uid="uid://d16rxwpdukjl0" path="res://sprites/powerups/normalIcon.png" id="10_eb6dy"]
 [ext_resource type="Texture2D" uid="uid://ctnnvi32lhqsa" path="res://sprites/powerups/neutralIcon.png" id="11_trceg"]
+[ext_resource type="Script" uid="uid://j4dxbcp06r14" path="res://scenes/colorblind.gd" id="13_dx81u"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_0wfyh"]
 font = ExtResource("2_jyhfs")
@@ -62,6 +63,14 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="VisualShader" id="VisualShader_yql1r"]
+mode = 1
+flags/light_only = false
+nodes/vertex/0/position = Vector2(386.66666, 146.66667)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_i1ako"]
+shader = SubResource("VisualShader_yql1r")
 
 [node name="Main" type="Node2D" unique_id=328470084]
 script = ExtResource("1_0xm2m")
@@ -146,3 +155,16 @@ position = Vector2(0, 420)
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1115092451]
 position = Vector2(1, 0)
 zoom = Vector2(1.5, 1.5)
+
+[node name="CB" type="CanvasLayer" parent="." unique_id=603663240]
+layer = 10
+
+[node name="ColorRect" type="ColorRect" parent="CB" unique_id=1453869715]
+visible = false
+material = SubResource("ShaderMaterial_i1ako")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("13_dx81u")

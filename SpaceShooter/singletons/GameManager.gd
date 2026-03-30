@@ -17,6 +17,7 @@ const MAX_SWIFT := 3.0
 var baseTrack = "res://music/musicPlaceholder.mp3"
 var game_started: bool = false
 var test_received = false
+var colorblind = 0
 
 # communication w/ app
 var active_scene
