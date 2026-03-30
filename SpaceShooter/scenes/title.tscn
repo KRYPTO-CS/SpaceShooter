@@ -45,7 +45,7 @@ animations = [{
 
 [sub_resource type="LabelSettings" id="LabelSettings_p6dhs"]
 font = ExtResource("2_wosw1")
-font_size = 128
+font_size = 256
 
 [sub_resource type="LabelSettings" id="LabelSettings_pyl7j"]
 font = ExtResource("2_wosw1")
@@ -85,7 +85,7 @@ offset_bottom = 51.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "
-Tap to play!"
+(>)"
 label_settings = SubResource("LabelSettings_p6dhs")
 horizontal_alignment = 1
 script = ExtResource("4_pyl7j")
