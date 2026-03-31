@@ -58,7 +58,7 @@ func add_score(points: int) -> void:
 	score += points
 	if score <= 0:
 		score = 0
-	JavaScriptBridge.eval("sendScoreToReact(" + str(round(score * multiplier)) + ");")
+	JavaScriptBridge.eval("sendScoreToReact(" + str(score) + ");")
 
 func reset_score() -> void:
 	score = 0
