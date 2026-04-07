@@ -62,7 +62,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"blue_fire",
-"speed": 5.0
+"speed": 8.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -78,7 +78,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_d2wvv")
 }],
 "loop": true,
-"name": &"default",
+"name": &"default2",
 "speed": 8.0
 }]
 
@@ -147,7 +147,6 @@ texture = ExtResource("3_y4r1p")
 [node name="SpriteDetails" type="AnimatedSprite2D" parent="." unique_id=1873969338]
 sprite_frames = SubResource("SpriteFrames_fjrip")
 animation = &"blue_fire"
-autoplay = "blue_fire"
 
 [node name="ShipTopper" type="Sprite2D" parent="." unique_id=1452269835]
 texture_filter = 1
