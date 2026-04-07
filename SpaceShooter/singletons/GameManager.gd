@@ -24,7 +24,7 @@ var multiplier = 1.0
 var active_scene
 var shipBody: Texture2D = preload("res://sprites/ship_components/ship_body/shipBodyBlue.png")
 var shipWings: Texture2D = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
-var shipDetails: String = "default"
+var shipDetails: String = "blue_fire"
 
 # preloads
 var explosion = preload("res://scenes/explosion.tscn")
