@@ -24,7 +24,7 @@ var multiplier = 1.0
 var active_scene
 var shipBody: Texture2D = preload("res://sprites/ship_components/ship_body/shipBodyBlue.png")
 var shipWings: Texture2D = preload("res://sprites/ship_components/ship_wings/shipWingsRed.png")
-var shipDetails: String = "default"
+var shipDetails: String = "blue_fire"
 
 # preloads
 var explosion = preload("res://scenes/explosion.tscn")
@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 func begin_game() -> void:
 	match active_scene:
 		0:
-			get_tree().change_scene_to_packed(game_scene_1)
+			get_tree().change_scene_to_packed(game_scene_0)
 		1:
 			get_tree().change_scene_to_packed(game_scene_1)
 		_:
