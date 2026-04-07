@@ -25,7 +25,8 @@ var flash_interval := 0.1
 func _ready() -> void:
 	SpriteBody.texture = GameManager.shipBody
 	SpriteWings.texture = GameManager.shipWings
-	SpriteDetails.call_deferred("play", GameManager.shipDetails)
+	SpriteDetails.show()
+	SpriteDetails.play(GameManager.shipDetails)
 	if mode == 1:
 		self.rotation = deg_to_rad(90)
 		self.set_script(load("res://scenes/player_bird.gd"))
