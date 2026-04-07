@@ -26,8 +26,7 @@ func _ready() -> void:
 	SpriteBody.texture = GameManager.shipBody
 	SpriteWings.texture = GameManager.shipWings
 	
-	while GameManager.shipDetails == "":
-		await get_tree().process_frame
+	await get_tree().process_frame
 	
 	## reset the frame
 	SpriteDetails.animation = GameManager.shipDetails
