@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://dw6crc421hiha"]
+[gd_scene format=3 uid="uid://dw6crc421hiha"]
 
 [ext_resource type="Script" uid="uid://doy3tvmgilhby" path="res://scenes/powerup.gd" id="1_406cw"]
 [ext_resource type="Texture2D" uid="uid://bf4mxb2rlc60o" path="res://sprites/powerups/bulletBoxIcon.png" id="2_ih772"]
@@ -6,15 +6,15 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t4g7g"]
 size = Vector2(60, 60)
 
-[node name="Powerup" type="Area2D"]
+[node name="Powerup" type="Area2D" unique_id=207566541]
 script = ExtResource("1_406cw")
 
-[node name="Box" type="Sprite2D" parent="."]
+[node name="Box" type="Sprite2D" parent="." unique_id=1153543887]
 texture = ExtResource("2_ih772")
 
-[node name="Icon" type="Sprite2D" parent="Box"]
+[node name="Icon" type="Sprite2D" parent="Box" unique_id=921960757]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=257426233]
 shape = SubResource("RectangleShape2D_t4g7g")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
