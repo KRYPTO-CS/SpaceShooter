@@ -19,11 +19,13 @@ var flash_interval := 0.1
 # sprites
 @onready var SpriteBody: Sprite2D = $SpriteBody
 @onready var SpriteWings: Sprite2D = $SpriteWings
+@onready var SpriteDetails: AnimatedSprite2D = $SpriteDetails
 @onready var ShipTopper: Sprite2D = $ShipTopper
 
 func _ready() -> void:
 	SpriteBody.texture = GameManager.shipBody
 	SpriteWings.texture = GameManager.shipWings
+	SpriteDetails.play(GameManager.shipDetails)
 	if mode == 1:
 		self.rotation = deg_to_rad(90)
 		self.set_script(load("res://scenes/player_bird.gd"))

@@ -81,3 +81,10 @@ func _on_js_message(args):
 				GameManager.colorblind = 3
 			_:
 				pass
+		match args[6]: # set details
+			"0":
+				GameManager.shipDetails = "default"
+			"1":
+				GameManager.shipDetails = "blue_fire"
+			_:
+				pass

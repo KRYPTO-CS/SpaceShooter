@@ -11,7 +11,23 @@
 [ext_resource type="Texture2D" uid="uid://bjv14y86nmclb" path="res://sprites/bullets/palettes/paletteDefault.png" id="6_3v2ag"]
 [ext_resource type="Script" uid="uid://bwi45t8b6cvbc" path="res://scenes/special_indicator.gd" id="6_fjrip"]
 [ext_resource type="Script" uid="uid://buvt3exc1hc78" path="res://scenes/special_indicator_2.gd" id="7_fjrip"]
-[ext_resource type="Texture2D" uid="uid://dhdppo2o75emb" path="res://sprites/ship_components/ShipDetailsSheetFast.png" id="12_3v2ag"]
+[ext_resource type="Texture2D" uid="uid://cisk5unjwiwcm" path="res://sprites/ship_components/ShipDetailsSheetFast.png" id="12_3v2ag"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
+atlas = ExtResource("12_3v2ag")
+region = Rect2(0, 0, 252, 415)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
+atlas = ExtResource("12_3v2ag")
+region = Rect2(252, 0, 252, 415)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fulsm"]
+atlas = ExtResource("12_3v2ag")
+region = Rect2(504, 0, 252, 415)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4r5pv"]
+atlas = ExtResource("12_3v2ag")
+region = Rect2(756, 0, 252, 415)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
 atlas = ExtResource("2_fjrip")
@@ -31,6 +47,23 @@ region = Rect2(756, 0, 252, 272)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fjrip"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v2ag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfm1y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fulsm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4r5pv")
+}],
+"loop": true,
+"name": &"blue_fire",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_smehm")
@@ -113,7 +146,9 @@ texture = ExtResource("3_y4r1p")
 
 [node name="SpriteDetails" type="AnimatedSprite2D" parent="." unique_id=1873969338]
 sprite_frames = SubResource("SpriteFrames_fjrip")
+animation = &"blue_fire"
 autoplay = "default"
+frame_progress = 0.32344612
 
 [node name="ShipTopper" type="Sprite2D" parent="." unique_id=1452269835]
 texture_filter = 1
