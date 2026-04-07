@@ -26,6 +26,9 @@ func _ready() -> void:
 	SpriteBody.texture = GameManager.shipBody
 	SpriteWings.texture = GameManager.shipWings
 	
+	while GameManager.shipDetails == "":
+		await get_tree().process_frame
+	
 	## reset the frame
 	SpriteDetails.animation = GameManager.shipDetails
 	SpriteDetails.frame = 0
@@ -34,6 +37,7 @@ func _ready() -> void:
 	if mode == 1:
 		self.rotation = deg_to_rad(90)
 		self.set_script(load("res://scenes/player_bird.gd"))
+	
 
 func _process(delta):
 
