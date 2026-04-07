@@ -146,6 +146,7 @@ texture = ExtResource("3_y4r1p")
 
 [node name="SpriteDetails" type="AnimatedSprite2D" parent="." unique_id=1873969338]
 sprite_frames = SubResource("SpriteFrames_fjrip")
+animation = &"blue_fire"
 
 [node name="ShipTopper" type="Sprite2D" parent="." unique_id=1452269835]
 texture_filter = 1
