@@ -26,7 +26,8 @@ func _ready() -> void:
 	SpriteBody.texture = GameManager.shipBody
 	SpriteWings.texture = GameManager.shipWings
 	
-	await get_tree().process_frame
+	## fix this later, hard code a timer of 1s to ensure proper loading
+	await get_tree().create_timer(1.0).timeout
 	
 	## reset the frame
 	SpriteDetails.animation = GameManager.shipDetails
