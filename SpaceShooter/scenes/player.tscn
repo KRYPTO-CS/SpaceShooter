@@ -6,12 +6,29 @@
 [ext_resource type="Texture2D" uid="uid://ci36bvdlby4r5" path="res://sprites/ship_toppers/defaultTopper.png" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://dlcjmssvetft2" path="res://sprites/ship_components/ship_body/shipBodyBlue.png" id="3_y4r1p"]
 [ext_resource type="Script" uid="uid://blhi4hcqnimsi" path="res://scenes/ship_topper.gd" id="4_dqkch"]
+[ext_resource type="Texture2D" uid="uid://bvtskaunhd6pv" path="res://sprites/ship_components/ShipDetailsArtemis.png" id="4_jej6c"]
 [ext_resource type="Shader" uid="uid://bpgnsrys1d6ys" path="res://palette_swap.tres" id="5_d2wvv"]
 [ext_resource type="FontFile" uid="uid://comnxc80cbnvx" path="res://fonts/m5x7.ttf" id="5_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://bjv14y86nmclb" path="res://sprites/bullets/palettes/paletteDefault.png" id="6_3v2ag"]
 [ext_resource type="Script" uid="uid://bwi45t8b6cvbc" path="res://scenes/special_indicator.gd" id="6_fjrip"]
 [ext_resource type="Script" uid="uid://buvt3exc1hc78" path="res://scenes/special_indicator_2.gd" id="7_fjrip"]
 [ext_resource type="Texture2D" uid="uid://cisk5unjwiwcm" path="res://sprites/ship_components/ShipDetailsSheetFast.png" id="12_3v2ag"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_60mlk"]
+atlas = ExtResource("4_jej6c")
+region = Rect2(0, 0, 252, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i4ail"]
+atlas = ExtResource("4_jej6c")
+region = Rect2(252, 0, 252, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a38lo"]
+atlas = ExtResource("4_jej6c")
+region = Rect2(504, 0, 252, 720)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ni07"]
+atlas = ExtResource("4_jej6c")
+region = Rect2(756, 0, 252, 720)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
 atlas = ExtResource("12_3v2ag")
@@ -47,6 +64,23 @@ region = Rect2(756, 0, 252, 272)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fjrip"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_60mlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i4ail")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a38lo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4ni07")
+}],
+"loop": true,
+"name": &"artemis",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3v2ag")
@@ -146,6 +180,7 @@ texture = ExtResource("3_y4r1p")
 
 [node name="SpriteDetails" type="AnimatedSprite2D" parent="." unique_id=1873969338]
 sprite_frames = SubResource("SpriteFrames_fjrip")
+animation = &"artemis"
 
 [node name="ShipTopper" type="Sprite2D" parent="." unique_id=1452269835]
 texture_filter = 1

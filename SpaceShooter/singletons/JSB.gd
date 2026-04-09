@@ -86,5 +86,7 @@ func _on_js_message(args):
 				GameManager.shipDetails = "default"
 			"1":
 				GameManager.shipDetails = "blue_fire"
+			"2":
+				GameManager.shipDetails = "artemis"
 			_:
 				pass
