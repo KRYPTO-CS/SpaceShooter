@@ -136,6 +136,8 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_ehur8"]
+
 [sub_resource type="VisualShader" id="VisualShader_4rr2b"]
 mode = 1
 flags/light_only = false
@@ -222,11 +224,13 @@ position = Vector2(-3014.75, -1987)
 scale = Vector2(0.9527345, 1)
 sprite_frames = SubResource("SpriteFrames_tipki")
 autoplay = "default"
-frame = 1
-frame_progress = 0.6001312
+frame_progress = 0.05371054
 
 [node name="BG3" type="AnimatedSprite2D" parent="Parallax2D" unique_id=2021639773]
 sprite_frames = SubResource("SpriteFrames_jkv2x")
+
+[node name="InTransition" type="AnimatedSprite2D" parent="Parallax2D" unique_id=558401707]
+sprite_frames = SubResource("SpriteFrames_ehur8")
 
 [node name="Player" parent="." unique_id=283027264 groups=["player"] instance=ExtResource("9_hairp")]
 position = Vector2(-250, 0)
