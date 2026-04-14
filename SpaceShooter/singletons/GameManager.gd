@@ -30,9 +30,9 @@ var shipDetails: String = "default"
 var explosion = preload("res://scenes/explosion.tscn")
 
 # enums
-enum BulletType { NULL, SIMPLE, DRILL, SWIFT, BOOMER, LASER }
-enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE, BURST, SPRAY, V, DELTA, RIPPLE, PEA, HEAVY }
-enum ElementType { NULL, NEUTRAL, FIRE, ICE, WATER }
+enum BulletType { NULL, SIMPLE, DRILL, SWIFT, BOOMER, LASER, INVINCIBLE }
+enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE, BURST, SPRAY, V, DELTA, RIPPLE, PEA, HEAVY, SCREENWIPE }
+enum ElementType { NULL, NEUTRAL, FIRE, ICE, WATER, MAGNET }
 
 func _ready():
 	pass
@@ -47,7 +47,7 @@ func _process(delta: float) -> void:
 func begin_game() -> void:
 	match active_scene:
 		0:
-			get_tree().change_scene_to_packed(game_scene_0)
+			get_tree().change_scene_to_packed(game_scene_1)
 		1:
 			get_tree().change_scene_to_packed(game_scene_1)
 		_:

@@ -10,7 +10,9 @@ extends Sprite2D
 @export var swift_bullet: PackedScene = preload("res://scenes/bullet_swift.tscn")
 @export var boomer_bullet: PackedScene = preload("res://scenes/bullet_boomer.tscn")
 @export var laser_beam: PackedScene = preload("res://scenes/laser.tscn")
+@export var magnet_icon: PackedScene = preload("res://scenes/magnet.tscn")
 @export var bullet_scene: PackedScene = simple_bullet
+@export var bullet_scene_2: PackedScene = simple_bullet
 
 # textures
 @onready var simple_texture: Texture2D = preload("res://sprites/ship_toppers/simpleTopper.png")
@@ -35,6 +37,12 @@ var laser_active := false
 var laser_ptr: Node2D = null # tracks the current instance of laser
 var laser_max_time := 10.0 # laser time
 var laser_timer := 0.0 # time state counter for the laser
+
+# magnet
+var magnet_active := false
+var mag: Node2D = null # tracks current magnet instanceS
+var magnet_max_time := 15.0
+var magnet_timer := 0.0
 
 # charge
 var max_charge_time := 3.0
@@ -69,7 +77,17 @@ func _process(delta):
 				if laser_timer >= laser_max_time:
 					laser_timer = 0.0
 					laser_active = false
-					swap(GameManager.BulletType.SIMPLE, GameManager.ShootingType.NORMAL, GameManager.ElementType.NEUTRAL)
+					swap(GameManager.BulletType.SIMPLE, shooting_type, element_type)
+		match element_type:
+			GameManager.ElementType.MAGNET:
+				if magnet_timer <= 0:
+					magnetize()
+					magnet_active = true
+				magnet_timer += delta
+				if magnet_timer >= magnet_max_time:
+					magnet_timer = 0.0
+					magnet_active = false
+					swap(bullet_type, shooting_type, GameManager.ElementType.NEUTRAL)
 	elif get_parent().mode == 0:
 		shoot_interval = base_shoot_interval / GameManager.swiftCounter
 		
@@ -198,6 +216,20 @@ func shoot_laser_beam() -> void:
 	laser_ptr = laser
 	
 	scene_root.add_child(laser)
+	
+func magnetize() -> void:
+	if is_instance_valid(mag):
+		mag.queue_free()
+
+	if laser_beam == null:
+		return
+		
+	var magnet = bullet_scene_2.instantiate()
+	magnet.lifetime = magnet_max_time
+	
+	mag = magnet
+	
+	scene_root.add_child(magnet)
 
 func shoot_normal_bullet(angle: float = 0.0, scale_mult: float = 1.0, damage_mult: float = 1.0, volume_mult: float = 1.0) -> void:
 	if bullet_scene == null:
@@ -254,6 +286,11 @@ func swap(new_bullet_type: GameManager.BulletType = GameManager.BulletType.NULL,
 		GameManager.BulletType.LASER:
 			bullet_scene = laser_beam
 			laser_timer = 0.0 # reset timer
+	
+	match element_type:
+		GameManager.ElementType.MAGNET:
+			bullet_scene_2 = magnet_icon
+			magnet_timer = 0.0
 			
 	match shooting_type:
 		GameManager.ShootingType.NORMAL:

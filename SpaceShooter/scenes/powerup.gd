@@ -24,6 +24,7 @@ var bullet_textures = {
 	GameManager.BulletType.SWIFT:  preload("res://sprites/powerups/swiftIcon.png"),
 	GameManager.BulletType.BOOMER:  preload("res://sprites/powerups/boomerIcon.png"),
 	GameManager.BulletType.LASER: preload("res://sprites/powerups/laser_p.png"),
+	GameManager.BulletType.INVINCIBLE: preload("res://sprites/powerups/invincible_p.png"),
 }
 
 var shooting_textures = {
@@ -37,6 +38,7 @@ var shooting_textures = {
 	GameManager.ShootingType.RIPPLE: preload("res://sprites/powerups/rippleIcon.png"),
 	GameManager.ShootingType.PEA: preload("res://sprites/powerups/peaIcon.png"),
 	GameManager.ShootingType.HEAVY: preload("res://sprites/powerups/heavyIcon.png"),
+	GameManager.ShootingType.SCREENWIPE: preload("res://sprites/powerups/screenwipe_p.png"),
 }
 
 var element_textures = {
@@ -44,6 +46,7 @@ var element_textures = {
 	GameManager.ElementType.FIRE: preload("res://sprites/powerups/fireIcon.png"),
 	GameManager.ElementType.ICE: preload("res://sprites/powerups/iceIcon.png"),
 	GameManager.ElementType.WATER: preload("res://sprites/powerups/waterIcon.png"),
+	GameManager.ElementType.MAGNET: preload("res://sprites/powerups/magnet_p.png"),
 }
 
 var speed_x := 0.0
@@ -94,17 +97,17 @@ func choose_type() -> void:
 			2:
 				element_type = element_values.pick_random()
 	elif get_parent().mode == 1:
-		var bullet_values = GameManager.BulletType.values().filter(func(v): return v == GameManager.BulletType.LASER)
-		var shooting_values = GameManager.ShootingType.values().filter(func(v): return v != GameManager.ShootingType.NULL)
-		var element_values = GameManager.ElementType.values().filter(func(v): return v != GameManager.ElementType.NULL)
-		var category = randi_range(0, 0)  # 0 = bullet, 1 = shooting, 2 = element
+		var bullet_values = GameManager.BulletType.values().filter( func(v): return v == GameManager.BulletType.LASER or v == GameManager.BulletType.INVINCIBLE)
+		var shooting_values = GameManager.ShootingType.values().filter(func(v): return v == GameManager.ShootingType.SCREENWIPE)
+		var element_values = GameManager.ElementType.values().filter(func(v): return v == GameManager.ElementType.MAGNET)
+		var category = randi_range(0, 2)  # 0 = bullet, 1 = shooting, 2 = element
 		match category:
 			0:
 				bullet_type = bullet_values.pick_random()
 			1:
-				shooting_type = shooting_values.pick_random()
-			2:
 				element_type = element_values.pick_random()
+			2:
+				shooting_type = shooting_values.pick_random()
 
 func set_sprite() -> void:
 	if bullet_type != GameManager.BulletType.NULL:

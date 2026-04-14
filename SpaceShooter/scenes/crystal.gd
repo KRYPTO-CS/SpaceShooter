@@ -58,8 +58,6 @@ func _process(delta):
 		if area.is_in_group("flame"):
 			if area.get_parent().state != area.get_parent().PlayerState.INVINCIBLE:
 				self.take_damage(3.0 * delta)
-		if area.is_in_group("asteroid"):
-			queue_free()
 		if area.is_in_group("player"):
 			hit_player()
 

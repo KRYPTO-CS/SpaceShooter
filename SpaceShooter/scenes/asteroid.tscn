@@ -1,18 +1,18 @@
-[gd_scene load_steps=4 format=3 uid="uid://rmixt5i8q5kg"]
+[gd_scene format=3 uid="uid://rmixt5i8q5kg"]
 
 [ext_resource type="Script" uid="uid://bv48wnfd3i5i4" path="res://scenes/asteroid.gd" id="1_p0ukn"]
-[ext_resource type="Texture2D" uid="uid://dhjmph5p46uct" path="res://sprites/asteroid.png" id="1_u87q6"]
+[ext_resource type="Texture2D" uid="uid://dhjmph5p46uct" path="res://sprites/Asteroid.png" id="1_u87q6"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_6mo6b"]
 radius = 67.0
 
-[node name="Asteroid" type="Area2D" groups=["destroyable"]]
+[node name="Asteroid" type="Area2D" unique_id=1143694492 groups=["destroyable"]]
 script = ExtResource("1_p0ukn")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1607442703]
 texture = ExtResource("1_u87q6")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=535619807]
 shape = SubResource("CircleShape2D_6mo6b")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -37,11 +37,16 @@ func _ready():
 func _process(delta):
 	time_alive += delta
 	if is_instance_valid(player):
-		rotation = player.rotation
-		var offset = Vector2.UP.rotated(player.rotation) * 700
-		position = player.position + offset
+		rotation = player.rotation -2
+		var offsety = Vector2.UP.rotated(player.rotation) * 60
+		var offsetx = Vector2.RIGHT.rotated(player.rotation) * -100
+		position = player.position + offsety + offsetx
 	if time_alive >= lifetime * LIFETIME_MULT:
 		queue_free()
+	
+	for ast in get_tree().get_nodes_in_group("crystal"):
+		ast.position = ast.position.move_toward(player.global_position, 1400*delta)
+			
 	
 	if (lifetime * LIFETIME_MULT) - time_alive <= lifetime / 5:
 		state = PlayerState.INVINCIBLE

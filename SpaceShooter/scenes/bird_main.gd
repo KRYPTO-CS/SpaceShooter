@@ -34,6 +34,7 @@ func spawn_asteroid():
 		add_child(powerup)
 		print(powerup)
 		
+	asteroid.add_to_group("asteroid")
 	add_child(asteroid)
 
 func spawn_crystal():
@@ -41,4 +42,5 @@ func spawn_crystal():
 	crystal.position = Vector2(540, randf_range(-880, 880))
 	crystal.speed = GameManager.speed + 175
 	
+	crystal.add_to_group("crystal")
 	add_child(crystal)
