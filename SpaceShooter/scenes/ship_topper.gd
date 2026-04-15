@@ -10,6 +10,7 @@ extends Sprite2D
 @export var swift_bullet: PackedScene = preload("res://scenes/bullet_swift.tscn")
 @export var boomer_bullet: PackedScene = preload("res://scenes/bullet_boomer.tscn")
 @export var laser_beam: PackedScene = preload("res://scenes/laser.tscn")
+@export var invincible: PackedScene = preload("res://scenes/invincibility.tscn")
 @export var magnet_icon: PackedScene = preload("res://scenes/magnet.tscn")
 @export var bullet_scene: PackedScene = simple_bullet
 @export var bullet_scene_2: PackedScene = simple_bullet
@@ -37,6 +38,11 @@ var laser_active := false
 var laser_ptr: Node2D = null # tracks the current instance of laser
 var laser_max_time := 10.0 # laser time
 var laser_timer := 0.0 # time state counter for the laser
+
+# forcefield/invinvibility
+var inv_ptr: Node2D = null # tracks the current instance of laser
+var inv_max_time := 10.0 # laser time
+var inv_timer := 0.0 # time state counter for the laser
 
 # magnet
 var magnet_active := false
@@ -77,6 +83,15 @@ func _process(delta):
 				if laser_timer >= laser_max_time:
 					laser_timer = 0.0
 					laser_active = false
+					swap(GameManager.BulletType.SIMPLE, shooting_type, element_type)
+			GameManager.BulletType.INVINCIBLE:
+				if inv_timer <= 0:
+					go_invincible()
+					GameManager.inv_active = true
+				inv_timer += delta
+				if inv_timer >= inv_max_time:
+					inv_timer = 0.0
+					GameManager.inv_active = false
 					swap(GameManager.BulletType.SIMPLE, shooting_type, element_type)
 		match element_type:
 			GameManager.ElementType.MAGNET:
@@ -217,6 +232,20 @@ func shoot_laser_beam() -> void:
 	
 	scene_root.add_child(laser)
 	
+func go_invincible() -> void:
+	if is_instance_valid(inv_ptr):
+		inv_ptr.queue_free()
+
+	if invincible == null:
+		return
+		
+	var laser = bullet_scene.instantiate()
+	laser.lifetime = laser_max_time
+	
+	inv_ptr = laser
+	
+	scene_root.add_child(laser)
+	
 func magnetize() -> void:
 	if is_instance_valid(mag):
 		mag.queue_free()
@@ -286,6 +315,9 @@ func swap(new_bullet_type: GameManager.BulletType = GameManager.BulletType.NULL,
 		GameManager.BulletType.LASER:
 			bullet_scene = laser_beam
 			laser_timer = 0.0 # reset timer
+		GameManager.BulletType.INVINCIBLE:
+			bullet_scene = invincible
+			inv_timer = 0.0 # reset timer
 	
 	match element_type:
 		GameManager.ElementType.MAGNET:

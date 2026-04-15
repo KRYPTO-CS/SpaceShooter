@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://d16rxwpdukjl0" path="res://sprites/powerups/normalIcon.png" id="8_ehur8"]
 [ext_resource type="PackedScene" uid="uid://cuwckkolulw2g" path="res://scenes/player.tscn" id="9_hairp"]
 [ext_resource type="Texture2D" uid="uid://ctnnvi32lhqsa" path="res://sprites/powerups/neutralIcon.png" id="9_mt4ed"]
+[ext_resource type="Texture2D" uid="uid://wwwojfgc64gy" path="res://sprites/starsSheetTransition-sheet.png" id="12_mt4ed"]
 [ext_resource type="Script" uid="uid://j4dxbcp06r14" path="res://scenes/colorblind.gd" id="13_ehur8"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_85g3d"]
@@ -136,7 +137,48 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ipy6o"]
+atlas = ExtResource("12_mt4ed")
+region = Rect2(0, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ka0qi"]
+atlas = ExtResource("12_mt4ed")
+region = Rect2(1280, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eoham"]
+atlas = ExtResource("12_mt4ed")
+region = Rect2(2560, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3gia"]
+atlas = ExtResource("12_mt4ed")
+region = Rect2(3840, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fu0et"]
+atlas = ExtResource("12_mt4ed")
+region = Rect2(5120, 0, 1280, 1920)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ehur8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ipy6o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ka0qi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eoham")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3gia")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fu0et")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
 
 [sub_resource type="VisualShader" id="VisualShader_4rr2b"]
 mode = 1
@@ -210,7 +252,6 @@ centered = false
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=927251923]
 script = ExtResource("7_hairp")
-mode = 1
 
 [node name="BG1" type="AnimatedSprite2D" parent="Parallax2D" unique_id=917239751]
 position = Vector2(-3014.7498, -66.99993)
@@ -224,13 +265,29 @@ position = Vector2(-3014.75, -1987)
 scale = Vector2(0.9527345, 1)
 sprite_frames = SubResource("SpriteFrames_tipki")
 autoplay = "default"
-frame_progress = 0.05371054
+frame = 2
+frame_progress = 0.7854736
 
 [node name="BG3" type="AnimatedSprite2D" parent="Parallax2D" unique_id=2021639773]
 sprite_frames = SubResource("SpriteFrames_jkv2x")
 
 [node name="InTransition" type="AnimatedSprite2D" parent="Parallax2D" unique_id=558401707]
+position = Vector2(-4307, -1730)
+scale = Vector2(0.953, 1)
 sprite_frames = SubResource("SpriteFrames_ehur8")
+autoplay = "default"
+
+[node name="InTransition2" type="AnimatedSprite2D" parent="Parallax2D" unique_id=644261390]
+position = Vector2(-5565, -1891)
+scale = Vector2(0.953, 1)
+sprite_frames = SubResource("SpriteFrames_ehur8")
+autoplay = "default"
+
+[node name="InTransition3" type="AnimatedSprite2D" parent="Parallax2D" unique_id=413665589]
+position = Vector2(-7018, -1891)
+scale = Vector2(0.953, 1)
+sprite_frames = SubResource("SpriteFrames_ehur8")
+autoplay = "default"
 
 [node name="Player" parent="." unique_id=283027264 groups=["player"] instance=ExtResource("9_hairp")]
 position = Vector2(-250, 0)

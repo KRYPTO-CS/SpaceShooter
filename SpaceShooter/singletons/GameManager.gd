@@ -29,6 +29,9 @@ var shipDetails: String = "default"
 # preloads
 var explosion = preload("res://scenes/explosion.tscn")
 
+# invincibility powerup
+var inv_active := false
+
 # enums
 enum BulletType { NULL, SIMPLE, DRILL, SWIFT, BOOMER, LASER, INVINCIBLE }
 enum ShootingType { NULL, NORMAL, CHARGE, TRIPLE, BURST, SPRAY, V, DELTA, RIPPLE, PEA, HEAVY, SCREENWIPE }
@@ -47,7 +50,7 @@ func _process(delta: float) -> void:
 func begin_game() -> void:
 	match active_scene:
 		0:
-			get_tree().change_scene_to_packed(game_scene_0)
+			get_tree().change_scene_to_packed(game_scene_1)
 		1:
 			get_tree().change_scene_to_packed(game_scene_1)
 		_:

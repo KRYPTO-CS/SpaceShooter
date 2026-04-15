@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://iup21lb0fgyj"]
+
+[ext_resource type="Script" uid="uid://b7xgqhybxljxe" path="res://scenes/invincibility.gd" id="1_o7wix"]
+[ext_resource type="Texture2D" uid="uid://cppls8233d2hb" path="res://sprites/powerups/Laser.png" id="2_0xc3p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_essm0"]
+size = Vector2(64, 1088)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xw5cg"]
+atlas = ExtResource("2_0xc3p")
+region = Rect2(0, 0, 256, 1176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_roivt"]
+atlas = ExtResource("2_0xc3p")
+region = Rect2(256, 0, 256, 1176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ny2x"]
+atlas = ExtResource("2_0xc3p")
+region = Rect2(512, 0, 256, 1176)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3gdm7"]
+atlas = ExtResource("2_0xc3p")
+region = Rect2(768, 0, 256, 1176)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aydw0"]
+animations = [{
+"frames": [{
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_xw5cg")
+}, {
+"duration": 1.1,
+"texture": SubResource("AtlasTexture_roivt")
+}, {
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_5ny2x")
+}, {
+"duration": 0.9,
+"texture": SubResource("AtlasTexture_3gdm7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Invincibility" type="Area2D" unique_id=1627071551]
+visible = false
+script = ExtResource("1_o7wix")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1323835917]
+z_index = 1
+position = Vector2(0, 20)
+shape = SubResource("RectangleShape2D_essm0")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=587515159]
+sprite_frames = SubResource("SpriteFrames_aydw0")
+autoplay = "default"
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
