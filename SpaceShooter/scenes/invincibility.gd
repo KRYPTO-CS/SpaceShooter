@@ -34,6 +34,8 @@ func _ready():
 	if !GameManager.inv_active:
 		bg.continue_pos()
 		bg.mode = 3000
+		
+		
 	z_index = 0 # so it doesn't layer in front of player
 
 	var angle_radians = deg_to_rad(angle_degrees)

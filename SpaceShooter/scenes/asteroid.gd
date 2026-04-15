@@ -85,8 +85,8 @@ func break_apart():
 	explode()
 
 func hit_player():
-	GameManager.add_score(-1)
-	GameManager.speed -= 30
+	GameManager.add_score(-3)
+	GameManager.speed *= 0.8
 	AudioManager.play_sound(preload("res://sounds/playerHit.wav"), 1.0)
 	AudioManager.play_sound(preload("res://sounds/playerOuch.wav"), 0.75)
 	AudioManager.play_sound(preload("res://sounds/asteroidBreak.wav"), 0.5)
