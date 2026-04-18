@@ -1,6 +1,6 @@
 extends Parallax2D
 
-@export var mode = 1
+@export var mode = 0
 
 @onready var bg_1: AnimatedSprite2D = $BG1
 @onready var bg_2: AnimatedSprite2D = $BG2
@@ -15,6 +15,7 @@ extends Parallax2D
 @export var bg_width: float = 1215.0 # width
 
 func _ready():
+	original_mode = mode
 	add_to_group("background")
 	## signal when the transition is over to set new state
 	#$InTransition.animation_finished.connect(_on_anim_finished)
@@ -38,6 +39,10 @@ func _ready():
 			t_3.position = Vector2(-bg_width, 0) 
 
 func _process(delta):
+	if winding_down:
+		wind_down_timer += delta
+		var t = clamp(wind_down_timer / WIND_DOWN_DURATION, 0.0, 1.0)
+		GameManager.speed = lerp(wind_down_from, init_speed, t)
 	match mode:
 		0:
 			# Move both backgrounds downward
@@ -75,7 +80,6 @@ func _process(delta):
 			t_1.position.x += -GameManager.speed * 2 * delta
 			t_2.position.x += -GameManager.speed * 2 * delta
 			t_3.position.x += -GameManager.speed * 2 * delta
-			print("Test")
 			
 			# Sync animation frames
 			t_2.frame = t_1.frame
@@ -96,10 +100,55 @@ func _process(delta):
 func set_mode(m):
 	mode = m
 
+var original_mode := 0
+var init_speed
+var winding_down := false
+var wind_down_from := 0.0
+var wind_down_timer := 0.0
+const WIND_DOWN_DURATION := 1.0
+
+# call when inv is activbe
 func continue_pos():
+	init_speed = GameManager.speed
+	t_1.visible = true
+	t_2.visible = true
+	t_3.visible = true
 	t_1.position = bg_1.position
 	t_2.position = bg_2.position
 	t_3.position = bg_3.position
-	t_1.play()
-	t_2.play()
-	t_3.play()
+	t_1.stop()
+	t_2.stop()
+	t_3.stop()
+	t_1.play("default")
+	t_2.play("default")
+	t_3.play("default")
+
+# call when deactivating
+func resume_pos():
+	wind_down_from = GameManager.speed
+	wind_down_timer = 0.0
+	winding_down = true
+	if t_1.animation_finished.is_connected(_on_out_finished):
+		t_1.animation_finished.disconnect(_on_out_finished)
+	t_1.stop()
+	t_2.stop()
+	t_3.stop()
+	t_1.play("out")
+	t_2.play("out")
+	t_3.play("out")
+	t_1.animation_finished.connect(_on_out_finished)
+
+func _on_out_finished():
+	t_1.animation_finished.disconnect(_on_out_finished)
+	winding_down = false
+	GameManager.speed = init_speed
+	t_1.animation = "default"
+	t_2.animation = "default"
+	t_3.animation = "default"
+	bg_1.position = t_1.position
+	bg_2.position = t_2.position
+	bg_3.position = t_3.position
+	t_1.visible = false
+	t_2.visible = false
+	t_3.visible = false
+	mode = original_mode

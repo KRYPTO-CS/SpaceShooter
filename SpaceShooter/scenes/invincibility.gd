@@ -25,13 +25,13 @@ var player: Node2D
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 var element_type: GameManager.ElementType = GameManager.ElementType.NEUTRAL
+var bg
+
 
 func _ready():
 	player = get_tree().get_first_node_in_group("player")
-	var bg = get_tree().get_first_node_in_group("background")
-	
-	# check if the powerup is currently acvtive
-	if !GameManager.inv_active:
+	bg = get_tree().get_first_node_in_group("background")
+	if bg:
 		bg.continue_pos()
 		bg.mode = 3000
 		
@@ -51,6 +51,8 @@ func _process(delta):
 		position = player.position + offset
 	if time_alive >= lifetime * LIFETIME_MULT:
 		queue_free()
+		if bg:
+			bg.resume_pos()
 	
 	if (lifetime * LIFETIME_MULT) - time_alive <= lifetime / 5:
 		state = PlayerState.INVINCIBLE

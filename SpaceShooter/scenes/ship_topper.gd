@@ -12,6 +12,7 @@ extends Sprite2D
 @export var laser_beam: PackedScene = preload("res://scenes/laser.tscn")
 @export var invincible: PackedScene = preload("res://scenes/invincibility.tscn")
 @export var magnet_icon: PackedScene = preload("res://scenes/magnet.tscn")
+@export var screenwipe_scene: PackedScene = preload("res://scenes/screenwipe.tscn")
 @export var bullet_scene: PackedScene = simple_bullet
 @export var bullet_scene_2: PackedScene = simple_bullet
 
@@ -49,6 +50,12 @@ var magnet_active := false
 var mag: Node2D = null # tracks current magnet instanceS
 var magnet_max_time := 15.0
 var magnet_timer := 0.0
+
+# screenwipe
+var screenwipe_active := false
+var screenwipe_ptr: Node2D = null
+var screenwipe_max_time := 1.0
+var screenwipe_timer := 0.0
 
 # charge
 var max_charge_time := 3.0
@@ -93,6 +100,16 @@ func _process(delta):
 					inv_timer = 0.0
 					GameManager.inv_active = false
 					swap(GameManager.BulletType.SIMPLE, shooting_type, element_type)
+		match shooting_type:
+			GameManager.ShootingType.SCREENWIPE:
+				if screenwipe_timer <= 0:
+					activate_screenwipe()
+					screenwipe_active = true
+				screenwipe_timer += delta
+				if screenwipe_timer >= screenwipe_max_time:
+					screenwipe_timer = 0.0
+					screenwipe_active = false
+					swap(bullet_type, GameManager.ShootingType.NORMAL, element_type)
 		match element_type:
 			GameManager.ElementType.MAGNET:
 				if magnet_timer <= 0:
@@ -246,6 +263,17 @@ func go_invincible() -> void:
 	
 	scene_root.add_child(laser)
 	
+func activate_screenwipe() -> void:
+	if is_instance_valid(screenwipe_ptr):
+		screenwipe_ptr.queue_free()
+
+	var wipe = screenwipe_scene.instantiate()
+	wipe.lifetime = screenwipe_max_time
+
+	screenwipe_ptr = wipe
+
+	scene_root.add_child(wipe)
+
 func magnetize() -> void:
 	if is_instance_valid(mag):
 		mag.queue_free()
@@ -314,10 +342,12 @@ func swap(new_bullet_type: GameManager.BulletType = GameManager.BulletType.NULL,
 			bullet_scene = boomer_bullet
 		GameManager.BulletType.LASER:
 			bullet_scene = laser_beam
-			laser_timer = 0.0 # reset timer
+			if new_bullet_type == GameManager.BulletType.LASER:
+				laser_timer = 0.0 # reset timer
 		GameManager.BulletType.INVINCIBLE:
 			bullet_scene = invincible
-			inv_timer = 0.0 # reset timer
+			if new_bullet_type == GameManager.BulletType.INVINCIBLE:
+				inv_timer = 0.0 # reset timer
 	
 	match element_type:
 		GameManager.ElementType.MAGNET:
@@ -325,6 +355,8 @@ func swap(new_bullet_type: GameManager.BulletType = GameManager.BulletType.NULL,
 			magnet_timer = 0.0
 			
 	match shooting_type:
+		GameManager.ShootingType.SCREENWIPE:
+			screenwipe_timer = 0.0
 		GameManager.ShootingType.NORMAL:
 			shoot_interval_mult = 1.0
 		GameManager.ShootingType.CHARGE:

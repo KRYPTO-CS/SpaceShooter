@@ -85,9 +85,9 @@ func _check_player_collision() -> void:
 	
 func choose_type() -> void:
 	if get_parent().mode == 0:
-		var bullet_values = GameManager.BulletType.values().filter(func(v): return v != GameManager.BulletType.NULL and v != GameManager.BulletType.LASER)
-		var shooting_values = GameManager.ShootingType.values().filter(func(v): return v != GameManager.ShootingType.NULL)
-		var element_values = GameManager.ElementType.values().filter(func(v): return v != GameManager.ElementType.NULL)
+		var bullet_values = GameManager.BulletType.values().filter(func(v): return v != GameManager.BulletType.NULL and v != GameManager.BulletType.LASER and v != GameManager.BulletType.INVINCIBLE)
+		var shooting_values = GameManager.ShootingType.values().filter(func(v): return v != GameManager.ShootingType.NULL and v != GameManager.ShootingType.SCREENWIPE)
+		var element_values = GameManager.ElementType.values().filter(func(v): return v != GameManager.ElementType.NULL and v != GameManager.ElementType.MAGNET)
 		var category = randi_range(0, 2)  # 0 = bullet, 1 = shooting, 2 = element
 		match category:
 			0:

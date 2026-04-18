@@ -157,6 +157,26 @@ region = Rect2(3840, 0, 1280, 1920)
 atlas = ExtResource("12_mt4ed")
 region = Rect2(5120, 0, 1280, 1920)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_mt4ed"]
+atlas = ExtResource("12_mt4ed")
+region = Rect2(5120, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8k77x"]
+atlas = ExtResource("12_mt4ed")
+region = Rect2(3840, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cf8u4"]
+atlas = ExtResource("12_mt4ed")
+region = Rect2(2560, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c8csf"]
+atlas = ExtResource("12_mt4ed")
+region = Rect2(1280, 0, 1280, 1920)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7qay"]
+atlas = ExtResource("12_mt4ed")
+region = Rect2(0, 0, 1280, 1920)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_ehur8"]
 animations = [{
 "frames": [{
@@ -178,6 +198,26 @@ animations = [{
 "loop": false,
 "name": &"default",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mt4ed")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8k77x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cf8u4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c8csf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7qay")
+}],
+"loop": false,
+"name": &"out",
+"speed": 5.0
 }]
 
 [sub_resource type="VisualShader" id="VisualShader_4rr2b"]
@@ -252,6 +292,7 @@ centered = false
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=927251923]
 script = ExtResource("7_hairp")
+mode = 1
 
 [node name="BG1" type="AnimatedSprite2D" parent="Parallax2D" unique_id=917239751]
 position = Vector2(-3014.7498, -66.99993)
@@ -270,23 +311,27 @@ frame_progress = 0.7854736
 
 [node name="BG3" type="AnimatedSprite2D" parent="Parallax2D" unique_id=2021639773]
 sprite_frames = SubResource("SpriteFrames_jkv2x")
+autoplay = "default"
 
 [node name="InTransition" type="AnimatedSprite2D" parent="Parallax2D" unique_id=558401707]
 position = Vector2(-4307, -1730)
 scale = Vector2(0.953, 1)
 sprite_frames = SubResource("SpriteFrames_ehur8")
+animation = &"out"
 autoplay = "default"
 
 [node name="InTransition2" type="AnimatedSprite2D" parent="Parallax2D" unique_id=644261390]
 position = Vector2(-5565, -1891)
 scale = Vector2(0.953, 1)
 sprite_frames = SubResource("SpriteFrames_ehur8")
+animation = &"out"
 autoplay = "default"
 
 [node name="InTransition3" type="AnimatedSprite2D" parent="Parallax2D" unique_id=413665589]
 position = Vector2(-7018, -1891)
 scale = Vector2(0.953, 1)
 sprite_frames = SubResource("SpriteFrames_ehur8")
+animation = &"out"
 autoplay = "default"
 
 [node name="Player" parent="." unique_id=283027264 groups=["player"] instance=ExtResource("9_hairp")]
