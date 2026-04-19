@@ -14,7 +14,8 @@ const SWIFT_DECAY := 0.3
 const MIN_SWIFT := 1.0
 const MAX_SWIFT := 3.0
 
-var baseTrack = "res://music/musicPlaceholder.mp3"
+var trackOne = "res://music/spaceShooter.mp3"
+var trackTwo = "res://music/spaceBird.mp3"
 var game_started: bool = false
 var test_received = false
 var colorblind = 0
@@ -50,11 +51,13 @@ func begin_game() -> void:
 	match active_scene:
 		0:
 			get_tree().change_scene_to_packed(game_scene_0)
+			MusicManager.play_music(trackOne, -12.0)
 		1:
 			get_tree().change_scene_to_packed(game_scene_1)
+			MusicManager.play_music(trackTwo, -6.0)
 		_:
 			get_tree().change_scene_to_packed(game_scene_0)
-	MusicManager.play_music(baseTrack, -15.0)
+			MusicManager.play_music(trackOne, -12.0)
 	game_started = true
 
 func add_score(points: int) -> void:

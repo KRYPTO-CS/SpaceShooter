@@ -262,6 +262,7 @@ scale = Vector2(1.5, 1.5)
 texture = ExtResource("6_ya4ey")
 
 [node name="PowerupUI" type="Control" parent="UI" unique_id=614180217]
+visible = false
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
