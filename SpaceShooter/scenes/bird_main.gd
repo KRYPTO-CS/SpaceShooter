@@ -27,7 +27,7 @@ func spawn_asteroid():
 	asteroid.position = Vector2(650, randf_range(-880, 880))
 	asteroid.speed_x = GameManager.speed + 150
 	
-	if randf() < 0.5 and !GameManager.inv_active:
+	if randf() < 0.1 and !GameManager.inv_active:
 		var powerup = powerup_scene.instantiate()
 		powerup.position = Vector2(650, randf_range(-880, 880))
 		powerup.speed_x = GameManager.speed + 160
