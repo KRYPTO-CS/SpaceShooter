@@ -18,7 +18,6 @@ var baseTrack = "res://music/musicPlaceholder.mp3"
 var game_started: bool = false
 var test_received = false
 var colorblind = 0
-var multiplier = 1.0
 
 # communication w/ app
 var active_scene
@@ -50,7 +49,7 @@ func _process(delta: float) -> void:
 func begin_game() -> void:
 	match active_scene:
 		0:
-			get_tree().change_scene_to_packed(game_scene_1)
+			get_tree().change_scene_to_packed(game_scene_0)
 		1:
 			get_tree().change_scene_to_packed(game_scene_1)
 		_:
