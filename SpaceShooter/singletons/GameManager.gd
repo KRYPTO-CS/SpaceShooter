@@ -16,6 +16,8 @@ const MAX_SWIFT := 3.0
 
 var trackOne = "res://music/spaceShooter.mp3"
 var trackTwo = "res://music/spaceBird.mp3"
+var music_muted: bool = false
+var sound_muted: bool = false
 var game_started: bool = false
 var test_received = false
 var colorblind = 0

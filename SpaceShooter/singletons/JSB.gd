@@ -49,6 +49,18 @@ func _on_js_message(args):
 				GameManager.active_scene = 1
 			_:
 				pass
+		match args[4]: # audio settings
+			"0":
+				pass
+			"1":
+				GameManager.sound_muted = true
+			"2":
+				GameManager.music_muted = true
+			"3":
+				GameManager.sound_muted = true
+				GameManager.music_muted = true
+			_:
+				pass
 		match args[5]: # set colorblind
 			"0":
 				GameManager.colorblind = 0
