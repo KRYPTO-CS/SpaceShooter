@@ -24,7 +24,7 @@ func spawn_asteroid():
 
 	if randf() < 0.1: # Golden asteroid for fun!
 		var sprite = asteroid.get_node("Sprite2D")
-		sprite.texture = load("res://sprites/GoldenAsteroid.png")
+		sprite.texture = load("res://sprites/goldenAsteroid.png")
 		asteroid.max_hp *= 3
 		asteroid.speed_y = GameManager.speed * 0.75 + 250 + randf_range(-50.0, 50.0)
 		asteroid.points *= 5
